@@ -7,45 +7,58 @@ from services.piper_service import PiperTTSService
 class ImagioScene(VoiceoverScene):
     def construct(self):
         self.camera.background_color = "#0f0f23"
-        self.set_speech_service(PiperTTSService())
+        self.set_speech_service(PiperTTSService(voice='fr_FR-siwis-medium'))
 
         _footer = Text('Made by Imagio', font_size=15, color=WHITE)
         _footer.to_corner(DR, buff=0.25)
         self.add(_footer)
 
-        title = Text('Deriving Newton’s universal gravitation law', font_size=38, color=YELLOW, weight=BOLD)
+        self.wait(0.5)  # scene entry buffer
+
+        import os, textwrap
+
+        title = Text("Courbure de l'espace‑temps autour d'une masse", font_size=32, color=WHITE, weight=BOLD)
         title.to_edge(UP, buff=0.4)
-        self.play(Write(title), run_time=0.8)
-
-        steps_latex     = ['F \\propto \\frac{m_1 m_2}{r^2}', 'F = G\\frac{m_1 m_2}{r^2}', 'G = \\frac{F r^2}{m_1 m_2}']
-        annotations     = ['Force proportional to product of masses over distance squared', 'Introduce gravitational constant G to make equality exact', 'Solve for G to see its definition in terms of measurable quantities']
-        narrations_data = ['Experiments reveal the force grows with each mass and falls with the square of their separation, giving a proportionality.', 'We insert the universal constant G to turn the proportionality into an exact equality.', 'Rearranging solves for G, showing it equals the measured force times distance squared divided by the masses.']
-
-        current_eq   = MathTex(steps_latex[0], font_size=54, color=WHITE)
-        current_eq.move_to(ORIGIN + UP * 0.4)
-        current_note = Text(annotations[0], font_size=26, color='#a0a8d0')
-        current_note.next_to(current_eq, DOWN, buff=0.45)
-
-        with self.voiceover(text=narrations_data[0]):
-            self.play(Write(current_eq), run_time=1.0)
-            if annotations[0]:
-                self.play(FadeIn(current_note, shift=UP * 0.1), run_time=0.5)
-
-        for i in range(1, len(steps_latex)):
-            next_eq   = MathTex(steps_latex[i], font_size=54, color=WHITE)
-            next_eq.move_to(ORIGIN + UP * 0.4)
-            next_note = Text(annotations[i], font_size=26, color='#a0a8d0')
-            next_note.next_to(next_eq, DOWN, buff=0.45)
-            with self.voiceover(text=narrations_data[i]):
-                self.play(TransformMatchingShapes(current_eq, next_eq), run_time=1.0)
-                if annotations[i - 1]:
-                    self.play(FadeOut(current_note), run_time=0.3)
-                if annotations[i]:
-                    self.play(FadeIn(next_note, shift=UP * 0.1), run_time=0.4)
-            current_eq   = next_eq
-            current_note = next_note
-
-        self.wait(1.5)
-        self.play(FadeOut(*self.mobjects))
+        self.play(Write(title), run_time=0.8, rate_func=smooth)
         self.wait(0.3)
 
+        image_path = 'images/spacetime_curvature.png'
+        if image_path and os.path.exists(image_path):
+            image = ImageMobject(image_path)
+            image.set_height(4.0)
+        else:
+            placeholder = Rectangle(width=5.0, height=3.6,
+                fill_color='#2a2a4a', fill_opacity=1,
+                stroke_color='#666688', stroke_width=2)
+            label = Text('[ Image ]', font_size=26, color='#666688')
+            label.move_to(placeholder.get_center())
+            image = VGroup(placeholder, label)
+        image.move_to(LEFT * 3.0 + DOWN * 0.3)
+        with self.voiceover(text="Voici la visualisation de la courbure de l'espace‑temps autour d'une masse, comme un drap qui s'enfonce sous un poids."):
+            self.play(FadeIn(image, shift=RIGHT * 0.15), run_time=0.8, rate_func=smooth)
+            self.wait(0.3)
+
+        if "Déformation du tissu d'espace‑temps provoquée par une masse":
+            wrapped_cap = '\n'.join(textwrap.wrap("Déformation du tissu d'espace‑temps provoquée par une masse", width=30))
+            caption_obj = Paragraph(wrapped_cap, font_size=18,
+                color='#a0a8d0', alignment='center')
+            caption_obj.next_to(image, DOWN, buff=0.18)
+            with self.voiceover(text='Cette image montre le creux créé par la masse.'):
+                self.play(FadeIn(caption_obj, shift=UP*0.1), run_time=0.5)
+                self.wait(0.25)
+
+        if "Selon la relativité générale, la présence d'une masse modifie la géométrie du continuum espace‑temps. Cette déformation se représente comme un creux dans un drap élastique. Tout objet qui se déplace à proximité suit la trajectoire la plus courte – une géodésique – dans ce paysage courbé, ce qui apparaît comme une attraction gravitationnelle. Ainsi, la Terre tourne autour du Soleil non pas parce qu'une force invisible l'attire, mais parce que le Soleil crée une courbure qui guide le chemin de la Terre.":
+            wrapped_body = '\n'.join(textwrap.wrap("Selon la relativité générale, la présence d'une masse modifie la géométrie du continuum espace‑temps. Cette déformation se représente comme un creux dans un drap élastique. Tout objet qui se déplace à proximité suit la trajectoire la plus courte – une géodésique – dans ce paysage courbé, ce qui apparaît comme une attraction gravitationnelle. Ainsi, la Terre tourne autour du Soleil non pas parce qu'une force invisible l'attire, mais parce que le Soleil crée une courbure qui guide le chemin de la Terre.", width=35))
+            body = Paragraph(wrapped_body, font_size=16, color=WHITE,
+                line_spacing=1.2, alignment='left')
+            body.move_to(RIGHT * 3.2 + DOWN * 0.3)
+            if body.height > 5:
+                body.scale(5 / body.height)
+            with self.voiceover(text="La masse déforme l'espace‑temps, et les corps suivent les géodésiques de ce tissu courbé, ce qui se manifeste comme la gravité que nous ressentons."):
+                self.play(FadeIn(body, shift=LEFT * 0.15), run_time=0.9, rate_func=smooth)
+                self.wait(0.3)
+
+        self.wait(2)
+        self.play(FadeOut(*self.mobjects), run_time=0.8)
+
+        self.wait(0.5)  # scene exit buffer

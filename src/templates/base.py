@@ -1,6 +1,25 @@
 from abc import ABC, abstractmethod
+from src.languages import get_language, DEFAULT_LANG
 
 class BaseTemplate(ABC):
+    def __init__(self):
+        self._lang_code:   str  = DEFAULT_LANG
+        self._lang_config: dict = get_language(DEFAULT_LANG)
+
+    # ── Language API ──────────────────────────────────────────────
+
+    def set_language(self, lang_code: str) -> None:
+        """Call before code() to set target language."""
+        self._lang_code   = lang_code
+        self._lang_config = get_language(lang_code)
+
+    def _piper_model(self) -> str:
+        return self._lang_config.get("piper_model", "en_US-lessac-medium")
+
+    def _manim_font(self) -> str:
+        return self._lang_config.get("manim_font", "")
+    
+    # ── Abstract interface ────────────────────────────────────────
 
     @abstractmethod
     def description(self) -> str:
@@ -47,11 +66,25 @@ class BaseTemplate(ABC):
             .replace('"', '\\"')
             .replace("\n", " ")
             .strip()
-        )
-        if not safe_script:
-            safe_script = "This scene demonstrates the concept visually."
+        ) or "This scene demonstrates the concept visually."
 
-        body = self._scene_body(data, safe_script)
+        body       = self._scene_body(data, safe_script)
+        manim_font = self._manim_font()
+        piper_model = self._piper_model()
+
+        # Font override block — only emitted for non-default fonts (e.g. Hindi)
+        font_override = ""
+        if manim_font:
+            font_override = (
+                f"\n"
+                f"# ── Language font override ({self._lang_code}) ──────────────────────\n"
+                f"_LANG_FONT = {manim_font!r}\n"
+                f"_OrigText = Text\n"
+                f"class Text(_OrigText):\n"
+                f"    def __init__(self, text, **kwargs):\n"
+                f"        kwargs.setdefault('font', _LANG_FONT)\n"
+                f"        super().__init__(text, **kwargs)\n"
+            )
 
         return (
             "from manim import *\n"
@@ -59,18 +92,19 @@ class BaseTemplate(ABC):
             "sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))\n"
             "from manim_voiceover import VoiceoverScene\n"
             "from services.piper_service import PiperTTSService\n"
+            f"{font_override}"
             "\n"
             "class ImagioScene(VoiceoverScene):\n"
             "    def construct(self):\n"
             f'        self.camera.background_color = "{self._bg_color()}"\n'
-            "        self.set_speech_service(PiperTTSService())\n"
+            f'        self.set_speech_service(PiperTTSService(voice={piper_model!r}))\n'
             "\n"
             f"{self._footer_code()}\n"
             "\n"
-            "        self.wait(1)  # scene entry buffer\n"
+            "        self.wait(0.5)  # scene entry buffer\n"
             "\n"
             f"{body}\n"
-            "        self.wait(1)  # scene exit buffer\n"
+            "        self.wait(0.5)  # scene exit buffer\n"
         )
 
     # ── Shared helpers ────────────────────────────────────────────

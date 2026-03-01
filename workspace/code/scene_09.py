@@ -7,38 +7,79 @@ from services.piper_service import PiperTTSService
 class ImagioScene(VoiceoverScene):
     def construct(self):
         self.camera.background_color = "#0f0f23"
-        self.set_speech_service(PiperTTSService())
+        self.set_speech_service(PiperTTSService(voice='fr_FR-siwis-medium'))
 
         _footer = Text('Made by Imagio', font_size=15, color=WHITE)
         _footer.to_corner(DR, buff=0.25)
         self.add(_footer)
 
-        # ── Title ─────────────────────────────────────────────────
-        title = Text('Gravity in Everyday Life', font_size=48, color=YELLOW, weight=BOLD)
-        title.to_edge(UP, buff=0.5)
-        underline = Line(title.get_left(), title.get_right(), color=YELLOW, stroke_width=2)
-        underline.next_to(title, DOWN, buff=0.1)
-        self.play(Write(title), Create(underline), run_time=1.0)
+        self.wait(0.5)  # scene entry buffer
 
-        # ── Bullet points ─────────────────────────────────────────
-        raw_points      = ['Satellite orbits and space travel rely on gravity to stay bound.', 'Ocean tides and why we stay on Earth arise from the Moon’s pull.', 'GPS timing corrections need relativistic adjustments due to gravity.']
-        narrations_data = ['Gravity provides the centripetal force that keeps satellites in stable paths and propels spacecraft on their interplanetary journeys.', 'The Moon’s gravitational tug raises bulges in Earth’s oceans, creating tides and anchoring us to the planet’s surface.', 'GPS satellites must account for gravitational time dilation, otherwise their clocks drift and navigation errors would quickly accumulate.']
-        bullet_group = VGroup()
-        for text in raw_points:
-            dot   = Text('*', font_size=25, color=YELLOW)
-            label = Text(text, font_size=25, color=WHITE)
-            label.set_width(min(label.width, 10.0))
-            row = VGroup(dot, label).arrange(RIGHT, buff=0.28, aligned_edge=UP)
-            bullet_group.add(row)
-        bullet_group.arrange(DOWN, buff=0.3, aligned_edge=LEFT)
-        bullet_group.next_to(underline, DOWN, buff=0.45)
-        bullet_group.to_edge(LEFT, buff=0.75)
+        import textwrap
 
-        for row, narration in zip(bullet_group, narrations_data):
-            with self.voiceover(text=narration):
-                self.play(FadeIn(row, shift=RIGHT * 0.3), run_time=0.5)
-
-        self.wait(1)
-        self.play(FadeOut(*self.mobjects))
+        title = Text("Applications de la gravité dans la technologie et l'exploration", font_size=27, color=WHITE, weight=BOLD)
+        title.to_edge(UP, buff=0.4)
+        self.play(Write(title), run_time=0.8, rate_func=smooth)
         self.wait(0.3)
 
+        col_h    = 5.6
+        left_bg  = RoundedRectangle(corner_radius=0.15, width=6.5, height=col_h,
+            fill_color='#16213e', fill_opacity=1, stroke_color='#3a5a8a', stroke_width=2)
+        right_bg = RoundedRectangle(corner_radius=0.15, width=6.5, height=col_h,
+            fill_color='#1e1630', fill_opacity=1, stroke_color='#8a3a5a', stroke_width=2)
+        left_bg.next_to(title, DOWN, buff=0.25).to_edge(LEFT, buff=0.2)
+        right_bg.next_to(title, DOWN, buff=0.25).to_edge(RIGHT, buff=0.2)
+        self.play(
+            AnimationGroup(FadeIn(left_bg, shift=RIGHT*0.1), FadeIn(right_bg, shift=LEFT*0.1), lag_ratio=0.1),
+            run_time=0.6, rate_func=smooth,
+        )
+
+        l_hdr  = Text('Applications proches de la Terre', font_size=28, color=BLUE, weight=BOLD)
+        r_hdr  = Text('Applications extrêmes', font_size=28, color='#ff6b9d', weight=BOLD)
+        l_hdr.move_to(left_bg.get_top() + DOWN * 0.42)
+        r_hdr.move_to(right_bg.get_top() + DOWN * 0.42)
+        l_line = Line(left_bg.get_left()+RIGHT*0.3, left_bg.get_right()+LEFT*0.3,
+            color=BLUE).next_to(l_hdr, DOWN, buff=0.12)
+        r_line = Line(right_bg.get_left()+RIGHT*0.3, right_bg.get_right()+LEFT*0.3,
+            color='#ff6b9d').next_to(r_hdr, DOWN, buff=0.12)
+        self.play(
+            AnimationGroup(Write(l_hdr), Write(r_hdr), Create(l_line), Create(r_line), lag_ratio=0.15),
+            run_time=0.7,
+        )
+        self.wait(0.25)
+
+        left_list       = ['GPS – corrections relativistes pour la localisation', "Satellites de communication – maintien d'orbite stable"]
+        right_list      = ['Missions vers les trous noirs – navigation gravitationnelle', "Détecteurs d'ondes gravitationnelles – test de la relativité"]
+        narrations_data = ["Le GPS doit ajuster son horloge grâce à la dilatation du temps, alors que les sondes vers les trous noirs utilisent la courbure de l'espace‑temps pour tracer leur trajectoire.", "Les satellites de communication restent en orbite grâce à l'équilibre gravité‑centrifuge, tandis que les détecteurs d'ondes gravitationnelles mesurent les minuscules déformations du champ gravitationnel lointain."]
+        max_rows = max(len(left_list), len(right_list))
+
+        for idx in range(max_rows):
+            anims    = []
+            narration = narrations_data[idx] if idx < len(narrations_data) else ''
+            if idx < len(left_list):
+                wrapped  = '\n'.join(textwrap.wrap(left_list[idx], width=28))
+                l_bullet = Text('-', font_size=21, color=BLUE)
+                l_label  = Paragraph(wrapped, font_size=21, color=WHITE)
+                l_item   = VGroup(l_bullet, l_label).arrange(RIGHT, buff=0.2, aligned_edge=UP)
+                l_item.next_to(l_line, DOWN, buff=0.3 + idx * 0.8)
+                l_item.align_to(left_bg, LEFT).shift(RIGHT * 0.3)
+                anims.append(FadeIn(l_item, shift=RIGHT * 0.18))
+            if idx < len(right_list):
+                wrapped  = '\n'.join(textwrap.wrap(right_list[idx], width=28))
+                r_bullet = Text('-', font_size=21, color='#ff6b9d')
+                r_label  = Paragraph(wrapped, font_size=21, color=WHITE)
+                r_item   = VGroup(r_bullet, r_label).arrange(RIGHT, buff=0.2, aligned_edge=UP)
+                r_item.next_to(r_line, DOWN, buff=0.3 + idx * 0.8)
+                r_item.align_to(right_bg, LEFT).shift(RIGHT * 0.3)
+                anims.append(FadeIn(r_item, shift=LEFT * 0.18))
+            with self.voiceover(text=narration):
+                self.play(
+                    AnimationGroup(*anims, lag_ratio=0.2),
+                    run_time=0.55, rate_func=smooth,
+                )
+                self.wait(0.2)
+
+        self.wait(2)
+        self.play(FadeOut(*self.mobjects), run_time=0.8)
+
+        self.wait(0.5)  # scene exit buffer

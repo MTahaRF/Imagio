@@ -7,44 +7,58 @@ from services.piper_service import PiperTTSService
 class ImagioScene(VoiceoverScene):
     def construct(self):
         self.camera.background_color = "#0f0f23"
-        self.set_speech_service(PiperTTSService())
+        self.set_speech_service(PiperTTSService(voice='fr_FR-siwis-medium'))
 
         _footer = Text('Made by Imagio', font_size=15, color=WHITE)
         _footer.to_corner(DR, buff=0.25)
         self.add(_footer)
 
-        title   = Text('Gravitational Attraction Between Two Masses', font_size=40, color=WHITE, weight=BOLD)
-        divider = Line(UP * 2.8, DOWN * 3, color='#3a3a5c', stroke_width=2)
-        title.to_edge(UP, buff=0.4)
-        with self.voiceover(text='Now we look at how two objects pull on each other through gravity.'):
-            self.play(Write(title), run_time=0.8)
-            self.play(Create(divider), run_time=0.5)
+        self.wait(0.5)  # scene entry buffer
 
-        l_header  = Text('Force Law', font_size=28, color=YELLOW)
-        l_formula = MathTex('F = \\frac{G m_1 m_2}{r^2}', font_size=54, color=WHITE)
-        l_header.move_to(LEFT * 3.2 + UP * 1.8)
-        l_formula.move_to(LEFT * 3.2)
-        with self.voiceover(text='The gravitational force follows Newton’s law: F equals G times the product of the masses divided by the square of their separation.'):
-            self.play(FadeIn(l_header), run_time=0.5)
-            self.play(Write(l_formula), run_time=1.2)
+        import textwrap
 
-        r_header = Text('What It Means', font_size=28, color=YELLOW)
-        r_header.move_to(RIGHT * 3.0 + UP * 1.8)
-        self.play(FadeIn(r_header), run_time=0.4)
+        term_text = Text('gravité', font_size=52, color=YELLOW, weight=BOLD)
+        term_text.to_edge(UP, buff=0.45)
+        box = SurroundingRectangle(term_text, color=YELLOW, buff=0.18,
+            corner_radius=0.12, stroke_width=2)
+        with self.voiceover(text='Voici le concept de gravité, la force qui attire les masses les unes vers les autres.'):
+            self.play(
+                AnimationGroup(Write(term_text), Create(box), lag_ratio=0.35),
+                run_time=0.9, rate_func=smooth,
+            )
+            self.wait(0.3)
 
-        raw_lines       = ['Each mass pulls on the other with a force.', 'The force grows stronger as the masses increase.', 'It weakens quickly as the distance between them grows.']
-        narrations_data = ['Both bodies experience the same attractive pull toward one another.', 'If either mass gets larger, the pull strengthens proportionally.', 'Doubling the distance reduces the force by a factor of four.']
-        r_group = VGroup(*[
-            Text(line, font_size=25, color=WHITE) for line in raw_lines
-        ]).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
-        r_group.set_width(min(r_group.width, 5.2))
-        r_group.move_to(RIGHT * 3.0)
+        defn_label   = Text('Definition:', font_size=22, color='#a0a8d0')
+        wrapped_defn = '\n'.join(textwrap.wrap('Force d’attraction mutuelle entre toutes les masses, qui les fait se rapprocher.', width=60))
+        defn_text    = Paragraph(wrapped_defn, font_size=30, color=WHITE,
+            line_spacing=1.2, alignment='left')
+        defn_group   = VGroup(defn_label, defn_text).arrange(DOWN, buff=0.2, aligned_edge=LEFT)
+        defn_group.next_to(box, DOWN, buff=0.35).to_edge(LEFT, buff=0.8)
+        with self.voiceover(text='La gravité est la force d’attraction mutuelle entre toutes les masses, les poussant à se rapprocher.'):
+            self.play(FadeIn(defn_group, shift=UP * 0.15), run_time=0.7, rate_func=smooth)
+            self.wait(0.3)
 
-        for line_obj, narration in zip(r_group, narrations_data):
-            with self.voiceover(text=narration):
-                self.play(FadeIn(line_obj, shift=UP * 0.15), run_time=0.45)
+        y_ref = defn_group
+        if 'F = G \\frac{m_1 m_2}{r^2}':
+            formula_obj = MathTex('F = G \\frac{m_1 m_2}{r^2}', font_size=52, color=BLUE)
+            formula_obj.next_to(defn_group, DOWN, buff=0.45).to_edge(LEFT, buff=1.5)
+            with self.voiceover(text='La loi de Newton donne F égal à G fois le produit des masses divisé par le carré de la distance.'):
+                self.play(Write(formula_obj), run_time=0.9, rate_func=smooth)
+                self.wait(0.3)
+            y_ref = formula_obj
 
-        self.wait(1)
-        self.play(FadeOut(*self.mobjects))
-        self.wait(0.3)
+        if 'Une balle lâchée tombe vers le sol parce que la Terre l’attire.':
+            ex_label   = Text('Example:', font_size=22, color='#a0a8d0')
+            wrapped_ex = '\n'.join(textwrap.wrap('Une balle lâchée tombe vers le sol parce que la Terre l’attire.', width=65))
+            ex_text    = Paragraph(wrapped_ex, font_size=30,
+                color='#c8d0f0', line_spacing=1.2, alignment='left')
+            ex_group   = VGroup(ex_label, ex_text).arrange(DOWN, buff=0.15, aligned_edge=LEFT)
+            ex_group.next_to(y_ref, DOWN, buff=0.45).to_edge(LEFT, buff=0.8)
+            with self.voiceover(text='Quand on laisse tomber une balle, elle tombe parce que la Terre exerce sur elle une force gravitationnelle.'):
+                self.play(FadeIn(ex_group, shift=UP * 0.12), run_time=0.6, rate_func=smooth)
+                self.wait(0.3)
 
+        self.wait(2)
+        self.play(FadeOut(*self.mobjects), run_time=0.8)
+
+        self.wait(0.5)  # scene exit buffer

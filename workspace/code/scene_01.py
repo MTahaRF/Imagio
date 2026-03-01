@@ -7,25 +7,29 @@ from services.piper_service import PiperTTSService
 class ImagioScene(VoiceoverScene):
     def construct(self):
         self.camera.background_color = "#0f0f23"
-        self.set_speech_service(PiperTTSService())
+        self.set_speech_service(PiperTTSService(voice='fr_FR-siwis-medium'))
 
         _footer = Text('Made by Imagio', font_size=15, color=WHITE)
         _footer.to_corner(DR, buff=0.25)
         self.add(_footer)
 
-        title    = Text('The Magic of Gravity: Why Things Fall', font_size=72, color=WHITE, weight=BOLD)
-        subtitle = Text('Exploring the invisible force that shapes our universe', font_size=36, color='#a0a8d0')
-        line     = Line(LEFT * 3, RIGHT * 3, color=YELLOW, stroke_width=3)
-        title.move_to(ORIGIN + UP * 0.6)
-        line.next_to(title, DOWN, buff=0.25)
-        subtitle.next_to(title, DOWN, buff=0.5)
+        self.wait(0.5)  # scene entry buffer
 
-        with self.voiceover(text='In this video we’ll uncover how gravity works and why every object, from a feather to a planet, inevitably falls toward the Earth.'):
-            self.play(Write(title), run_time=1.2)
-            self.play(Create(line), run_time=0.6)
-            self.play(FadeIn(subtitle, shift=UP * 0.2), run_time=0.8)
+        title    = Text('Les secrets de la gravité', font_size=44, color=WHITE, weight=BOLD)
+        subtitle = Text('Comment la force invisible façonne notre univers', font_size=26, color='#a0a8d0')
+        line     = Line(LEFT * 3.5, RIGHT * 3.5, color=YELLOW, stroke_width=3)
+        title.move_to(ORIGIN + UP * 0.7)
+        line.next_to(title, DOWN, buff=0.22)
+        subtitle.next_to(line, DOWN, buff=0.3)
 
-        self.wait(1)
-        self.play(FadeOut(*self.mobjects))
-        self.wait(0.3)
+        with self.voiceover(text='Bienvenue, explorons ensemble comment la gravité, cette force invisible, modèle tout ce qui nous entoure.'):
+            self.play(Write(title), run_time=1.0, rate_func=smooth)
+            self.wait(0.2)
+            self.play(Create(line), run_time=0.5)
+            self.play(FadeIn(subtitle, shift=UP * 0.15), run_time=0.7, rate_func=smooth)
+            self.wait(0.4)
 
+        self.wait(2)
+        self.play(FadeOut(*self.mobjects), run_time=0.8)
+
+        self.wait(0.5)  # scene exit buffer

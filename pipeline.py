@@ -1,20 +1,23 @@
-# pipeline.py
 import os
 from src.config import Config
 from src.llm_client import ClientFactory
+from src.languages import get_language, list_languages
 
 from src.agents.feasibility    import FeasibilityAgent
 from src.agents.planner        import ScenePlanner
-from src.agents.scene_director import SceneDirector  
+from src.agents.scene_director import SceneDirector
 
 from src.tools.merger       import VideoMerger
 from src.tools.manim_runner import render_code_string
+from src.tools.cleanup      import cleanup
 from src.templates.registry import get_template
 
-def run_pipeline(topic: str):
-    print(f"🚀 Starting Imagio Pipeline: {topic}")
 
-    # ── Init ──────────────────────────────────────────────────────
+def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> None:
+    lang_cfg = get_language(lang_code)
+    print(f"🚀 Starting Imagio Pipeline: {topic}")
+    print(f"🌐 Language: {lang_cfg['name']}  |  TTS: {lang_cfg['piper_model']}")
+
     feasibility_agent = FeasibilityAgent(ClientFactory.get_client(Config.FEASIBILITY_CONFIG))
     planner_agent     = ScenePlanner(ClientFactory.get_client(Config.PLANNER_CONFIG))
     director_agent    = SceneDirector(ClientFactory.get_client(Config.DIRECTOR_CONFIG))
@@ -22,7 +25,7 @@ def run_pipeline(topic: str):
 
     # ── Step 1: Feasibility ───────────────────────────────────────
     print("\n📝 Step 1: Feasibility Analysis...")
-    analysis = feasibility_agent.analyze_topic(topic)
+    analysis = feasibility_agent.analyze_topic(topic, lang_code=lang_code)
     if not analysis.get("feasible"):
         print(f"❌ Rejected: {analysis.get('reason')}")
         return
@@ -35,43 +38,44 @@ def run_pipeline(topic: str):
 
     # ── Step 2: Planning ──────────────────────────────────────────
     print("\n🧠 Step 2: Planning Scenes...")
-    scene_plans = planner_agent.plan_scenes(curriculum)
+    scene_plans = planner_agent.plan_scenes(curriculum, lang_code=lang_code)
     print(f"  ✓ {len(scene_plans)} scenes planned")
 
     # ── Step 3: Production Loop ───────────────────────────────────
-    final_videos    = []
-    prev_script     = ""
+    final_videos = []
+    prev_script  = ""
 
     print("\n⚙️  Step 3: Production Loop")
     for i, plan in enumerate(scene_plans, 1):
-        scene_id      = f"scene_{i}"
+        scene_id      = f"scene_{i:02d}"
         template_name = plan.get("template_type") or plan.get("template", "bullet_points")
         concept       = plan.get("concept", "Untitled")
 
         print(f"\n  🎬 {scene_id}: {concept} [{template_name}]")
 
-        # ── Resolve template ──────────────────────────────────────
         try:
             tmpl = get_template(template_name)
         except KeyError:
-            print(f"  ⚠️ Unknown template '{template_name}' → fallback bullet_points")
-            tmpl = get_template("bullet_points")
+            print(f"  ⚠️  Unknown template '{template_name}' → bullet_points")
+            tmpl          = get_template("bullet_points")
             template_name = "bullet_points"
 
-        # ── SceneDirector: co-write script + data ─────────────────
+        # Apply language to template (sets TTS voice + Manim font)
+        tmpl.set_language(lang_code)
+
         print("  ✍️  Directing scene...")
         direction = director_agent.direct_scene(
-            template_name=template_name,
-            schema=tmpl.schema(),
-            concept=concept,
-            previous_script=prev_script
+            template_name   = template_name,
+            schema          = tmpl.schema(),
+            concept         = concept,
+            previous_script = prev_script,
+            lang_code       = lang_code,
         )
 
         script        = direction.get("script", "")
         template_data = direction.get("template_data", {})
         prev_script   = script
 
-        # ── Generate Manim code with voiceover baked in ───────────
         print("  👨‍💻 Generating Manim code...")
         scene_code = tmpl.code(template_data, script)
 
@@ -80,31 +84,46 @@ def run_pipeline(topic: str):
         with open(code_path, "w", encoding="utf-8") as f:
             f.write(scene_code)
 
-        # ── Render ────────────────────────────────────────────────
-        print("  🎥 Rendering (audio baked in via Kokoro)...")
+        print(f"  🎥 Rendering ({lang_cfg['name']}, {lang_cfg['piper_model']})...")
         result = render_code_string(
-            code=scene_code,
-            scene_name=scene_id,
-            code_dir="workspace/code",
-            output_dir="workspace/media",
-            max_retries=3,
+            code       = scene_code,
+            scene_name = scene_id,
+            code_dir   = "workspace/code",
+            output_dir = "workspace/media",
+            max_retries = 3,
         )
 
         if not result.success:
-            print(f"  ❌ Render failed — skipping scene")
+            print(f"  ❌ Render failed — skipping")
             continue
 
         print(f"  ✅ {result.mp4_path}")
         final_videos.append(result.mp4_path)
 
-    # ── Step 4: Final Assembly ────────────────────────────────────
+    # ── Step 4: Assembly ──────────────────────────────────────────
     if not final_videos:
-        print("\n❌ No scenes rendered — pipeline failed")
+        print("\n❌ No scenes rendered")
         return
 
     print(f"\n🎞️  Step 4: Assembling {len(final_videos)} scenes...")
-    final = merger_tool.merge_all_scenes(final_videos)
+    final = merger_tool.merge_all_scenes(
+        final_videos,
+        output_filename=f"final_{lang_code}.mp4",
+    )
     print(f"\n✨ Done! → {final}")
+    
+    
+    if clean_up:
+        print(f"\n🧹 Step 5: Cleanup...")
+        cleanup(
+            workspace_dir   = "workspace",
+            remove_code     = True,
+            remove_partials = True,
+            remove_scenes   = True,    # safe — final video already merged
+            remove_tts_cache= True,
+            verbose         = True,
+        )
+
 
 if __name__ == "__main__":
-    run_pipeline("The Geometry of Linear Algebra")
+    run_pipeline("The Geometry of Linear Algebra", lang_code="en")

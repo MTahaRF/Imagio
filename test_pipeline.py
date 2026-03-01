@@ -7,8 +7,9 @@ Runs the full pipeline with a simple topic and prints live status.
 Usage:
     python test_pipeline.py
     python test_pipeline.py --topic "How does gravity work"
-    python test_pipeline.py --dry-run       # LLM calls only, no Manim render
-    python test_pipeline.py --no-merge      # render scenes but skip final concat
+    python test_pipeline.py --dry-run          # LLM steps only, no Manim render
+    python test_pipeline.py --no-merge        # render scenes but skip final concat
+    python test_pipeline.py --language hi     # Hindi
 """
 
 from __future__ import annotations
@@ -23,8 +24,9 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT)
 
 # ── Core ──────────────────────────────────────────────────────────────────────
-from src.config import Config
-from src.llm_client import ClientFactory
+from src.config      import Config
+from src.llm_client  import ClientFactory
+from src.languages   import get_language
 
 # ── Agents ────────────────────────────────────────────────────────────────────
 from src.agents.feasibility    import FeasibilityAgent
@@ -53,11 +55,15 @@ def warn(msg): print(f"  ⚠️  {msg}")
 
 
 # ── Main test ─────────────────────────────────────────────────────────────────
-def run_test(topic: str, dry_run: bool, no_merge: bool):
+def run_test(topic: str, dry_run: bool, no_merge: bool, lang_code: str = "en"):
+
+    lang_cfg = get_language(lang_code)
 
     print(f"\n{'═' * 62}")
     print(f"  🎬  IMAGIO PIPELINE TEST")
     print(f"  Topic    : {topic}")
+    print(f"  Language : {lang_cfg['name']} ({lang_code})")
+    print(f"  TTS      : {lang_cfg['piper_model']}")
     print(f"  Dry Run  : {dry_run}")
     print(f"  Merge    : {'disabled' if no_merge else 'enabled'}")
     print(f"{'═' * 62}")
@@ -67,9 +73,15 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
     # ── Step 1: Initialise agents ─────────────────────────────────
     divider("STEP 1: Initialising Agents")
     try:
-        feasibility_agent = FeasibilityAgent(ClientFactory.get_client(Config.FEASIBILITY_CONFIG))
-        planner_agent     = ScenePlanner(ClientFactory.get_client(Config.PLANNER_CONFIG))
-        director_agent    = SceneDirector(ClientFactory.get_client(Config.DIRECTOR_CONFIG))
+        feasibility_agent = FeasibilityAgent(
+            ClientFactory.get_client(Config.FEASIBILITY_CONFIG)
+        )
+        planner_agent     = ScenePlanner(
+            ClientFactory.get_client(Config.PLANNER_CONFIG)
+        )
+        director_agent    = SceneDirector(
+            ClientFactory.get_client(Config.DIRECTOR_CONFIG)
+        )
         merger_tool       = VideoMerger()
         ok("All agents initialised")
         info(f"Feasibility : {Config.FEASIBILITY_CONFIG['model']}")
@@ -84,7 +96,7 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
     divider("STEP 2: Feasibility + Curriculum")
     t0 = time.perf_counter()
     try:
-        analysis = feasibility_agent.analyze_topic(topic)
+        analysis = feasibility_agent.analyze_topic(topic, lang_code=lang_code)
         print(f"  Feasible : {analysis.get('feasible')}")
         print(f"  Reason   : {analysis.get('reason', 'N/A')}")
     except Exception as e:
@@ -98,7 +110,7 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
 
     curriculum = analysis.get("curriculum")
     if not curriculum:
-        err("No curriculum returned — check FEASIBILITY_ENHANCER prompt")
+        err("Feasible but no curriculum returned — check FEASIBILITY_ENHANCER prompt")
         return
 
     ok(f"Approved: \"{curriculum.get('title', topic)}\"")
@@ -109,7 +121,7 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
     divider("STEP 3: Scene Planning")
     t0 = time.perf_counter()
     try:
-        scene_plans = planner_agent.plan_scenes(curriculum)
+        scene_plans = planner_agent.plan_scenes(curriculum, lang_code=lang_code)
     except Exception as e:
         err(f"Planner crashed: {e}")
         traceback.print_exc()
@@ -137,9 +149,9 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
     # ── Step 4: Production loop ───────────────────────────────────
     divider("STEP 4: Production Loop")
 
-    final_videos   = []
-    prev_script    = ""
-    scene_count    = len(scene_plans)
+    final_videos = []
+    prev_script  = ""
+    scene_count  = len(scene_plans)
 
     for i, plan in enumerate(scene_plans, 1):
         scene_id      = f"scene_{i:02d}"
@@ -157,8 +169,11 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
             tmpl          = get_template("bullet_points")
             template_name = "bullet_points"
 
-        # ── 4B: SceneDirector — script + template_data in one shot ─
-        print(f"  │  ✍️  Directing scene...")
+        # Apply language to template (font + Piper model)
+        tmpl.set_language(lang_code)
+
+        # ── 4B: SceneDirector — script + template_data ─────────────
+        print("  │  ✍️  Directing scene...")
         t0 = time.perf_counter()
         try:
             direction = director_agent.direct_scene(
@@ -166,41 +181,45 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
                 schema          = tmpl.schema(),
                 concept         = concept,
                 previous_script = prev_script,
+                lang_code       = lang_code,
             )
         except Exception as e:
             err(f"SceneDirector crashed: {e}")
             traceback.print_exc()
+            print("  └─ skipping scene")
             continue
 
         script        = direction.get("script", concept)
         template_data = direction.get("template_data", {})
         prev_script   = script
 
-        if not template_data:
-            warn("Director returned empty template_data — scene may look sparse")
-
-        script_preview = script[:80].replace("\n", " ").strip()
+        script_preview = script[:90].replace("\n", " ").strip()
         print(f"  │  Script   : {script_preview}...")
         print(f"  │  ⏱️  {time.perf_counter() - t0:.1f}s")
 
+        if not template_data:
+            warn("Director returned empty template_data — scene may look sparse")
+
         # ── 4C: Generate Manim code ───────────────────────────────
-        print(f"  │  👨‍💻 Generating Manim code...")
+        print("  │  👨‍💻 Generating Manim code...")
         t0 = time.perf_counter()
         try:
             scene_code = tmpl.code(template_data, script)
         except Exception as e:
             err(f"tmpl.code() crashed: {e}")
             traceback.print_exc()
+            print("  └─ skipping scene")
             continue
 
         os.makedirs("workspace/code", exist_ok=True)
         code_path = f"workspace/code/{scene_id}.py"
         with open(code_path, "w", encoding="utf-8") as f:
             f.write(scene_code)
-        print(f"  │  Code     : {code_path}  ({len(scene_code)} chars)  ⏱️  {time.perf_counter() - t0:.1f}s")
+        print(f"  │  Code     : {code_path}  ({len(scene_code)} chars)")
+        print(f"  │  ⏱️  {time.perf_counter() - t0:.1f}s")
 
         # ── 4D: Render ────────────────────────────────────────────
-        print(f"  │  🎥 Rendering...")
+        print("  │  🎥 Rendering...")
         t0 = time.perf_counter()
         try:
             result = render_code_string(
@@ -213,6 +232,7 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
         except Exception as e:
             err(f"Renderer crashed: {e}")
             traceback.print_exc()
+            print("  └─ skipping scene")
             continue
 
         elapsed = time.perf_counter() - t0
@@ -222,11 +242,11 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
             if result.error_log:
                 snippet = result.error_log.strip()[-400:].replace("\n", " ")
                 print(f"  │  Last error: {snippet}")
-            print(f"  └─ skipping scene")
+            print("  └─ skipping scene")
             continue
 
         print(f"  │  ✅ {result.mp4_path}  ⏱️  {elapsed:.1f}s")
-        print(f"  └─ done")
+        print("  └─ done")
         final_videos.append(result.mp4_path)
 
     # ── Step 5: Final assembly ────────────────────────────────────
@@ -251,9 +271,10 @@ def run_test(topic: str, dry_run: bool, no_merge: bool):
     else:
         print(f"  🎞️  Merging {len(final_videos)} scenes...")
         try:
-            final_path = merger_tool.merge_all_scenes(
+            final_name = f"pipeline_final_{lang_code}.mp4"
+            final_path = VideoMerger().merge_all_scenes(
                 final_videos,
-                output_filename="pipeline_final.mp4",
+                output_filename=final_name,
             )
             if final_path and os.path.exists(final_path):
                 size_mb = os.path.getsize(final_path) / (1024 * 1024)
@@ -289,6 +310,11 @@ def parse_args():
         "--no-merge", action="store_true",
         help="Render scenes but skip final video concatenation",
     )
+    parser.add_argument(
+        "--language", type=str, default="en",
+        choices=["en", "es", "fr", "hi"],
+        help="Output language: en | es | fr | hi (default: en)",
+    )
     return parser.parse_args()
 
 
@@ -298,4 +324,5 @@ if __name__ == "__main__":
         topic    = args.topic,
         dry_run  = args.dry_run,
         no_merge = args.no_merge,
+        lang_code= args.language,
     )
