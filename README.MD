@@ -196,7 +196,7 @@ python test_pipeline.py --topic "Factorizing x squared plus 5x plus 6" --languag
 
 ---
 
-## 🖥️ Frontend (In Development)
+## 🖥️ Frontend
 
 A React-based frontend is being built to allow users to:
 
@@ -206,6 +206,9 @@ A React-based frontend is being built to allow users to:
 
 The frontend will communicate with a FastAPI backend that wraps `pipeline.py`. Stay tuned.
 
+## Youtube Link of Imagio:
+https://youtu.be/Xi_Obv8EdmQ
+[![Imagio Demo Video](https://youtu.be/Xi_Obv8EdmQ/0.jpg)](https://youtu.be/Xi_Obv8EdmQ)
 ---
 
 ## 📄 License
