@@ -22,7 +22,9 @@
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
+    "framer-motion": "^12.34.3",
     "globals": "^16.5.0",
+    "lucide-react": "^0.575.0",
     "vite": "^7.3.1"
   }
 }

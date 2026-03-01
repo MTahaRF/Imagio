@@ -7,7 +7,7 @@ from services.piper_service import PiperTTSService
 class ImagioScene(VoiceoverScene):
     def construct(self):
         self.camera.background_color = "#0f0f23"
-        self.set_speech_service(PiperTTSService(voice='fr_FR-siwis-medium'))
+        self.set_speech_service(PiperTTSService(voice='en_US-lessac-medium'))
 
         _footer = Text('Made by Imagio', font_size=15, color=WHITE)
         _footer.to_corner(DR, buff=0.25)
@@ -15,44 +15,36 @@ class ImagioScene(VoiceoverScene):
 
         self.wait(0.5)  # scene entry buffer
 
-        import numpy as np
-
-        title = Text('Potential gravitationnelle V(r) = -GM/r', font_size=38, color=WHITE, weight=BOLD)
-        title.to_edge(UP, buff=0.35)
-        self.play(Write(title), run_time=0.8, rate_func=smooth)
-        self.wait(0.3)
-
-        axes = Axes(
-            x_range=[0.1, 10.0, (10.0-(0.1))/8],
-            y_range=[-10.0, 0.0, (0.0-(-10.0))/6],
-            x_length=10, y_length=5.0,
-            axis_config={'color': '#666688', 'stroke_width': 2},
-            tips=True,
+        title = Text('Observational Evidence of Black Holes', font_size=38, color=YELLOW, weight=BOLD)
+        title.to_edge(UP, buff=0.45)
+        underline = Line(title.get_left(), title.get_right(), color=YELLOW, stroke_width=2)
+        underline.next_to(title, DOWN, buff=0.1)
+        self.play(
+            AnimationGroup(Write(title), Create(underline), lag_ratio=0.4),
+            run_time=0.9, rate_func=smooth,
         )
-        axes.next_to(title, DOWN, buff=0.25)
-        x_lbl = axes.get_x_axis_label(
-            Text('Distance r (m)', font_size=22, color='#a0a8d0'), edge=RIGHT, direction=RIGHT)
-        y_lbl = axes.get_y_axis_label(
-            Text('Potentiel V(r) (J·kg⁻¹)', font_size=22, color='#a0a8d0'), edge=UP, direction=UP)
+        self.wait(0.35)
 
-        with self.voiceover(text='Les axes apparaissent, l’axe horizontal représente la distance r, l’axe vertical le potentiel V(r).'):
-            self.play(
-                AnimationGroup(Create(axes), Write(x_lbl), Write(y_lbl), lag_ratio=0.2),
-                run_time=1.1, rate_func=smooth,
-            )
-            self.wait(0.3)
+        raw_points       = ['Gravitational‑wave detectors have recorded the ripples from merging black holes.', 'The Event Horizon Telescope captured the shadow of the supermassive black hole in galaxy M87.', 'Precise tracking of stars orbiting the Milky Way’s center reveals an invisible massive object, Sgr\u202fA*.']
+        narrations_data  = ['LIGO and Virgo heard spacetime quiver as two black holes spiraled together and merged.', 'The EHT combined telescopes worldwide to image a dark silhouette against bright gas, matching Einstein’s predictions.', 'Stars near the Galactic Center swing fast enough that only a ten‑million‑solar‑mass black hole can explain their paths.']
+        bullet_group = VGroup()
+        for text in raw_points:
+            dot   = Text('*', font_size=22, color=YELLOW)
+            label = Text(text, font_size=22, color=WHITE)
+            label.set_width(min(label.width, 10.0))
+            row = VGroup(dot, label).arrange(RIGHT, buff=0.28, aligned_edge=UP)
+            bullet_group.add(row)
+        bullet_group.arrange(DOWN, buff=0.3, aligned_edge=LEFT)
+        bullet_group.next_to(underline, DOWN, buff=0.4)
+        bullet_group.to_edge(LEFT, buff=0.75)
 
-        graph = axes.plot(lambda x: -G*M/ x, color=BLUE, stroke_width=3)
-        with self.voiceover(text='La courbe se trace, montrant V(r) qui augmente vers zéro quand r grandit.'):
-            self.play(Create(graph), run_time=2.0, rate_func=smooth)
-            self.wait(0.3)
-
-        if 'Le potentiel devient moins négatif quand la distance augmente':
-            caption_obj = Text('Le potentiel devient moins négatif quand la distance augmente', font_size=22, color='#a0a8d0')
-            caption_obj.to_edge(DOWN, buff=0.3)
-            with self.voiceover(text='Cette légende explique la décroissance du potentiel avec la distance.'):
-                self.play(FadeIn(caption_obj, shift=UP * 0.12), run_time=0.6, rate_func=smooth)
-                self.wait(0.3)
+        for row, narration in zip(bullet_group, narrations_data):
+            with self.voiceover(text=narration):
+                self.play(
+                    FadeIn(row, shift=RIGHT * 0.25),
+                    run_time=0.55, rate_func=smooth,
+                )
+                self.wait(0.2)
 
         self.wait(2)
         self.play(FadeOut(*self.mobjects), run_time=0.8)

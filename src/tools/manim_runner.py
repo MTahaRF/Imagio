@@ -27,8 +27,8 @@ logger = logging.getLogger(__name__)
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 
-SCENE_CLASS   = "ImagioScene"
-MANIM_QUALITY = "-qm"           # medium quality — 720p30, fast to render
+SCENE_CLASS     = "ImagioScene"
+MANIM_QUALITY   = "-qm"          # medium quality — 720p30, fast to render
 DEFAULT_RETRIES = 3
 
 
@@ -56,23 +56,6 @@ def render_scene(
     max_retries: int  = DEFAULT_RETRIES,
     on_error:    Optional[Callable[[str, str, int], str]] = None,
 ) -> RenderResult:
-    """
-    Render `scene_file` with Manim.  Retries up to `max_retries` times.
-
-    Parameters
-    ──────────
-    scene_file   : Path to the generated .py file containing ImagioScene.
-    output_dir   : Root directory where Manim writes media output.
-    max_retries  : Maximum number of render attempts before giving up.
-    on_error     : Optional callback invoked on each failure.
-                   Signature: on_error(scene_file, error_log, attempt) -> new_scene_file
-                   If provided, the return value is used as the scene file for the
-                   next attempt (allows the coder agent to rewrite the file in-place).
-
-    Returns
-    ───────
-    RenderResult with .success, .mp4_path, .error_log, .attempts, .logs
-    """
     scene_file = os.path.abspath(scene_file)
     output_dir = os.path.abspath(output_dir)
     os.makedirs(output_dir, exist_ok=True)
@@ -87,7 +70,6 @@ def render_scene(
         result.logs.append(attempt_result["log"])
 
         if attempt_result["returncode"] == 0:
-            # ── Success ───────────────────────────────────────────
             mp4 = _find_output_mp4(scene_file, output_dir)
             if mp4:
                 result.success  = True
@@ -98,13 +80,24 @@ def render_scene(
                 error = "Manim exited 0 but no MP4 found in output directory."
                 logger.warning(f"[manim_runner] {error}")
                 result.error_log = error
+
         else:
-            # ── Failure ───────────────────────────────────────────
-            error_log        = attempt_result["stderr"] or attempt_result["stdout"]
+            # ── Log the FULL error — no truncation ────────────────
+            stderr    = attempt_result["stderr"].strip()
+            stdout    = attempt_result["stdout"].strip()
+            if stderr and stdout and stdout not in stderr:
+                error_log = f"{stderr}\n--- stdout ---\n{stdout}"
+            else:
+                error_log = stderr or stdout
+
             result.error_log = error_log
+
             logger.warning(
-                f"[manim_runner] ❌ Attempt {attempt} failed.\n"
-                f"  stderr: {error_log[:400]}..."
+                f"[manim_runner] ❌ Attempt {attempt} failed "
+                f"(returncode={attempt_result['returncode']}).\n"
+                f"{'='*70}\n"
+                f"{error_log}\n"
+                f"{'='*70}"
             )
 
             if attempt < max_retries and on_error is not None:
@@ -117,10 +110,7 @@ def render_scene(
                 except Exception as cb_exc:
                     logger.error(f"[manim_runner] on_error callback raised: {cb_exc}")
 
-    # ── All retries exhausted ──────────────────────────────────────────────
-    logger.error(
-        f"[manim_runner] All {max_retries} attempts failed for {scene_file}."
-    )
+    logger.error(f"[manim_runner] All {max_retries} attempts failed for {scene_file}.")
     return result
 
 
@@ -131,7 +121,8 @@ def _run_manim(scene_file: str, output_dir: str) -> dict:
     cmd = [
         "manim",
         MANIM_QUALITY,
-        "--media_dir", output_dir,
+        "--media_dir",       output_dir,
+        "--disable_caching",              # prevents stale cache masking errors
         scene_file,
         SCENE_CLASS,
     ]
@@ -142,11 +133,11 @@ def _run_manim(scene_file: str, output_dir: str) -> dict:
             cmd,
             capture_output=True,
             text=True,
-            timeout=300,          # 5-minute hard cap per render
+            timeout=300,
         )
         log_line = (
-            f"--- attempt stdout ---\n{proc.stdout}\n"
-            f"--- attempt stderr ---\n{proc.stderr}"
+            f"--- stdout ---\n{proc.stdout}\n"
+            f"--- stderr ---\n{proc.stderr}"
         )
         return {
             "returncode": proc.returncode,
@@ -155,10 +146,7 @@ def _run_manim(scene_file: str, output_dir: str) -> dict:
             "log":        log_line,
         }
     except FileNotFoundError:
-        msg = (
-            "Manim executable not found. "
-            "Install with: pip install manim"
-        )
+        msg = "Manim executable not found. Install with: pip install manim"
         logger.error(f"[manim_runner] {msg}")
         return {"returncode": -1, "stdout": "", "stderr": msg, "log": msg}
     except subprocess.TimeoutExpired:
@@ -170,32 +158,21 @@ def _run_manim(scene_file: str, output_dir: str) -> dict:
 # ── Output-file locator ───────────────────────────────────────────────────────
 
 def _find_output_mp4(scene_file: str, output_dir: str) -> Optional[str]:
-    """
-    Manim places output at:
-        <output_dir>/videos/<stem>/<quality>/<SceneName>.mp4
-
-    We glob broadly so different quality flags still resolve.
-    """
     stem = Path(scene_file).stem
-
-    # Most specific: exact scene class name
     patterns = [
         os.path.join(output_dir, "videos", stem, "**", f"{SCENE_CLASS}.mp4"),
         os.path.join(output_dir, "videos", stem, "**", "*.mp4"),
         os.path.join(output_dir, "**", f"{SCENE_CLASS}.mp4"),
         os.path.join(output_dir, "**", "*.mp4"),
     ]
-
     for pattern in patterns:
         matches = glob.glob(pattern, recursive=True)
         if matches:
-            # Return the most recently modified match
             return max(matches, key=os.path.getmtime)
-
     return None
 
 
-# ── Convenience: write code string → file, then render ───────────────────────
+# ── Convenience wrapper ───────────────────────────────────────────────────────
 
 def render_code_string(
     code:        str,
@@ -205,15 +182,9 @@ def render_code_string(
     max_retries: int = DEFAULT_RETRIES,
     on_error:    Optional[Callable[[str, str, int], str]] = None,
 ) -> RenderResult:
-    """
-    Write `code` to disk as `<code_dir>/<scene_name>.py` then render it.
-    Convenience wrapper used by the pipeline for each scene.
-    """
     os.makedirs(code_dir, exist_ok=True)
     scene_file = os.path.join(code_dir, f"{scene_name}.py")
-
     with open(scene_file, "w", encoding="utf-8") as f:
         f.write(code)
-
     logger.info(f"[manim_runner] Wrote scene to {scene_file}")
     return render_scene(scene_file, output_dir, max_retries, on_error)

@@ -13,7 +13,7 @@ from src.tools.cleanup      import cleanup
 from src.templates.registry import get_template
 
 
-def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> None:
+def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> str | None:
     lang_cfg = get_language(lang_code)
     print(f"🚀 Starting Imagio Pipeline: {topic}")
     print(f"🌐 Language: {lang_cfg['name']}  |  TTS: {lang_cfg['piper_model']}")
@@ -28,12 +28,12 @@ def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> No
     analysis = feasibility_agent.analyze_topic(topic, lang_code=lang_code)
     if not analysis.get("feasible"):
         print(f"❌ Rejected: {analysis.get('reason')}")
-        return
+        return None
 
     curriculum = analysis.get("curriculum")
     if not curriculum:
         print("❌ No curriculum returned")
-        return
+        return None
     print(f"✅ Approved: {curriculum.get('title')}")
 
     # ── Step 2: Planning ──────────────────────────────────────────
@@ -60,7 +60,6 @@ def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> No
             tmpl          = get_template("bullet_points")
             template_name = "bullet_points"
 
-        # Apply language to template (sets TTS voice + Manim font)
         tmpl.set_language(lang_code)
 
         print("  ✍️  Directing scene...")
@@ -86,10 +85,10 @@ def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> No
 
         print(f"  🎥 Rendering ({lang_cfg['name']}, {lang_cfg['piper_model']})...")
         result = render_code_string(
-            code       = scene_code,
-            scene_name = scene_id,
-            code_dir   = "workspace/code",
-            output_dir = "workspace/media",
+            code        = scene_code,
+            scene_name  = scene_id,
+            code_dir    = "workspace/code",
+            output_dir  = "workspace/media",
             max_retries = 3,
         )
 
@@ -102,8 +101,8 @@ def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> No
 
     # ── Step 4: Assembly ──────────────────────────────────────────
     if not final_videos:
-        print("\n❌ No scenes rendered")
-        return
+        print("\n❌ No scenes rendered successfully")
+        return None
 
     print(f"\n🎞️  Step 4: Assembling {len(final_videos)} scenes...")
     final = merger_tool.merge_all_scenes(
@@ -111,18 +110,20 @@ def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> No
         output_filename=f"final_{lang_code}.mp4",
     )
     print(f"\n✨ Done! → {final}")
-    
-    
-    if clean_up:
-        print(f"\n🧹 Step 5: Cleanup...")
-        cleanup(
-            workspace_dir   = "workspace",
-            remove_code     = True,
-            remove_partials = True,
-            remove_scenes   = True,    # safe — final video already merged
-            remove_tts_cache= True,
-            verbose         = True,
-        )
+
+    # if clean_up:
+    #     print(f"\n🧹 Step 5: Cleanup...")
+    #     cleanup(
+    #         workspace_dir    = "workspace",
+    #         remove_code      = True,
+    #         remove_partials  = True,
+    #         remove_scenes    = False,   # ← NEVER delete the final video here.
+    #         remove_tts_cache = True,    #   server.py reads it into memory then
+    #         verbose          = True,    #   deletes it itself after streaming.
+    #     )
+
+    # server.py reads this file into memory, then deletes it.
+    return final
 
 
 if __name__ == "__main__":

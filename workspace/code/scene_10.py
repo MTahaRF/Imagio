@@ -7,7 +7,7 @@ from services.piper_service import PiperTTSService
 class ImagioScene(VoiceoverScene):
     def construct(self):
         self.camera.background_color = "#0f0f23"
-        self.set_speech_service(PiperTTSService(voice='fr_FR-siwis-medium'))
+        self.set_speech_service(PiperTTSService(voice='en_US-lessac-medium'))
 
         _footer = Text('Made by Imagio', font_size=15, color=WHITE)
         _footer.to_corner(DR, buff=0.25)
@@ -15,7 +15,7 @@ class ImagioScene(VoiceoverScene):
 
         self.wait(0.5)  # scene entry buffer
 
-        title = Text('Récapitulatif et perspectives futures', font_size=38, color=YELLOW, weight=BOLD)
+        title = Text('Why Event Horizons Matter', font_size=44, color=YELLOW, weight=BOLD)
         title.to_edge(UP, buff=0.45)
         underline = Line(title.get_left(), title.get_right(), color=YELLOW, stroke_width=2)
         underline.next_to(title, DOWN, buff=0.1)
@@ -25,12 +25,12 @@ class ImagioScene(VoiceoverScene):
         )
         self.wait(0.35)
 
-        raw_points       = ['Gravité au cœur de nos technologies quotidiennes (GPS, satellites)', 'Exploitation des phénomènes extrêmes (trous noirs, ondes gravitationnelles)', 'Avenir : colonies lunaires, propulsion gravitationnelle, détection d’ondes gravitationnelles plus sensible']
-        narrations_data  = ['Le GPS et les satellites utilisent les corrections relativistes pour maintenir une précision de quelques mètres, montrant l’impact quotidien de la gravité.', 'Près des trous noirs, la courbure de l’espace‑temps permet des manœuvres de freinage gravitationnel, ouvrant des possibilités inédites pour les sondes.', 'Les futurs projets visent l’exploration interstellaire, la détection plus sensible d’ondes gravitationnelles et la propulsion basée sur la gravité.']
+        raw_points       = ['The horizon marks the causal boundary, letting us test general relativity in its strongest regime.', 'Its size and spin reveal black‑hole mass, growth history, and influence on galaxy evolution.', 'Understanding horizon physics guides future observatories, gravitational‑wave detectors, and bold mission concepts near extreme gravity.']
+        narrations_data  = ['The horizon defines where cause and effect stop, giving us a direct test of Einstein’s gravity at its limits.', 'Measuring a horizon’s radius and spin tells us the black hole’s mass and how it shapes its host galaxy.', 'These insights shape the design of next‑generation telescopes, wave detectors, and daring missions that could approach a black hole’s edge.']
         bullet_group = VGroup()
         for text in raw_points:
-            dot   = Text('*', font_size=25, color=YELLOW)
-            label = Text(text, font_size=25, color=WHITE)
+            dot   = Text('*', font_size=22, color=YELLOW)
+            label = Text(text, font_size=22, color=WHITE)
             label.set_width(min(label.width, 10.0))
             row = VGroup(dot, label).arrange(RIGHT, buff=0.28, aligned_edge=UP)
             bullet_group.add(row)

@@ -40,7 +40,7 @@ Rules:
 - Use ONLY template names from the provided list.
 - Prefer specific templates over generic ones (bullet_points, blank).
 - Every video MUST start with a title_slide.
-- Generate exactly 10 scenes.
+- Generate exactly 5 scenes.
 - {lang_instruction}
 
 Return JSON: {{ "scenes": [ {{ "concept": "...", "template_type": "..." }} ] }}

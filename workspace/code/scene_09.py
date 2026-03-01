@@ -7,7 +7,7 @@ from services.piper_service import PiperTTSService
 class ImagioScene(VoiceoverScene):
     def construct(self):
         self.camera.background_color = "#0f0f23"
-        self.set_speech_service(PiperTTSService(voice='fr_FR-siwis-medium'))
+        self.set_speech_service(PiperTTSService(voice='en_US-lessac-medium'))
 
         _footer = Text('Made by Imagio', font_size=15, color=WHITE)
         _footer.to_corner(DR, buff=0.25)
@@ -17,7 +17,7 @@ class ImagioScene(VoiceoverScene):
 
         import textwrap
 
-        title = Text("Applications de la gravité dans la technologie et l'exploration", font_size=27, color=WHITE, weight=BOLD)
+        title = Text('Black Hole Types: Size and Origin', font_size=38, color=WHITE, weight=BOLD)
         title.to_edge(UP, buff=0.4)
         self.play(Write(title), run_time=0.8, rate_func=smooth)
         self.wait(0.3)
@@ -34,8 +34,8 @@ class ImagioScene(VoiceoverScene):
             run_time=0.6, rate_func=smooth,
         )
 
-        l_hdr  = Text('Applications proches de la Terre', font_size=28, color=BLUE, weight=BOLD)
-        r_hdr  = Text('Applications extrêmes', font_size=28, color='#ff6b9d', weight=BOLD)
+        l_hdr  = Text('Stellar‑mass Black Hole', font_size=28, color=BLUE, weight=BOLD)
+        r_hdr  = Text('Supermassive Black Hole', font_size=28, color='#ff6b9d', weight=BOLD)
         l_hdr.move_to(left_bg.get_top() + DOWN * 0.42)
         r_hdr.move_to(right_bg.get_top() + DOWN * 0.42)
         l_line = Line(left_bg.get_left()+RIGHT*0.3, left_bg.get_right()+LEFT*0.3,
@@ -48,9 +48,9 @@ class ImagioScene(VoiceoverScene):
         )
         self.wait(0.25)
 
-        left_list       = ['GPS – corrections relativistes pour la localisation', "Satellites de communication – maintien d'orbite stable"]
-        right_list      = ['Missions vers les trous noirs – navigation gravitationnelle', "Détecteurs d'ondes gravitationnelles – test de la relativité"]
-        narrations_data = ["Le GPS doit ajuster son horloge grâce à la dilatation du temps, alors que les sondes vers les trous noirs utilisent la courbure de l'espace‑temps pour tracer leur trajectoire.", "Les satellites de communication restent en orbite grâce à l'équilibre gravité‑centrifuge, tandis que les détecteurs d'ondes gravitationnelles mesurent les minuscules déformations du champ gravitationnel lointain."]
+        left_list       = ['≈\u202f5–30\u202fM_⊙', 'Born in supernova collapse']
+        right_list      = ['≈\u202f10⁶–10¹⁰\u202fM_⊙', 'Grow by accretion and mergers']
+        narrations_data = ['Stellar black holes weigh a few suns, while supermassive giants contain millions to billions of solar masses.', 'The small ones are born in supernovae, whereas the giants grow over eons by feeding on gas and merging.']
         max_rows = max(len(left_list), len(right_list))
 
         for idx in range(max_rows):
@@ -58,16 +58,16 @@ class ImagioScene(VoiceoverScene):
             narration = narrations_data[idx] if idx < len(narrations_data) else ''
             if idx < len(left_list):
                 wrapped  = '\n'.join(textwrap.wrap(left_list[idx], width=28))
-                l_bullet = Text('-', font_size=21, color=BLUE)
-                l_label  = Paragraph(wrapped, font_size=21, color=WHITE)
+                l_bullet = Text('-', font_size=24, color=BLUE)
+                l_label  = Paragraph(wrapped, font_size=24, color=WHITE)
                 l_item   = VGroup(l_bullet, l_label).arrange(RIGHT, buff=0.2, aligned_edge=UP)
                 l_item.next_to(l_line, DOWN, buff=0.3 + idx * 0.8)
                 l_item.align_to(left_bg, LEFT).shift(RIGHT * 0.3)
                 anims.append(FadeIn(l_item, shift=RIGHT * 0.18))
             if idx < len(right_list):
                 wrapped  = '\n'.join(textwrap.wrap(right_list[idx], width=28))
-                r_bullet = Text('-', font_size=21, color='#ff6b9d')
-                r_label  = Paragraph(wrapped, font_size=21, color=WHITE)
+                r_bullet = Text('-', font_size=24, color='#ff6b9d')
+                r_label  = Paragraph(wrapped, font_size=24, color=WHITE)
                 r_item   = VGroup(r_bullet, r_label).arrange(RIGHT, buff=0.2, aligned_edge=UP)
                 r_item.next_to(r_line, DOWN, buff=0.3 + idx * 0.8)
                 r_item.align_to(right_bg, LEFT).shift(RIGHT * 0.3)
