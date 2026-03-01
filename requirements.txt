@@ -1,0 +1,7 @@
+manim
+manim-voiceover
+kokoro-manim-voiceover
+openai
+numpy
+python-dotenv
+kokoro

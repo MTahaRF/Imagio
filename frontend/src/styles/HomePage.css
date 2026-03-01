@@ -1,0 +1,152 @@
+/* HomePage.css */
+
+.home-page {
+  background-color: #0a0a1a;
+  color: white;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 8rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  z-index: 0;
+}
+
+.stars::before,
+.stars::after {
+  content: "";
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 4s infinite;
+}
+
+.stars::before {
+  width: 2px;
+  height: 2px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.stars::after {
+  width: 1px;
+  height: 1px;
+  top: 60%;
+  left: 80%;
+  animation-delay: 2s;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.title {
+  font-size: 4rem;
+  margin: 0;
+  color: #4a90e2;
+  position: relative;
+  z-index: 1;
+}
+
+.slogan {
+  font-size: 1.5rem;
+  margin: 1rem 0 2rem;
+  color: #ccc;
+  position: relative;
+  z-index: 1;
+}
+
+.get-started-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.get-started-button:hover {
+  background-color: #3a7bc8;
+}
+
+.demo-section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.demo-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #4a90e2;
+}
+
+.demo-video-placeholder {
+  background-color: #1a1a2e;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 0 auto;
+  max-width: 800px;
+  color: #ccc;
+}
+
+.features-section {
+  padding: 4rem 2rem;
+  background-color: #0f0f23;
+}
+
+.features-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #4a90e2;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background-color: #1a1a2e;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  color: #4a90e2;
+  margin-bottom: 1rem;
+}
+
+.feature-card p {
+  color: #ccc;
+}

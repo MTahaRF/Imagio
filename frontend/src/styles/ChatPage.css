@@ -1,0 +1,101 @@
+/* ChatPage.css */
+
+.chat-page {
+  background-color: #0a0a1a;
+  color: white;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+.chat-header {
+  padding: 2rem;
+  border-bottom: 1px solid #4a90e2;
+  display: flex;
+  align-items: center;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #4a90e2;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 2rem;
+}
+
+.chat-header h1 {
+  margin: 0;
+  color: #4a90e2;
+}
+
+.chat-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.prompt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.prompt-form textarea {
+  background-color: #1a1a2e;
+  color: white;
+  border: 1px solid #4a90e2;
+  border-radius: 5px;
+  padding: 1rem;
+  font-size: 1rem;
+  min-height: 150px;
+  resize: vertical;
+}
+
+.prompt-form textarea:focus {
+  outline: none;
+  border-color: #6ba3ff;
+}
+
+.prompt-form button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.prompt-form button:hover {
+  background-color: #3a7bc8;
+}
+
+.prompt-form button:disabled {
+  background-color: #333;
+  cursor: not-allowed;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 2rem;
+  color: #4a90e2;
+}
+
+.video-result {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.video-result h3 {
+  color: #4a90e2;
+  margin-bottom: 1rem;
+}
+
+.generated-video {
+  width: 100%;
+  max-height: 500px;
+  border-radius: 10px;
+  background-color: #1a1a2e;
+}

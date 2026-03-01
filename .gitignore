@@ -1,0 +1,125 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+venv*/
+env*/
+.venv/
+
+# Pipenv
+Pipfile.lock
+
+# Poetry
+.poetry/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+pytest_cache/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# Flask stuff
+instance/
+.webassets-cache
+
+# Environment variables
+.env
+
+# dotenv
+.python-dotenv
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# JetBrains
+*.iml
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+tmp/
+tmp/**
+
+# Secrets and keys
+*.pem
+*.key
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Coverage & profiler
+.prof
+.profraw
+.profdata
+
+# Misc
+.cache/
+.cache/**
+
+# Ensure git keeps empty dirs if needed
+!.gitkeep
