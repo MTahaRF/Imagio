@@ -4,8 +4,9 @@ from ..languages import get_language
 
 
 class SceneDirector:
-    def __init__(self, client):
+    def __init__(self, client, docs_tool=None):
         self.client = client
+        self.docs_tool = docs_tool
 
     def direct_scene(
         self,
@@ -20,10 +21,23 @@ class SceneDirector:
             lang_instruction=lang_cfg["llm_instruction"]
         )
         schema_str  = json.dumps(schema, indent=2)
+
+        # ── Retrieve relevant Manim docs (pre-LLM step) ─────────
+        manim_docs_block = ""
+        if self.docs_tool is not None:
+            chunks = self.docs_tool.search(
+                query=f"{template_name} {concept}",
+                k=5,
+            )
+            if chunks:
+                manim_docs_block = self.docs_tool.format_results(chunks)
+
         user_prompt = (
             f"Template: {template_name}\n"
             f"Scene Concept: {concept}\n"
         )
+        if manim_docs_block:
+            user_prompt += manim_docs_block
         if previous_script:
             user_prompt += f"Previous scene narration (for continuity):\n{previous_script}\n"
         user_prompt += (
@@ -45,3 +59,4 @@ class SceneDirector:
         except json.JSONDecodeError:
             print(f"  ⚠️  SceneDirector returned invalid JSON for '{concept}'")
             return {"script": concept, "template_data": {}}
+

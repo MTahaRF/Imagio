@@ -60,6 +60,10 @@ Rules for template_data:
 - LaTeX fields: valid LaTeX, double-escape backslashes (\\\\frac, \\\\sin).
 - Code templates: write real, syntactically correct code.
 - Keep on-screen text concise to fit the frame.
+- When filling template_data for templates that require raw Manim API calls
+  (blank, code_walkthrough), prefer the Manim API reference snippets provided
+  in the user message over your general knowledge. Cite the qualified class
+  name exactly as shown.
 
 Rules for script:
 - One continuous narration paragraph for the full scene.

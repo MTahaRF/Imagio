@@ -9,3 +9,4 @@ fastapi
 pydantic
 litellm
 mistralai
+sentence-transformers
