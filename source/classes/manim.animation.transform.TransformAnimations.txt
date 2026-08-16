@@ -1,0 +1,59 @@
+# manim.animation.transform.TransformAnimations
+
+## Signature
+class TransformAnimations ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+interpolate 
+ Set the animation progress.
+
+## Description
+TransformAnimations ¶ 
+ Qualified name: manim.animation.transform.TransformAnimations 
+
+ class TransformAnimations ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ Methods 
+
+ interpolate 
+ Set the animation progress. 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+
+ start_anim ( Animation ) 
+ end_anim ( Animation ) 
+ rate_func ( Callable ) 
+
+ _original__init__ ( start_anim , end_anim , rate_func = <function squish_rate_func.<locals>.result> , **kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ start_anim ( Animation ) 
+ end_anim ( Animation ) 
+ rate_func ( Callable ) 
+
+ Return type : 
+ None 
+
+ interpolate ( alpha ) [source] ¶ 
+ Set the animation progress. 
+ This method gets called for every frame during an animation. 
+
+ Parameters : 
+ alpha ( float ) – The relative time to set the animation to, 0 meaning the start, 1 meaning
+the end. 
+
+ Return type : 
+ None
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.TransformAnimations.html

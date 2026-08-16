@@ -1,0 +1,141 @@
+# manim.animation.rotation.Rotating
+
+## Signature
+class Rotating ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+mobject ( Mobject ) – The mobject to be rotated. 
+ angle ( float ) – The rotation angle in radians. Predefined constants such as DEGREES 
+can also be used to specify the angle in degrees. 
+ axis ( Vector3DLike ) – The rotation axis as a numpy vector. 
+ about_point ( Point3DLike | None ) – The rotati
+
+## Description
+Rotating ¶ 
+ Qualified name: manim.animation.rotation.Rotating 
+
+ class Rotating ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Animation 
+ Animation that rotates a Mobject. 
+
+ Parameters : 
+
+ mobject ( Mobject ) – The mobject to be rotated. 
+ angle ( float ) – The rotation angle in radians. Predefined constants such as DEGREES 
+can also be used to specify the angle in degrees. 
+ axis ( Vector3DLike ) – The rotation axis as a numpy vector. 
+ about_point ( Point3DLike | None ) – The rotation center. 
+ about_edge ( Vector3DLike | None ) – If about_point is None , this argument specifies
+the direction of the bounding box point to be taken as
+the rotation center. 
+ run_time ( float ) – The duration of the animation in seconds. 
+ rate_func ( Callable [ [ float ] , float ] ) – The function defining the animation progress based on the relative
+runtime (see rate_functions ) . 
+ **kwargs ( Any ) – Additional keyword arguments passed to Animation . 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for RotatingDemo . 
+
+```
+ class RotatingDemo ( Scene ): 
+ def construct ( self ): 
+ circle = Circle ( radius = 1 , color = BLUE ) 
+ line = Line ( start = ORIGIN , end = RIGHT ) 
+ arrow = Arrow ( start = ORIGIN , end = RIGHT , buff = 0 , color = GOLD ) 
+ vg = VGroup ( circle , line , arrow ) 
+ self . add ( vg ) 
+ anim_kw = { "about_point" : arrow . get_start (), "run_time" : 1 } 
+ self . play ( Rotating ( arrow , 180 * DEGREES , ** anim_kw )) 
+ self . play ( Rotating ( arrow , PI , ** anim_kw )) 
+ self . play ( Rotating ( vg , PI , about_point = RIGHT )) 
+ self . play ( Rotating ( vg , PI , axis = UP , about_point = ORIGIN )) 
+ self . play ( Rotating ( vg , PI , axis = RIGHT , about_edge = UP )) 
+ self . play ( vg . animate . move_to ( ORIGIN )) 
+
+```
+
+```
+
+class RotatingDemo(Scene):
+ def construct(self):
+ circle = Circle(radius=1, color=BLUE)
+ line = Line(start=ORIGIN, end=RIGHT)
+ arrow = Arrow(start=ORIGIN, end=RIGHT, buff=0, color=GOLD)
+ vg 
+
+## Examples
+
+### Example 1
+```python
+class RotatingDemo ( Scene ): 
+ def construct ( self ): 
+ circle = Circle ( radius = 1 , color = BLUE ) 
+ line = Line ( start = ORIGIN , end = RIGHT ) 
+ arrow = Arrow ( start = ORIGIN , end = RIGHT , buff = 0 , color = GOLD ) 
+ vg = VGroup ( circle , line , arrow ) 
+ self . add ( vg ) 
+ anim_kw = { "about_point" : arrow . get_start (), "run_time" : 1 } 
+ self . play ( Rotating ( arrow , 180 * DEGREES , ** anim_kw )) 
+ self . play ( Rotating ( arrow , PI , ** anim_kw )) 
+ self . play ( Rotating ( vg , PI , about_point = RIGHT )) 
+ self . play ( Rotating ( vg , PI , axis = UP , about_point = ORIGIN )) 
+ self . play ( Rotating ( vg , PI , axis = RIGHT , about_edge = UP )) 
+ self . play ( vg . animate . move_to ( ORIGIN ))
+```
+
+### Example 2
+```python
+class RotatingDemo(Scene):
+ def construct(self):
+ circle = Circle(radius=1, color=BLUE)
+ line = Line(start=ORIGIN, end=RIGHT)
+ arrow = Arrow(start=ORIGIN, end=RIGHT, buff=0, color=GOLD)
+ vg = VGroup(circle,line,arrow)
+ self.add(vg)
+ anim_kw = {"about_point": arrow.get_start(), "run_time": 1}
+ self.play(Rotating(arrow, 180*DEGREES, **anim_kw))
+ self.play(Rotating(arrow, PI, **anim_kw))
+ self.play(Rotating(vg, PI, about_point=RIGHT))
+ self.play(Rotating(vg, PI, axis=UP, about_point=ORIGIN))
+ self.play(Rotating(vg, PI, axis=RIGHT, about_edge=UP))
+ self.play(vg.animate.move_to(ORIGIN))
+```
+
+### Example 3
+```python
+class RotatingDifferentAxis ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ cube = Cube () 
+ arrow2d = Arrow ( start = [ 0 , - 1.2 , 1 ], end = [ 0 , 1.2 , 1 ], color = YELLOW_E ) 
+ cube_group = VGroup ( cube , arrow2d ) 
+ self . set_camera_orientation ( gamma = 0 , phi = 40 * DEGREES , theta = 40 * DEGREES ) 
+ self . add ( axes , cube_group ) 
+ play_kw = { "run_time" : 1.5 } 
+ self . play ( Rotating ( cube_group , PI ), ** play_kw ) 
+ self . play ( Rotating ( cube_group , PI , axis = UP ), ** play_kw ) 
+ self . play ( Rotating ( cube_group , 180 * DEGREES , axis = RIGHT ), ** play_kw ) 
+ self . wait ( 0.5 )
+```
+
+### Example 4
+```python
+class RotatingDifferentAxis(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ cube = Cube()
+ arrow2d = Arrow(start=[0, -1.2, 1], end=[0, 1.2, 1], color=YELLOW_E)
+ cube_group = VGroup(cube,arrow2d)
+ self.set_camera_orientation(gamma=0, phi=40*DEGREES, theta=40*DEGREES)
+ self.add(axes, cube_group)
+ play_kw = {"run_time": 1.5}
+ self.play(Rotating(cube_group, PI), **play_kw)
+ self.play(Rotating(cube_group, PI, axis=UP), **play_kw)
+ self.play(Rotating(cube_group, 180*DEGREES, axis=RIGHT), **play_kw)
+ self.wait(0.5)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.rotation.Rotating.html

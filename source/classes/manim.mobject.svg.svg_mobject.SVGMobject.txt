@@ -1,0 +1,46 @@
+# manim.mobject.svg.svg_mobject.SVGMobject
+
+## Signature
+class SVGMobject ( file_name = None , should_center = True , height = 2 , width = None , color = None , opacity = None , fill_color = None , fill_opacity = None , stroke_color = None , stroke_opacity = None , stroke_width = None , svg_default = None , path_string_config = None , use_svg_cache = True , ** kwargs )
+
+## Summary
+class SVGMobject ( file_name = None , should_center = True , height = 2 , width = None , color = None , opacity = None , fill_color = None , fill_opacity = None , stroke_color = None , stroke_opacity = None , stroke_width = None , svg_default = None , path_string_config = None , use_svg_cache = True
+
+## Description
+SVGMobject ¶ 
+ Qualified name: manim.mobject.svg.svg\_mobject.SVGMobject 
+
+ class SVGMobject ( file_name = None , should_center = True , height = 2 , width = None , color = None , opacity = None , fill_color = None , fill_opacity = None , stroke_color = None , stroke_opacity = None , stroke_width = None , svg_default = None , path_string_config = None , use_svg_cache = True , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ A vectorized mobject created from importing an SVG file. 
+
+ Parameters : 
+
+ file_name ( str | os.PathLike | None ) – The path to the SVG file. 
+ should_center ( bool ) – Whether or not the mobject should be centered after
+being imported. 
+ height ( float | None ) – The target height of the mobject, set to 2 Manim units by default.
+If the height and width are both set to None , the mobject
+is imported without being scaled. 
+ width ( float | None ) – The target width of the mobject, set to None by default. If
+the height and the width are both set to None , the mobject
+is imported without being scaled. 
+ color ( ManimColor ) – The color (both fill and stroke color) of the mobject. If
+ None (the default), the colors set in the SVG file
+are used. 
+ opacity ( float | None ) – The opacity (both fill and stroke opacity) of the mobject.
+If None (the default), the opacity set in the SVG file
+is used. 
+ fill_color ( ParsableManimColor | None ) – The fill color of the mobject. If None (the default),
+the fill colors set in the SVG file are used. 
+ fill_opacity ( float | None ) – The fill opacity of the mobject. If None (the default),
+the fill opacities set in the SVG file are used. 
+ stroke_color ( ParsableManimColor | None ) – The stroke color of the mobject. If None (the default),
+the stroke colors set in the SVG file are used. 
+ stroke_opacity ( float | None ) – The stroke opacity of the mobject. If None (the default),
+the stroke opacities set in the SVG file are used. 
+ stroke_width ( float | None ) – The stroke width of the mobject. If None (the default),
+the 
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.svg.svg_mobject.SVGMobject.html

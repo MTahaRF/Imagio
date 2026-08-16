@@ -1,0 +1,86 @@
+# manim.scene.vector_space_scene.LinearTransformationScene
+
+## Signature
+class LinearTransformationScene ( include_background_plane = True , include_foreground_plane = True , background_plane_kwargs = None , foreground_plane_kwargs = None , show_coordinates = False , show_basis_vectors = True , basis_vector_stroke_width = 6 , i_hat_color = ManimColor('#83C167')
+
+## Summary
+class LinearTransformationScene ( include_background_plane = True , include_foreground_plane = True , background_plane_kwargs = None , foreground_plane_kwargs = None , show_coordinates = False , show_basis_vectors = True , basis_vector_stroke_width = 6 , i_hat_color = ManimColor('#83C167') , j_hat_c
+
+## Description
+LinearTransformationScene ¶ 
+ Qualified name: manim.scene.vector\_space\_scene.LinearTransformationScene 
+
+ class LinearTransformationScene ( include_background_plane = True , include_foreground_plane = True , background_plane_kwargs = None , foreground_plane_kwargs = None , show_coordinates = False , show_basis_vectors = True , basis_vector_stroke_width = 6 , i_hat_color = ManimColor('#83C167') , j_hat_color = ManimColor('#FC6255') , leave_ghost_vectors = False , ** kwargs ) [source] ¶ 
+ Bases: VectorScene 
+ This scene contains special methods that make it
+especially suitable for showing linear transformations. 
+
+ Parameters : 
+
+ include_background_plane ( bool ) – Whether or not to include the background plane in the scene. 
+ include_foreground_plane ( bool ) – Whether or not to include the foreground plane in the scene. 
+ background_plane_kwargs ( dict [ str , Any ] | None ) – Parameters to be passed to NumberPlane to adjust the background plane. 
+ foreground_plane_kwargs ( dict [ str , Any ] | None ) – Parameters to be passed to NumberPlane to adjust the foreground plane. 
+ show_coordinates ( bool ) – Whether or not to include the coordinates for the background plane. 
+ show_basis_vectors ( bool ) – Whether to show the basis x_axis -> i_hat and y_axis -> j_hat vectors. 
+ basis_vector_stroke_width ( float ) – The stroke_width of the basis vectors. 
+ i_hat_color ( ParsableManimColor ) – The color of the i_hat vector. 
+ j_hat_color ( ParsableManimColor ) – The color of the j_hat vector. 
+ leave_ghost_vectors ( bool ) – Indicates the previous position of the basis vectors following a transformation. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for LinearTransformationSceneExample . 
+
+```
+ class LinearTransformationSceneExample ( LinearTransformationScene ): 
+ def __init__ ( self , ** kwargs ): 
+ LinearTransformationScene . __init__ ( 
+ self , 
+ show_coordinates = True , 
+ leave_ghost_vectors = True , 
+ ** kwargs 
+ ) 
+
+ def construct ( self
+
+## Examples
+
+### Example 1
+```python
+class LinearTransformationSceneExample ( LinearTransformationScene ): 
+ def __init__ ( self , ** kwargs ): 
+ LinearTransformationScene . __init__ ( 
+ self , 
+ show_coordinates = True , 
+ leave_ghost_vectors = True , 
+ ** kwargs 
+ ) 
+
+ def construct ( self ): 
+ matrix = [[ 1 , 1 ], [ 0 , 1 ]] 
+ self . apply_matrix ( matrix ) 
+ self . wait ()
+```
+
+### Example 2
+```python
+class LinearTransformationSceneExample(LinearTransformationScene):
+ def __init__(self, **kwargs):
+ LinearTransformationScene.__init__(
+ self,
+ show_coordinates=True,
+ leave_ghost_vectors=True,
+ **kwargs
+ )
+
+ def construct(self):
+ matrix = [[1, 1], [0, 1]]
+ self.apply_matrix(matrix)
+ self.wait()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.scene.vector_space_scene.LinearTransformationScene.html

@@ -1,0 +1,97 @@
+# manim.mobject.text.numbers.DecimalNumber
+
+## Signature
+class DecimalNumber ( number = 0 , num_decimal_places = 2 , mob_class = <class 'manim.mobject.text.tex_mobject.MathTex'> , include_sign = False , group_with_commas = True , digit_buff_per_font_unit = 0.001 , show_ellipsis = False , unit = None , unit_buff_per_font_unit = 0 , include_background_rectangle = False , edge_to_fix = array([-1. , 0. , 0.])
+
+## Summary
+class DecimalNumber ( number = 0 , num_decimal_places = 2 , mob_class = <class 'manim.mobject.text.tex_mobject.MathTex'> , include_sign = False , group_with_commas = True , digit_buff_per_font_unit = 0.001 , show_ellipsis = False , unit = None , unit_buff_per_font_unit = 0 , include_background_recta
+
+## Description
+DecimalNumber ¶ 
+ Qualified name: manim.mobject.text.numbers.DecimalNumber 
+
+ class DecimalNumber ( number = 0 , num_decimal_places = 2 , mob_class = <class 'manim.mobject.text.tex_mobject.MathTex'> , include_sign = False , group_with_commas = True , digit_buff_per_font_unit = 0.001 , show_ellipsis = False , unit = None , unit_buff_per_font_unit = 0 , include_background_rectangle = False , edge_to_fix = array([-1. , 0. , 0.]) , font_size = 48 , stroke_width = 0 , fill_opacity = 1.0 , **kwargs ) [source] ¶ 
+ Bases: VMobject 
+ An mobject representing a decimal number. 
+
+ Parameters : 
+
+ number ( float ) – The numeric value to be displayed. It can later be modified using set_value() . 
+ num_decimal_places ( int ) – The number of decimal places after the decimal separator. Values are automatically rounded. 
+ mob_class ( type [ SingleStringMathTex ] ) – The class for rendering digits and units, by default MathTex . 
+ include_sign ( bool ) – Set to True to include a sign for positive numbers and zero. 
+ group_with_commas ( bool ) – When True thousands groups are separated by commas for readability. 
+ digit_buff_per_font_unit ( float ) – Additional spacing between digits. Scales with font size. 
+ show_ellipsis ( bool ) – When a number has been truncated by rounding, indicate with an ellipsis ( ... ). 
+ unit ( str | None ) – A unit string which can be placed to the right of the numerical values. 
+ unit_buff_per_font_unit ( float ) – An additional spacing between the numerical values and the unit. A value
+of unit_buff_per_font_unit=0.003 gives a decent spacing. Scales with font size. 
+ include_background_rectangle ( bool ) – Adds a background rectangle to increase contrast on busy scenes. 
+ edge_to_fix ( Vector3DLike ) – Assuring right- or left-alignment of the full object. 
+ font_size ( float ) – Size of the font. 
+ stroke_width ( float ) 
+ fill_opacity ( float ) 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for MovingSquareWithUpdaters . 
+
+```
+ cl
+
+## Examples
+
+### Example 1
+```python
+class MovingSquareWithUpdaters ( Scene ): 
+ def construct ( self ): 
+ decimal = DecimalNumber ( 
+ 0 , 
+ show_ellipsis = True , 
+ num_decimal_places = 3 , 
+ include_sign = True , 
+ unit = r "\text{M-Units}" , 
+ unit_buff_per_font_unit = 0.003 
+ ) 
+ square = Square () . to_edge ( UP ) 
+
+ decimal . add_updater ( lambda d : d . next_to ( square , RIGHT )) 
+ decimal . add_updater ( lambda d : d . set_value ( square . get_center ()[ 1 ])) 
+ self . add ( square , decimal ) 
+ self . play ( 
+ square . animate . to_edge ( DOWN ), 
+ rate_func = there_and_back , 
+ run_time = 5 , 
+ ) 
+ self . wait ()
+```
+
+### Example 2
+```python
+class MovingSquareWithUpdaters(Scene):
+ def construct(self):
+ decimal = DecimalNumber(
+ 0,
+ show_ellipsis=True,
+ num_decimal_places=3,
+ include_sign=True,
+ unit=r"\text{M-Units}",
+ unit_buff_per_font_unit=0.003
+ )
+ square = Square().to_edge(UP)
+
+ decimal.add_updater(lambda d: d.next_to(square, RIGHT))
+ decimal.add_updater(lambda d: d.set_value(square.get_center()[1]))
+ self.add(square, decimal)
+ self.play(
+ square.animate.to_edge(DOWN),
+ rate_func=there_and_back,
+ run_time=5,
+ )
+ self.wait()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.text.numbers.DecimalNumber.html

@@ -1,0 +1,78 @@
+# manim.mobject.geometry.arc.AnnotationDot
+
+## Signature
+class AnnotationDot ( radius = 0.10400000000000001 , stroke_width = 5 , stroke_color = ManimColor('#FFFFFF')
+
+## Summary
+class AnnotationDot ( radius = 0.10400000000000001 , stroke_width = 5 , stroke_color = ManimColor('#FFFFFF') , fill_color = ManimColor('#58C4DD') , ** kwargs ) [source] ¶ 
+ Bases: Dot 
+ A dot with bigger radius and bold stroke to annotate scenes. 
+ Methods
+
+## Description
+AnnotationDot ¶ 
+ Qualified name: manim.mobject.geometry.arc.AnnotationDot 
+
+ class AnnotationDot ( radius = 0.10400000000000001 , stroke_width = 5 , stroke_color = ManimColor('#FFFFFF') , fill_color = ManimColor('#58C4DD') , ** kwargs ) [source] ¶ 
+ Bases: Dot 
+ A dot with bigger radius and bold stroke to annotate scenes. 
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+
+ radius ( float ) 
+ stroke_width ( float ) 
+ stroke_color ( ParsableManimColor ) 
+ fill_color ( ParsableManimColor ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( radius = 0.10400000000000001 , stroke_width = 5 , stroke_color = ManimColor('#FFFFFF') , fill_color = ManimColor('#58C4DD') , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ radius ( float ) 
+ stroke_width ( float ) 
+ stroke_color ( ParsableManimColor ) 
+ fill_color ( ParsableManimColor ) 
+ kwargs ( Any ) 
+
+ Return type : 
+ None
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.arc.AnnotationDot.html

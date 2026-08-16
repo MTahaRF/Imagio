@@ -1,0 +1,180 @@
+# manim.mobject.text.code_mobject.Code
+
+## Signature
+class Code ( code_file = None , code_string = None , language = None , formatter_style = 'vim' , tab_width = 4 , add_line_numbers = True , line_numbers_from = 1 , background = 'rectangle' , background_config = None , paragraph_config = None )
+
+## Summary
+class Code ( code_file = None , code_string = None , language = None , formatter_style = 'vim' , tab_width = 4 , add_line_numbers = True , line_numbers_from = 1 , background = 'rectangle' , background_config = None , paragraph_config = None ) [source] ¶ 
+ Bases: VMobject 
+ A highlighted source code 
+
+## Description
+Code ¶ 
+ Qualified name: manim.mobject.text.code\_mobject.Code 
+
+ class Code ( code_file = None , code_string = None , language = None , formatter_style = 'vim' , tab_width = 4 , add_line_numbers = True , line_numbers_from = 1 , background = 'rectangle' , background_config = None , paragraph_config = None ) [source] ¶ 
+ Bases: VMobject 
+ A highlighted source code listing. 
+ Examples 
+ Normal usage: 
+
+```
+ listing = Code ( 
+ "helloworldcpp.cpp" , 
+ tab_width = 4 , 
+ formatter_style = "emacs" , 
+ background = "window" , 
+ language = "cpp" , 
+ background_config = { "stroke_color" : WHITE }, 
+ paragraph_config = { "font" : "Noto Sans Mono" }, 
+ ) 
+
+```
+
+ We can also render code passed as a string. As the automatic language
+detection can be a bit flaky, it is recommended to specify the language
+explicitly: 
+
+ Example Placeholder 
+ Placeholder block for CodeFromString . 
+
+```
+ class CodeFromString ( Scene ): 
+ def construct ( self ): 
+ code = '''from manim import Scene, Square 
+
+ class FadeInSquare(Scene): 
+ def construct(self): 
+ s = Square() 
+ self.play(FadeIn(s)) 
+ self.play(s.animate.scale(2)) 
+ self.wait()''' 
+
+ rendered_code = Code ( 
+ code_string = code , 
+ language = "python" , 
+ background = "window" , 
+ background_config = { "stroke_color" : "maroon" }, 
+ ) 
+ self . add ( rendered_code ) 
+
+```
+
+```
+
+class CodeFromString(Scene):
+ def construct(self):
+ code = '''from manim import Scene, Square
+
+class FadeInSquare(Scene):
+ def construct(self):
+ s = Square()
+ self.play(FadeIn(s))
+ self.play(s.animate.scale(2))
+ self.wait()'''
+
+ rendered_code = Code(
+ code_string=code,
+ language="python",
+ background="window",
+ background_config={"stroke_color": "maroon"},
+ )
+ self.add(rendered_code)
+
+```
+
+ Parameters : 
+
+ code_file ( StrPath | None ) – The path to the code file to display. 
+ code_string ( str | None ) – Alternatively, the code string to display. 
+ language ( str | None ) – The programming language of the code. If not specified, it will be
+guessed from the file exten
+
+## Examples
+
+### Example 1
+```python
+listing = Code ( 
+ "helloworldcpp.cpp" , 
+ tab_width = 4 , 
+ formatter_style = "emacs" , 
+ background = "window" , 
+ language = "cpp" , 
+ background_config = { "stroke_color" : WHITE }, 
+ paragraph_config = { "font" : "Noto Sans Mono" }, 
+ )
+```
+
+### Example 2
+```python
+class CodeFromString ( Scene ): 
+ def construct ( self ): 
+ code = '''from manim import Scene, Square 
+
+ class FadeInSquare(Scene): 
+ def construct(self): 
+ s = Square() 
+ self.play(FadeIn(s)) 
+ self.play(s.animate.scale(2)) 
+ self.wait()''' 
+
+ rendered_code = Code ( 
+ code_string = code , 
+ language = "python" , 
+ background = "window" , 
+ background_config = { "stroke_color" : "maroon" }, 
+ ) 
+ self . add ( rendered_code )
+```
+
+### Example 3
+```python
+class CodeFromString(Scene):
+ def construct(self):
+ code = '''from manim import Scene, Square
+
+class FadeInSquare(Scene):
+ def construct(self):
+ s = Square()
+ self.play(FadeIn(s))
+ self.play(s.animate.scale(2))
+ self.wait()'''
+
+ rendered_code = Code(
+ code_string=code,
+ language="python",
+ background="window",
+ background_config={"stroke_color": "maroon"},
+ )
+ self.add(rendered_code)
+```
+
+### Example 4
+```python
+from manim import * 
+ from pygments.token import Comment 
+
+ BaseStyle = Code . get_pygments_style ( "vim" ) 
+
+ class CustomStyle ( BaseStyle ): 
+ background_color = "#1e1e1e" 
+ line_number_color = "#858585" 
+ styles = { 
+ ** BaseStyle . styles , 
+ Comment : "italic #6a9955" , 
+ } 
+
+ class Example ( Scene ): 
+ def construct ( self ): 
+ rendered_code = Code ( 
+ code_string = "print('Hello, world!') # greeting" , 
+ language = "python" , 
+ formatter_style = CustomStyle , 
+ ) 
+
+ self . add ( rendered_code ) 
+ self . wait ( 2 )
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.text.code_mobject.Code.html

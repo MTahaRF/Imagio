@@ -1,0 +1,118 @@
+# manim.mobject.geometry.arc.Annulus
+
+## Signature
+class Annulus ( inner_radius = 1 , outer_radius = 2 , fill_opacity = 1 , stroke_width = 0 , color = ManimColor('#FFFFFF')
+
+## Summary
+class Annulus ( inner_radius = 1 , outer_radius = 2 , fill_opacity = 1 , stroke_width = 0 , color = ManimColor('#FFFFFF') , mark_paths_closed = False , ** kwargs ) [source] ¶ 
+ Bases: Circle 
+ Region between two concentric Circles .
+
+## Description
+Annulus ¶ 
+ Qualified name: manim.mobject.geometry.arc.Annulus 
+
+ class Annulus ( inner_radius = 1 , outer_radius = 2 , fill_opacity = 1 , stroke_width = 0 , color = ManimColor('#FFFFFF') , mark_paths_closed = False , ** kwargs ) [source] ¶ 
+ Bases: Circle 
+ Region between two concentric Circles . 
+
+ Parameters : 
+
+ inner_radius ( float ) – The radius of the inner Circle . 
+ outer_radius ( float ) – The radius of the outer Circle . 
+ kwargs ( Any ) – Additional arguments to be passed to Annulus 
+ fill_opacity ( float ) 
+ stroke_width ( float ) 
+ color ( ParsableManimColor ) 
+ mark_paths_closed ( bool ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for AnnulusExample . 
+
+```
+ class AnnulusExample ( Scene ): 
+ def construct ( self ): 
+ annulus_1 = Annulus ( inner_radius = 0.5 , outer_radius = 1 ) . shift ( UP ) 
+ annulus_2 = Annulus ( inner_radius = 0.3 , outer_radius = 0.6 , color = RED ) . next_to ( annulus_1 , DOWN ) 
+ self . add ( annulus_1 , annulus_2 ) 
+
+```
+
+```
+
+class AnnulusExample(Scene):
+ def construct(self):
+ annulus_1 = Annulus(inner_radius=0.5, outer_radius=1).shift(UP)
+ annulus_2 = Annulus(inner_radius=0.3, outer_radius=0.6, color=RED).next_to(annulus_1, DOWN)
+ self.add(annulus_1, annulus_2)
+
+```
+
+ Methods 
+
+ generate_points 
+ Initializes points and therefore the shape. 
+
+ init_points 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( inner_radius = 1 , outer_radius = 2 , fill_opacity = 1 , stroke_width = 0 , color = ManimColor('#FFFFFF') , mark_paths_closed = False , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate 
+
+## Examples
+
+### Example 1
+```python
+class AnnulusExample ( Scene ): 
+ def construct ( self ): 
+ annulus_1 = Annulus ( inner_radius = 0.5 , outer_radius = 1 ) . shift ( UP ) 
+ annulus_2 = Annulus ( inner_radius = 0.3 , outer_radius = 0.6 , color = RED ) . next_to ( annulus_1 , DOWN ) 
+ self . add ( annulus_1 , annulus_2 )
+```
+
+### Example 2
+```python
+class AnnulusExample(Scene):
+ def construct(self):
+ annulus_1 = Annulus(inner_radius=0.5, outer_radius=1).shift(UP)
+ annulus_2 = Annulus(inner_radius=0.3, outer_radius=0.6, color=RED).next_to(annulus_1, DOWN)
+ self.add(annulus_1, annulus_2)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.arc.Annulus.html

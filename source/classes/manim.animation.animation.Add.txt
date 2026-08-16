@@ -1,0 +1,186 @@
+# manim.animation.animation.Add
+
+## Signature
+class Add ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+class Add ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Animation 
+ Add Mobjects to a scene, without animating them in any other way. This
+is similar to the Scene.add() method, but Add is an
+animation which can be grouped into other animations.
+
+## Description
+Add ¶ 
+ Qualified name: manim.animation.animation.Add 
+
+ class Add ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Animation 
+ Add Mobjects to a scene, without animating them in any other way. This
+is similar to the Scene.add() method, but Add is an
+animation which can be grouped into other animations. 
+
+ Parameters : 
+
+ mobjects ( Mobject ) – One Mobject or more to add to a scene. 
+ run_time ( float ) – The duration of the animation after adding the mobjects . Defaults
+to 0, which means this is an instant animation without extra wait time
+after adding them. 
+ **kwargs ( Any ) – Additional arguments to pass to the parent Animation class. 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for DefaultAddScene . 
+
+```
+ class DefaultAddScene ( Scene ): 
+ def construct ( self ): 
+ text_1 = Text ( "I was added with Add!" ) 
+ text_2 = Text ( "Me too!" ) 
+ text_3 = Text ( "And me!" ) 
+ texts = VGroup ( text_1 , text_2 , text_3 ) . arrange ( DOWN ) 
+ rect = SurroundingRectangle ( texts , buff = 0.5 ) 
+
+ self . play ( 
+ Create ( rect , run_time = 3.0 ), 
+ Succession ( 
+ Wait ( 1.0 ), 
+ # You can Add a Mobject in the middle of an animation... 
+ Add ( text_1 ), 
+ Wait ( 1.0 ), 
+ # ...or multiple Mobjects at once! 
+ Add ( text_2 , text_3 ), 
+ ), 
+ ) 
+ self . wait () 
+
+```
+
+```
+
+class DefaultAddScene(Scene):
+ def construct(self):
+ text_1 = Text("I was added with Add!")
+ text_2 = Text("Me too!")
+ text_3 = Text("And me!")
+ texts = VGroup(text_1, text_2, text_3).arrange(DOWN)
+ rect = SurroundingRectangle(texts, buff=0.5)
+
+ self.play(
+ Create(rect, run_time=3.0),
+ Succession(
+ Wait(1.0),
+ # You can Add a Mobject in the middle of an animation...
+ Add(text_1),
+ Wait(1.0),
+ # ...or multiple Mobjects at once!
+ Add(text_2, text_3),
+ ),
+ )
+ self.wait()
+
+```
+
+ Example Placeholder 
+ Placeholder block for AddWithRunTimeScene . 
+
+```
+ class AddWithRunTimeScene ( Scene ): 
+ def construct ( self ): 
+ # A 5x5 grid of circles 
+ circles = VGroup ( 
+ * [ Circle 
+
+## Examples
+
+### Example 1
+```python
+class DefaultAddScene ( Scene ): 
+ def construct ( self ): 
+ text_1 = Text ( "I was added with Add!" ) 
+ text_2 = Text ( "Me too!" ) 
+ text_3 = Text ( "And me!" ) 
+ texts = VGroup ( text_1 , text_2 , text_3 ) . arrange ( DOWN ) 
+ rect = SurroundingRectangle ( texts , buff = 0.5 ) 
+
+ self . play ( 
+ Create ( rect , run_time = 3.0 ), 
+ Succession ( 
+ Wait ( 1.0 ), 
+ # You can Add a Mobject in the middle of an animation... 
+ Add ( text_1 ), 
+ Wait ( 1.0 ), 
+ # ...or multiple Mobjects at once! 
+ Add ( text_2 , text_3 ), 
+ ), 
+ ) 
+ self . wait ()
+```
+
+### Example 2
+```python
+class DefaultAddScene(Scene):
+ def construct(self):
+ text_1 = Text("I was added with Add!")
+ text_2 = Text("Me too!")
+ text_3 = Text("And me!")
+ texts = VGroup(text_1, text_2, text_3).arrange(DOWN)
+ rect = SurroundingRectangle(texts, buff=0.5)
+
+ self.play(
+ Create(rect, run_time=3.0),
+ Succession(
+ Wait(1.0),
+ # You can Add a Mobject in the middle of an animation...
+ Add(text_1),
+ Wait(1.0),
+ # ...or multiple Mobjects at once!
+ Add(text_2, text_3),
+ ),
+ )
+ self.wait()
+```
+
+### Example 3
+```python
+class AddWithRunTimeScene ( Scene ): 
+ def construct ( self ): 
+ # A 5x5 grid of circles 
+ circles = VGroup ( 
+ * [ Circle ( radius = 0.5 ) for _ in range ( 25 )] 
+ ) . arrange_in_grid ( 5 , 5 ) 
+
+ self . play ( 
+ Succession ( 
+ # Add a run_time of 0.2 to wait for 0.2 seconds after 
+ # adding the circle, instead of using Wait(0.2) after Add! 
+ * [ Add ( circle , run_time = 0.2 ) for circle in circles ], 
+ rate_func = smooth , 
+ ) 
+ ) 
+ self . wait ()
+```
+
+### Example 4
+```python
+class AddWithRunTimeScene(Scene):
+ def construct(self):
+ # A 5x5 grid of circles
+ circles = VGroup(
+ *[Circle(radius=0.5) for _ in range(25)]
+ ).arrange_in_grid(5, 5)
+
+ self.play(
+ Succession(
+ # Add a run_time of 0.2 to wait for 0.2 seconds after
+ # adding the circle, instead of using Wait(0.2) after Add!
+ *[Add(circle, run_time=0.2) for circle in circles],
+ rate_func=smooth,
+ )
+ )
+ self.wait()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.animation.Add.html

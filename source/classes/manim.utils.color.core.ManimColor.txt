@@ -1,0 +1,80 @@
+# manim.utils.color.core.ManimColor
+
+## Signature
+class ManimColor ( value , alpha = 1.0 )
+
+## Summary
+class ManimColor ( value , alpha = 1.0 ) [source] ¶ 
+ Bases: object 
+ Internal representation of a color. 
+ The ManimColor class is the main class for the representation of a color.
+Its internal representation is an array of 4 floats corresponding to a [r,g,b,a] 
+value where r,g,b,a can be between 0
+
+## Description
+ManimColor ¶ 
+ Qualified name: manim.utils.color.core.ManimColor 
+
+ class ManimColor ( value , alpha = 1.0 ) [source] ¶ 
+ Bases: object 
+ Internal representation of a color. 
+ The ManimColor class is the main class for the representation of a color.
+Its internal representation is an array of 4 floats corresponding to a [r,g,b,a] 
+value where r,g,b,a can be between 0.0 and 1.0. 
+ This is done in order to reduce the amount of color inconsistencies by constantly
+casting between integers and floats which introduces errors. 
+ The class can accept any value of type ParsableManimColor i.e. 
+ ManimColor, int, str, RGB_Tuple_Int, RGB_Tuple_Float, RGBA_Tuple_Int, RGBA_Tuple_Float, RGB_Array_Int, 
+ RGB_Array_Float, RGBA_Array_Int, RGBA_Array_Float 
+ ManimColor itself only accepts singular values and will directly interpret
+them into a single color if possible. Be careful when passing strings to
+ ManimColor : it can create a big overhead for the color processing. 
+ If you want to parse a list of colors, use the parse() method, which assumes
+that you’re going to pass a list of colors so that arrays will not be interpreted as
+a single color. 
+
+ Warning 
+ If you pass an array of numbers to parse() , it will interpret the
+ r,g,b,a numbers in that array as colors: Instead of the expected
+singular color, you will get an array with 4 colors. 
+
+ For conversion behaviors, see the _internal functions for further documentation. 
+ You can create a ManimColor instance via its classmethods. See the
+respective methods for more info. 
+
+```
+ mycolor = ManimColor . from_rgb (( 0 , 1 , 0.4 , 0.5 )) 
+ myothercolor = ManimColor . from_rgb (( 153 , 255 , 255 )) 
+
+```
+
+ You can also convert between different color spaces: 
+
+```
+ mycolor_hex = mycolor . to_hex () 
+ myoriginalcolor = ManimColor . from_hex ( mycolor_hex ) . to_hsv () 
+
+```
+
+ Parameters : 
+
+ value ( ParsableManimColor | None ) – Some representation of a color (e.g., a string or
+a suitable tuple). The default None is BLACK . 
+ alpha ( flo
+
+## Examples
+
+### Example 1
+```python
+mycolor = ManimColor . from_rgb (( 0 , 1 , 0.4 , 0.5 )) 
+ myothercolor = ManimColor . from_rgb (( 153 , 255 , 255 ))
+```
+
+### Example 2
+```python
+mycolor_hex = mycolor . to_hex () 
+ myoriginalcolor = ManimColor . from_hex ( mycolor_hex ) . to_hsv ()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.utils.color.core.ManimColor.html

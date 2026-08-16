@@ -1,0 +1,163 @@
+# manim.mobject.types.image_mobject.ImageMobject
+
+## Signature
+class ImageMobject ( filename_or_array , scale_to_resolution = 1080 , invert = False , image_mode = 'RGBA' , ** kwargs )
+
+## Summary
+class ImageMobject ( filename_or_array , scale_to_resolution = 1080 , invert = False , image_mode = 'RGBA' , ** kwargs ) [source] ¶ 
+ Bases: AbstractImageMobject 
+ Displays an Image from a numpy array or a file.
+
+## Description
+ImageMobject ¶ 
+ Qualified name: manim.mobject.types.image\_mobject.ImageMobject 
+
+ class ImageMobject ( filename_or_array , scale_to_resolution = 1080 , invert = False , image_mode = 'RGBA' , ** kwargs ) [source] ¶ 
+ Bases: AbstractImageMobject 
+ Displays an Image from a numpy array or a file. 
+
+ Parameters : 
+
+ scale_to_resolution ( int ) – At this resolution the image is placed pixel by pixel onto the screen, so it
+will look the sharpest and best.
+This is a custom parameter of ImageMobject so that rendering a scene with
+e.g. the --quality low or --quality medium flag for faster rendering
+won’t effect the position of the image on the screen. 
+ filename_or_array ( StrPath | npt.NDArray ) 
+ invert ( bool ) 
+ image_mode ( str ) 
+ kwargs ( Any ) 
+
+ Example 
+
+ Example Placeholder 
+ Placeholder block for ImageFromArray . 
+
+```
+ class ImageFromArray ( Scene ): 
+ def construct ( self ): 
+ image = ImageMobject ( np . uint8 ([[ 0 , 100 , 30 , 200 ], 
+ [ 255 , 0 , 5 , 33 ]])) 
+ image . height = 7 
+ self . add ( image ) 
+
+```
+
+```
+
+class ImageFromArray(Scene):
+ def construct(self):
+ image = ImageMobject(np.uint8([[0, 100, 30, 200],
+ [255, 0, 5, 33]]))
+ image.height = 7
+ self.add(image)
+
+```
+
+ Changing interpolation style: 
+
+ Example Placeholder 
+ Placeholder block for ImageInterpolationEx . 
+
+```
+ class ImageInterpolationEx ( Scene ): 
+ def construct ( self ): 
+ img = ImageMobject ( np . uint8 ([[ 63 , 0 , 0 , 0 ], 
+ [ 0 , 127 , 0 , 0 ], 
+ [ 0 , 0 , 191 , 0 ], 
+ [ 0 , 0 , 0 , 255 ] 
+ ])) 
+
+ img . height = 3 
+
+ group = Group () 
+ algorithm_texts = [ "nearest" , "linear" , "cubic" ] 
+ for algorithm_text in algorithm_texts : 
+ algorithm = RESAMPLING_ALGORITHMS [ algorithm_text ] 
+ img_copy = img . copy () . set_resampling_algorithm ( algorithm ) 
+ img_copy . add ( Text ( algorithm_text ) . scale ( 0.5 ) . next_to ( img_copy , UP )) 
+ group . add ( img_copy ) 
+
+ group . arrange () 
+ self . add ( group ) 
+
+```
+
+```
+
+class ImageInterpolationEx(Scene):
+ def construct(self):
+ img = I
+
+## Examples
+
+### Example 1
+```python
+class ImageFromArray ( Scene ): 
+ def construct ( self ): 
+ image = ImageMobject ( np . uint8 ([[ 0 , 100 , 30 , 200 ], 
+ [ 255 , 0 , 5 , 33 ]])) 
+ image . height = 7 
+ self . add ( image )
+```
+
+### Example 2
+```python
+class ImageFromArray(Scene):
+ def construct(self):
+ image = ImageMobject(np.uint8([[0, 100, 30, 200],
+ [255, 0, 5, 33]]))
+ image.height = 7
+ self.add(image)
+```
+
+### Example 3
+```python
+class ImageInterpolationEx ( Scene ): 
+ def construct ( self ): 
+ img = ImageMobject ( np . uint8 ([[ 63 , 0 , 0 , 0 ], 
+ [ 0 , 127 , 0 , 0 ], 
+ [ 0 , 0 , 191 , 0 ], 
+ [ 0 , 0 , 0 , 255 ] 
+ ])) 
+
+ img . height = 3 
+
+ group = Group () 
+ algorithm_texts = [ "nearest" , "linear" , "cubic" ] 
+ for algorithm_text in algorithm_texts : 
+ algorithm = RESAMPLING_ALGORITHMS [ algorithm_text ] 
+ img_copy = img . copy () . set_resampling_algorithm ( algorithm ) 
+ img_copy . add ( Text ( algorithm_text ) . scale ( 0.5 ) . next_to ( img_copy , UP )) 
+ group . add ( img_copy ) 
+
+ group . arrange () 
+ self . add ( group )
+```
+
+### Example 4
+```python
+class ImageInterpolationEx(Scene):
+ def construct(self):
+ img = ImageMobject(np.uint8([[63, 0, 0, 0],
+ [0, 127, 0, 0],
+ [0, 0, 191, 0],
+ [0, 0, 0, 255]
+ ]))
+
+ img.height = 3
+
+ group = Group()
+ algorithm_texts = ["nearest", "linear", "cubic"]
+ for algorithm_text in algorithm_texts:
+ algorithm = RESAMPLING_ALGORITHMS[algorithm_text]
+ img_copy = img.copy().set_resampling_algorithm(algorithm)
+ img_copy.add(Text(algorithm_text).scale(0.5).next_to(img_copy, UP))
+ group.add(img_copy)
+
+ group.arrange()
+ self.add(group)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.types.image_mobject.ImageMobject.html

@@ -1,0 +1,199 @@
+# manim.mobject.geometry.polygram.Polygram
+
+## Signature
+class Polygram ( * vertex_groups , color = ManimColor('#58C4DD')
+
+## Summary
+```
+ import numpy as np
+
+## Description
+Polygram ¶ 
+ Qualified name: manim.mobject.geometry.polygram.Polygram 
+
+ class Polygram ( * vertex_groups , color = ManimColor('#58C4DD') , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ A generalized Polygon , allowing for disconnected sets of edges. 
+
+ Parameters : 
+
+ vertex_groups ( Point3DLike_Array ) – The groups of vertices making up the Polygram . 
+ The first vertex in each group is repeated to close the shape.
+Each point must be 3-dimensional: [x,y,z] 
+
+ color ( ManimColor ) – The color of the Polygram . 
+ kwargs ( Any ) – Forwarded to the parent constructor. 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for PolygramExample . 
+
+```
+ import numpy as np 
+
+ class PolygramExample ( Scene ): 
+ def construct ( self ): 
+ hexagram = Polygram ( 
+ [[ 0 , 2 , 0 ], [ - np . sqrt ( 3 ), - 1 , 0 ], [ np . sqrt ( 3 ), - 1 , 0 ]], 
+ [[ - np . sqrt ( 3 ), 1 , 0 ], [ 0 , - 2 , 0 ], [ np . sqrt ( 3 ), 1 , 0 ]], 
+ ) 
+ self . add ( hexagram ) 
+
+ dot = Dot () 
+ self . play ( MoveAlongPath ( dot , hexagram ), run_time = 5 , rate_func = linear ) 
+ self . remove ( dot ) 
+ self . wait () 
+
+```
+
+```
+
+import numpy as np
+
+class PolygramExample(Scene):
+ def construct(self):
+ hexagram = Polygram(
+ [[0, 2, 0], [-np.sqrt(3), -1, 0], [np.sqrt(3), -1, 0]],
+ [[-np.sqrt(3), 1, 0], [0, -2, 0], [np.sqrt(3), 1, 0]],
+ )
+ self.add(hexagram)
+
+ dot = Dot()
+ self.play(MoveAlongPath(dot, hexagram), run_time=5, rate_func=linear)
+ self.remove(dot)
+ self.wait()
+
+```
+
+ Methods 
+
+ get_vertex_groups 
+ Gets the vertex groups of the Polygram . 
+
+ get_vertices 
+ Gets the vertices of the Polygram . 
+
+ round_corners 
+ Rounds off the corners of the Polygram . 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sh
+
+## Examples
+
+### Example 1
+```python
+import numpy as np 
+
+ class PolygramExample ( Scene ): 
+ def construct ( self ): 
+ hexagram = Polygram ( 
+ [[ 0 , 2 , 0 ], [ - np . sqrt ( 3 ), - 1 , 0 ], [ np . sqrt ( 3 ), - 1 , 0 ]], 
+ [[ - np . sqrt ( 3 ), 1 , 0 ], [ 0 , - 2 , 0 ], [ np . sqrt ( 3 ), 1 , 0 ]], 
+ ) 
+ self . add ( hexagram ) 
+
+ dot = Dot () 
+ self . play ( MoveAlongPath ( dot , hexagram ), run_time = 5 , rate_func = linear ) 
+ self . remove ( dot ) 
+ self . wait ()
+```
+
+### Example 2
+```python
+import numpy as np
+
+class PolygramExample(Scene):
+ def construct(self):
+ hexagram = Polygram(
+ [[0, 2, 0], [-np.sqrt(3), -1, 0], [np.sqrt(3), -1, 0]],
+ [[-np.sqrt(3), 1, 0], [0, -2, 0], [np.sqrt(3), 1, 0]],
+ )
+ self.add(hexagram)
+
+ dot = Dot()
+ self.play(MoveAlongPath(dot, hexagram), run_time=5, rate_func=linear)
+ self.remove(dot)
+ self.wait()
+```
+
+### Example 3
+```python
+>>> poly = Polygram ([ ORIGIN , RIGHT , UP , LEFT + UP ], [ LEFT , LEFT + UP , 2 * LEFT ]) 
+ >>> groups = poly . get_vertex_groups () 
+ >>> len ( groups ) 
+ 2 
+ >>> groups [ 0 ] 
+ array([[ 0., 0., 0.], 
+ [ 1., 0., 0.], 
+ [ 0., 1., 0.], 
+ [-1., 1., 0.]]) 
+ >>> groups [ 1 ] 
+ array([[-1., 0., 0.], 
+ [-1., 1., 0.], 
+ [-2., 0., 0.]])
+```
+
+### Example 4
+```python
+>>> sq = Square () 
+ >>> sq . get_vertices () 
+ array([[ 1., 1., 0.], 
+ [-1., 1., 0.], 
+ [-1., -1., 0.], 
+ [ 1., -1., 0.]])
+```
+
+### Example 5
+```python
+class PolygramRoundCorners ( Scene ): 
+ def construct ( self ): 
+ star = Star ( outer_radius = 2 ) 
+
+ shapes = VGroup ( star ) 
+ shapes . add ( star . copy () . round_corners ( radius = 0.1 )) 
+ shapes . add ( star . copy () . round_corners ( radius = 0.25 )) 
+
+ shapes . arrange ( RIGHT ) 
+ self . add ( shapes )
+```
+
+### Example 6
+```python
+class PolygramRoundCorners(Scene):
+ def construct(self):
+ star = Star(outer_radius=2)
+
+ shapes = VGroup(star)
+ shapes.add(star.copy().round_corners(radius=0.1))
+ shapes.add(star.copy().round_corners(radius=0.25))
+
+ shapes.arrange(RIGHT)
+ self.add(shapes)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.polygram.Polygram.html

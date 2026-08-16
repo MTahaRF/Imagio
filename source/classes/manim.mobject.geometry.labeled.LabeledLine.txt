@@ -1,0 +1,138 @@
+# manim.mobject.geometry.labeled.LabeledLine
+
+## Signature
+class LabeledLine ( label , label_position = 0.5 , label_config = None , box_config = None , frame_config = None , * args , ** kwargs )
+
+## Summary
+class LabeledLine ( label , label_position = 0.5 , label_config = None , box_config = None , frame_config = None , * args , ** kwargs ) [source] ¶ 
+ Bases: Line 
+ Constructs a line containing a label box somewhere along its length.
+
+## Description
+LabeledLine ¶ 
+ Qualified name: manim.mobject.geometry.labeled.LabeledLine 
+
+ class LabeledLine ( label , label_position = 0.5 , label_config = None , box_config = None , frame_config = None , * args , ** kwargs ) [source] ¶ 
+ Bases: Line 
+ Constructs a line containing a label box somewhere along its length. 
+
+ Parameters : 
+
+ label ( str | ManimTextLabel ) – Label that will be displayed on the line. 
+ label_position ( float ) – A ratio in the range [0-1] to indicate the position of the label with respect to the length of the line. Default value is 0.5. 
+ label_config ( dict [ str , Any ] | None ) – A dictionary containing the configuration for the label.
+This is only applied if label is of type str . 
+ box_config ( dict [ str , Any ] | None ) – A dictionary containing the configuration for the background box. 
+ frame_config ( dict [ str , Any ] | None ) – A dictionary containing the configuration for the frame. 
+
+ See also 
+ LabeledArrow 
+
+ args ( Any ) 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for LabeledLineExample . 
+
+```
+ class LabeledLineExample ( Scene ): 
+ def construct ( self ): 
+ line = LabeledLine ( 
+ label = '0.5' , 
+ label_position = 0.8 , 
+ label_config = { 
+ "font_size" : 20 
+ }, 
+ start = LEFT + DOWN , 
+ end = RIGHT + UP ) 
+
+ line . set_length ( line . get_length () * 2 ) 
+ self . add ( line ) 
+
+```
+
+```
+
+class LabeledLineExample(Scene):
+ def construct(self):
+ line = LabeledLine(
+ label = '0.5',
+ label_position = 0.8,
+ label_config = {
+ "font_size" : 20
+ },
+ start=LEFT+DOWN,
+ end=RIGHT+UP)
+
+ line.set_length(line.get_length() * 2)
+ self.add(line)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor
+
+## Examples
+
+### Example 1
+```python
+class LabeledLineExample ( Scene ): 
+ def construct ( self ): 
+ line = LabeledLine ( 
+ label = '0.5' , 
+ label_position = 0.8 , 
+ label_config = { 
+ "font_size" : 20 
+ }, 
+ start = LEFT + DOWN , 
+ end = RIGHT + UP ) 
+
+ line . set_length ( line . get_length () * 2 ) 
+ self . add ( line )
+```
+
+### Example 2
+```python
+class LabeledLineExample(Scene):
+ def construct(self):
+ line = LabeledLine(
+ label = '0.5',
+ label_position = 0.8,
+ label_config = {
+ "font_size" : 20
+ },
+ start=LEFT+DOWN,
+ end=RIGHT+UP)
+
+ line.set_length(line.get_length() * 2)
+ self.add(line)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.labeled.LabeledLine.html

@@ -1,0 +1,113 @@
+# manim.animation.transform.MoveToTarget
+
+## Signature
+class MoveToTarget ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+class MoveToTarget ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ Transforms a mobject to the mobject stored in its target attribute. 
+ After calling the generate_target() method, the target 
+attribute of the mobject is populated with a copy of it. Afte
+
+## Description
+MoveToTarget ¶ 
+ Qualified name: manim.animation.transform.MoveToTarget 
+
+ class MoveToTarget ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ Transforms a mobject to the mobject stored in its target attribute. 
+ After calling the generate_target() method, the target 
+attribute of the mobject is populated with a copy of it. After modifying the attribute,
+playing the MoveToTarget animation transforms the original mobject
+into the modified one stored in the target attribute. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for MoveToTargetExample . 
+
+```
+ class MoveToTargetExample ( Scene ): 
+ def construct ( self ): 
+ c = Circle () 
+
+ c . generate_target () 
+ c . target . set_fill ( color = GREEN , opacity = 0.5 ) 
+ c . target . shift ( 2 * RIGHT + UP ) . scale ( 0.5 ) 
+
+ self . add ( c ) 
+ self . play ( MoveToTarget ( c )) 
+
+```
+
+```
+
+class MoveToTargetExample(Scene):
+ def construct(self):
+ c = Circle()
+
+ c.generate_target()
+ c.target.set_fill(color=GREEN, opacity=0.5)
+ c.target.shift(2*RIGHT + UP).scale(0.5)
+
+ self.add(c)
+ self.play(MoveToTarget(c))
+
+```
+
+ Methods 
+
+ check_validity_of_input 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+ mobject ( Mobject ) 
+
+ _original__init__ ( mobject , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+ mobject ( Mobject ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class MoveToTargetExample ( Scene ): 
+ def construct ( self ): 
+ c = Circle () 
+
+ c . generate_target () 
+ c . target . set_fill ( color = GREEN , opacity = 0.5 ) 
+ c . target . shift ( 2 * RIGHT + UP ) . scale ( 0.5 ) 
+
+ self . add ( c ) 
+ self . play ( MoveToTarget ( c ))
+```
+
+### Example 2
+```python
+class MoveToTargetExample(Scene):
+ def construct(self):
+ c = Circle()
+
+ c.generate_target()
+ c.target.set_fill(color=GREEN, opacity=0.5)
+ c.target.shift(2*RIGHT + UP).scale(0.5)
+
+ self.add(c)
+ self.play(MoveToTarget(c))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.MoveToTarget.html

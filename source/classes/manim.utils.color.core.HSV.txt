@@ -1,0 +1,70 @@
+# manim.utils.color.core.HSV
+
+## Signature
+class HSV ( hsv , alpha = 1.0 )
+
+## Summary
+classmethod _from_internal ( value ) [source] ¶ 
+ This method is intended to be overwritten by custom color space classes
+which are subtypes of ManimColor . 
+ The method constructs a new object of the given class by transforming the value
+in the internal format [r,g,b,a] into a format which the cons
+
+## Description
+HSV ¶ 
+ Qualified name: manim.utils.color.core.HSV 
+
+ class HSV ( hsv , alpha = 1.0 ) [source] ¶ 
+ Bases: ManimColor 
+ HSV Color Space 
+ Methods 
+
+ Attributes 
+
+ h 
+
+ hue 
+
+ s 
+
+ saturation 
+
+ v 
+
+ value 
+
+ Parameters : 
+
+ hsv ( FloatHSVLike | FloatHSVALike ) 
+ alpha ( float ) 
+
+ classmethod _from_internal ( value ) [source] ¶ 
+ This method is intended to be overwritten by custom color space classes
+which are subtypes of ManimColor . 
+ The method constructs a new object of the given class by transforming the value
+in the internal format [r,g,b,a] into a format which the constructor of the
+custom class can understand. Look at HSV for an example. 
+
+ Parameters : 
+ value ( ManimColorInternal ) 
+
+ Return type : 
+ Self 
+
+ property _internal_space : NDArray ¶ 
+ This is a readonly property which is a custom representation for color space
+operations. It is used for operators and can be used when implementing a custom
+color space. 
+
+ property _internal_value : ManimColorInternal ¶ 
+ Return the internal value of the current ManimColor as an
+ [r,g,b,a] float array. 
+
+ Returns : 
+ Internal color representation. 
+
+ Return type : 
+ ManimColorInternal
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.utils.color.core.HSV.html

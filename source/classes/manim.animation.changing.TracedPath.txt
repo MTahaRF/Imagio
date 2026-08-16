@@ -1,0 +1,125 @@
+# manim.animation.changing.TracedPath
+
+## Signature
+class TracedPath ( traced_point_func , stroke_width = 2 , stroke_color = ManimColor('#FFFFFF')
+
+## Summary
+class TracedPath ( traced_point_func , stroke_width = 2 , stroke_color = ManimColor('#FFFFFF') , dissipating_time = None , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ Traces the path of a point returned by a function call.
+
+## Description
+TracedPath ¶ 
+ Qualified name: manim.animation.changing.TracedPath 
+
+ class TracedPath ( traced_point_func , stroke_width = 2 , stroke_color = ManimColor('#FFFFFF') , dissipating_time = None , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ Traces the path of a point returned by a function call. 
+
+ Parameters : 
+
+ traced_point_func ( Callable ) – The function to be traced. 
+ stroke_width ( float ) – The width of the trace. 
+ stroke_color ( ParsableManimColor | None ) – The color of the trace. 
+ dissipating_time ( float | None ) – The time taken for the path to dissipate. Default set to None 
+which disables dissipation. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for TracedPathExample . 
+
+```
+ class TracedPathExample ( Scene ): 
+ def construct ( self ): 
+ circ = Circle ( color = RED ) . shift ( 4 * LEFT ) 
+ dot = Dot ( color = RED ) . move_to ( circ . get_start ()) 
+ rolling_circle = VGroup ( circ , dot ) 
+ trace = TracedPath ( circ . get_start ) 
+ rolling_circle . add_updater ( lambda m : m . rotate ( - 0.3 )) 
+ self . add ( trace , rolling_circle ) 
+ self . play ( rolling_circle . animate . shift ( 8 * RIGHT ), run_time = 4 , rate_func = linear ) 
+
+```
+
+```
+
+class TracedPathExample(Scene):
+ def construct(self):
+ circ = Circle(color=RED).shift(4*LEFT)
+ dot = Dot(color=RED).move_to(circ.get_start())
+ rolling_circle = VGroup(circ, dot)
+ trace = TracedPath(circ.get_start)
+ rolling_circle.add_updater(lambda m: m.rotate(-0.3))
+ self.add(trace, rolling_circle)
+ self.play(rolling_circle.animate.shift(8*RIGHT), run_time=4, rate_func=linear)
+
+```
+
+ Example Placeholder 
+ Placeholder block for DissipatingPathExample . 
+
+```
+ class DissipatingPathExample ( Scene ): 
+ def construct ( self ): 
+ a = Dot ( RIGHT * 2 ) 
+ b = TracedPath ( a . get_center , dissipating_time = 0.5 , stroke_opacity = [ 0 , 1 ]) 
+ self . add ( a , b ) 
+ self . play ( a . animate ( path_arc = PI / 4 ) . shift ( LEFT * 2 )) 
+ self . play ( a . animate ( path_arc =- PI / 4 ) . shift ( 
+
+## Examples
+
+### Example 1
+```python
+class TracedPathExample ( Scene ): 
+ def construct ( self ): 
+ circ = Circle ( color = RED ) . shift ( 4 * LEFT ) 
+ dot = Dot ( color = RED ) . move_to ( circ . get_start ()) 
+ rolling_circle = VGroup ( circ , dot ) 
+ trace = TracedPath ( circ . get_start ) 
+ rolling_circle . add_updater ( lambda m : m . rotate ( - 0.3 )) 
+ self . add ( trace , rolling_circle ) 
+ self . play ( rolling_circle . animate . shift ( 8 * RIGHT ), run_time = 4 , rate_func = linear )
+```
+
+### Example 2
+```python
+class TracedPathExample(Scene):
+ def construct(self):
+ circ = Circle(color=RED).shift(4*LEFT)
+ dot = Dot(color=RED).move_to(circ.get_start())
+ rolling_circle = VGroup(circ, dot)
+ trace = TracedPath(circ.get_start)
+ rolling_circle.add_updater(lambda m: m.rotate(-0.3))
+ self.add(trace, rolling_circle)
+ self.play(rolling_circle.animate.shift(8*RIGHT), run_time=4, rate_func=linear)
+```
+
+### Example 3
+```python
+class DissipatingPathExample ( Scene ): 
+ def construct ( self ): 
+ a = Dot ( RIGHT * 2 ) 
+ b = TracedPath ( a . get_center , dissipating_time = 0.5 , stroke_opacity = [ 0 , 1 ]) 
+ self . add ( a , b ) 
+ self . play ( a . animate ( path_arc = PI / 4 ) . shift ( LEFT * 2 )) 
+ self . play ( a . animate ( path_arc =- PI / 4 ) . shift ( LEFT * 2 )) 
+ self . wait ()
+```
+
+### Example 4
+```python
+class DissipatingPathExample(Scene):
+ def construct(self):
+ a = Dot(RIGHT * 2)
+ b = TracedPath(a.get_center, dissipating_time=0.5, stroke_opacity=[0, 1])
+ self.add(a, b)
+ self.play(a.animate(path_arc=PI / 4).shift(LEFT * 2))
+ self.play(a.animate(path_arc=-PI / 4).shift(LEFT * 2))
+ self.wait()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.changing.TracedPath.html

@@ -1,0 +1,72 @@
+# manim.camera.moving_camera.MovingCamera
+
+## Signature
+class MovingCamera ( frame = None , fixed_dimension = 0 , default_frame_stroke_color = ManimColor('#FFFFFF')
+
+## Summary
+class MovingCamera ( frame = None , fixed_dimension = 0 , default_frame_stroke_color = ManimColor('#FFFFFF') , default_frame_stroke_width = 0 , ** kwargs ) [source] ¶ 
+ Bases: Camera 
+ A camera that follows and matches the size and position of its ‘frame’, a Rectangle (or similar Mobject). 
+ The fra
+
+## Description
+MovingCamera ¶ 
+ Qualified name: manim.camera.moving\_camera.MovingCamera 
+
+ class MovingCamera ( frame = None , fixed_dimension = 0 , default_frame_stroke_color = ManimColor('#FFFFFF') , default_frame_stroke_width = 0 , ** kwargs ) [source] ¶ 
+ Bases: Camera 
+ A camera that follows and matches the size and position of its ‘frame’, a Rectangle (or similar Mobject). 
+ The frame defines the region of space the camera displays and can move or resize dynamically. 
+
+ See also 
+ MovingCameraScene 
+
+ Frame is a Mobject, (should almost certainly be a rectangle)
+determining which region of space the camera displays 
+ Methods 
+
+ auto_zoom 
+ Zooms on to a given array of mobjects (or a singular mobject) and automatically resizes to frame all the mobjects. 
+
+ cache_cairo_context 
+ Since the frame can be moving around, the cairo context used for updating should be regenerated at each frame. 
+
+ capture_mobjects 
+ Capture mobjects by printing them on pixel_array . 
+
+ get_cached_cairo_context 
+ Since the frame can be moving around, the cairo context used for updating should be regenerated at each frame. 
+
+ get_mobjects_indicating_movement 
+ Returns all mobjects whose movement implies that the camera should think of all other mobjects on the screen as moving 
+
+ Attributes 
+
+ background_color 
+
+ background_opacity 
+
+ frame_center 
+ Returns the centerpoint of the frame in cartesian coordinates. 
+
+ frame_height 
+ Returns the height of the frame. 
+
+ frame_width 
+ Returns the width of the frame 
+
+ Parameters : 
+
+ frame ( Mobject | None ) 
+ fixed_dimension ( int ) 
+ default_frame_stroke_color ( ManimColor ) 
+ default_frame_stroke_width ( int ) 
+ kwargs ( Any ) 
+
+ auto_zoom ( mobjects : Iterable [ Mobject ] , margin : float , only_mobjects_in_frame : bool , animate : Literal [ False ] ) &#x2192; Mobject [source] ¶ 
+
+ auto_zoom ( mobjects : Iterable [ Mobject ] , margin : float , only_mobjects_in_frame : bool , animate : Literal [ True ] ) &#x2192; _AnimationBuilder 
+ Zooms on to a given arr
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.camera.moving_camera.MovingCamera.html

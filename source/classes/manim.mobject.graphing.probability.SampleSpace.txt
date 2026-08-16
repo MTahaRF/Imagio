@@ -1,0 +1,124 @@
+# manim.mobject.graphing.probability.SampleSpace
+
+## Signature
+class SampleSpace ( height = 3 , width = 3 , fill_color = ManimColor('#444444')
+
+## Summary
+class SampleSpace ( height = 3 , width = 3 , fill_color = ManimColor('#444444') , fill_opacity = 1 , stroke_width = 0.5 , stroke_color = ManimColor('#BBBBBB') , default_label_scale_val = 1 ) [source] ¶ 
+ Bases: Rectangle 
+ A mobject representing a twodimensional rectangular
+sampling space. 
+ Example
+
+## Description
+SampleSpace ¶ 
+ Qualified name: manim.mobject.graphing.probability.SampleSpace 
+
+ class SampleSpace ( height = 3 , width = 3 , fill_color = ManimColor('#444444') , fill_opacity = 1 , stroke_width = 0.5 , stroke_color = ManimColor('#BBBBBB') , default_label_scale_val = 1 ) [source] ¶ 
+ Bases: Rectangle 
+ A mobject representing a twodimensional rectangular
+sampling space. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ExampleSampleSpace . 
+
+```
+ class ExampleSampleSpace ( Scene ): 
+ def construct ( self ): 
+ poly1 = SampleSpace ( stroke_width = 15 , fill_opacity = 1 ) 
+ poly2 = SampleSpace ( width = 5 , height = 3 , stroke_width = 5 , fill_opacity = 0.5 ) 
+ poly3 = SampleSpace ( width = 2 , height = 2 , stroke_width = 5 , fill_opacity = 0.1 ) 
+ poly3 . divide_vertically ( p_list = np . array ([ 0.37 , 0.13 , 0.5 ]), colors = [ BLACK , WHITE , GRAY ], vect = RIGHT ) 
+ poly_group = VGroup ( poly1 , poly2 , poly3 ) . arrange () 
+ self . add ( poly_group ) 
+
+```
+
+```
+
+class ExampleSampleSpace(Scene):
+ def construct(self):
+ poly1 = SampleSpace(stroke_width=15, fill_opacity=1)
+ poly2 = SampleSpace(width=5, height=3, stroke_width=5, fill_opacity=0.5)
+ poly3 = SampleSpace(width=2, height=2, stroke_width=5, fill_opacity=0.1)
+ poly3.divide_vertically(p_list=np.array([0.37, 0.13, 0.5]), colors=[BLACK, WHITE, GRAY], vect=RIGHT)
+ poly_group = VGroup(poly1, poly2, poly3).arrange()
+ self.add(poly_group)
+
+```
+
+ Methods 
+
+ add_braces_and_labels 
+
+ add_label 
+
+ add_title 
+
+ complete_p_list 
+
+ divide_horizontally 
+
+ divide_vertically 
+
+ get_bottom_braces_and_labels 
+
+ get_division_along_dimension 
+
+ get_horizontal_division 
+
+ get_side_braces_and_labels 
+
+ get_subdivision_braces_and_labels 
+
+ get_top_braces_and_labels 
+
+ get_vertical_division 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multi
+
+## Examples
+
+### Example 1
+```python
+class ExampleSampleSpace ( Scene ): 
+ def construct ( self ): 
+ poly1 = SampleSpace ( stroke_width = 15 , fill_opacity = 1 ) 
+ poly2 = SampleSpace ( width = 5 , height = 3 , stroke_width = 5 , fill_opacity = 0.5 ) 
+ poly3 = SampleSpace ( width = 2 , height = 2 , stroke_width = 5 , fill_opacity = 0.1 ) 
+ poly3 . divide_vertically ( p_list = np . array ([ 0.37 , 0.13 , 0.5 ]), colors = [ BLACK , WHITE , GRAY ], vect = RIGHT ) 
+ poly_group = VGroup ( poly1 , poly2 , poly3 ) . arrange () 
+ self . add ( poly_group )
+```
+
+### Example 2
+```python
+class ExampleSampleSpace(Scene):
+ def construct(self):
+ poly1 = SampleSpace(stroke_width=15, fill_opacity=1)
+ poly2 = SampleSpace(width=5, height=3, stroke_width=5, fill_opacity=0.5)
+ poly3 = SampleSpace(width=2, height=2, stroke_width=5, fill_opacity=0.1)
+ poly3.divide_vertically(p_list=np.array([0.37, 0.13, 0.5]), colors=[BLACK, WHITE, GRAY], vect=RIGHT)
+ poly_group = VGroup(poly1, poly2, poly3).arrange()
+ self.add(poly_group)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.graphing.probability.SampleSpace.html

@@ -1,0 +1,112 @@
+# manim.animation.composition.Succession
+
+## Signature
+class Succession ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+animations ( Animation ) – Sequence of Animation objects to be played. 
+ lag_ratio ( float ) – Defines the delay after which the animation is applied to submobjects. A lag_ratio of
+ n.nn means the next animation will play when nnn% of the current animation has played.
+Defaults to 1.0, meaning that t
+
+## Description
+Succession ¶ 
+ Qualified name: manim.animation.composition.Succession 
+
+ class Succession ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: AnimationGroup 
+ Plays a series of animations in succession. 
+
+ Parameters : 
+
+ animations ( Animation ) – Sequence of Animation objects to be played. 
+ lag_ratio ( float ) – Defines the delay after which the animation is applied to submobjects. A lag_ratio of
+ n.nn means the next animation will play when nnn% of the current animation has played.
+Defaults to 1.0, meaning that the next animation will begin when 100% of the current
+animation has played. 
+ This does not influence the total runtime of the animation. Instead the runtime
+of individual animations is adjusted so that the complete animation has the defined
+run time. 
+
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for SuccessionExample . 
+
+```
+ class SuccessionExample ( Scene ): 
+ def construct ( self ): 
+ dot1 = Dot ( point = LEFT * 2 + UP * 2 , radius = 0.16 , color = BLUE ) 
+ dot2 = Dot ( point = LEFT * 2 + DOWN * 2 , radius = 0.16 , color = MAROON ) 
+ dot3 = Dot ( point = RIGHT * 2 + DOWN * 2 , radius = 0.16 , color = GREEN ) 
+ dot4 = Dot ( point = RIGHT * 2 + UP * 2 , radius = 0.16 , color = YELLOW ) 
+ self . add ( dot1 , dot2 , dot3 , dot4 ) 
+
+ self . play ( Succession ( 
+ dot1 . animate . move_to ( dot2 ), 
+ dot2 . animate . move_to ( dot3 ), 
+ dot3 . animate . move_to ( dot4 ), 
+ dot4 . animate . move_to ( dot1 ) 
+ )) 
+
+```
+
+```
+
+class SuccessionExample(Scene):
+ def construct(self):
+ dot1 = Dot(point=LEFT * 2 + UP * 2, radius=0.16, color=BLUE)
+ dot2 = Dot(point=LEFT * 2 + DOWN * 2, radius=0.16, color=MAROON)
+ dot3 = Dot(point=RIGHT * 2 + DOWN * 2, radius=0.16, color=GREEN)
+ dot4 = Dot(point=RIGHT * 2 + UP * 2, radius=0.16, color=YELLOW)
+ self.add(dot1, dot2, dot3, dot4)
+
+ self.play(Succession(
+ dot1.animate.move_to(dot2),
+ dot2.animate.move_to(dot3),
+ dot3.animate.move_to(dot4),
+ dot4.animate.move_to(dot1)
+ 
+
+## Examples
+
+### Example 1
+```python
+class SuccessionExample ( Scene ): 
+ def construct ( self ): 
+ dot1 = Dot ( point = LEFT * 2 + UP * 2 , radius = 0.16 , color = BLUE ) 
+ dot2 = Dot ( point = LEFT * 2 + DOWN * 2 , radius = 0.16 , color = MAROON ) 
+ dot3 = Dot ( point = RIGHT * 2 + DOWN * 2 , radius = 0.16 , color = GREEN ) 
+ dot4 = Dot ( point = RIGHT * 2 + UP * 2 , radius = 0.16 , color = YELLOW ) 
+ self . add ( dot1 , dot2 , dot3 , dot4 ) 
+
+ self . play ( Succession ( 
+ dot1 . animate . move_to ( dot2 ), 
+ dot2 . animate . move_to ( dot3 ), 
+ dot3 . animate . move_to ( dot4 ), 
+ dot4 . animate . move_to ( dot1 ) 
+ ))
+```
+
+### Example 2
+```python
+class SuccessionExample(Scene):
+ def construct(self):
+ dot1 = Dot(point=LEFT * 2 + UP * 2, radius=0.16, color=BLUE)
+ dot2 = Dot(point=LEFT * 2 + DOWN * 2, radius=0.16, color=MAROON)
+ dot3 = Dot(point=RIGHT * 2 + DOWN * 2, radius=0.16, color=GREEN)
+ dot4 = Dot(point=RIGHT * 2 + UP * 2, radius=0.16, color=YELLOW)
+ self.add(dot1, dot2, dot3, dot4)
+
+ self.play(Succession(
+ dot1.animate.move_to(dot2),
+ dot2.animate.move_to(dot3),
+ dot3.animate.move_to(dot4),
+ dot4.animate.move_to(dot1)
+ ))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.composition.Succession.html

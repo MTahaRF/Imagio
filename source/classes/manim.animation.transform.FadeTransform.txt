@@ -1,0 +1,111 @@
+# manim.animation.transform.FadeTransform
+
+## Signature
+class FadeTransform ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+mobject ( Mobject ) – The starting Mobject . 
+ target_mobject ( Mobject ) – The target Mobject . 
+ stretch ( bool ) – Controls whether the target Mobject is stretched during
+the animation. Default: True . 
+ dim_to_match ( int ) – If the target mobject is not stretched automatically, this allows
+to a
+
+## Description
+FadeTransform ¶ 
+ Qualified name: manim.animation.transform.FadeTransform 
+
+ class FadeTransform ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ Fades one mobject into another. 
+
+ Parameters : 
+
+ mobject ( Mobject ) – The starting Mobject . 
+ target_mobject ( Mobject ) – The target Mobject . 
+ stretch ( bool ) – Controls whether the target Mobject is stretched during
+the animation. Default: True . 
+ dim_to_match ( int ) – If the target mobject is not stretched automatically, this allows
+to adjust the initial scale of the target Mobject while
+it is shifted in. Setting this to 0, 1, and 2, respectively,
+matches the length of the target with the length of the starting
+ Mobject in x, y, and z direction, respectively. 
+ kwargs ( Any ) – Further keyword arguments are passed to the parent class. 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for DifferentFadeTransforms . 
+
+```
+ class DifferentFadeTransforms ( Scene ): 
+ def construct ( self ): 
+ starts = [ Rectangle ( width = 4 , height = 1 ) for _ in range ( 3 )] 
+ VGroup ( * starts ) . arrange ( DOWN , buff = 1 ) . shift ( 3 * LEFT ) 
+ targets = [ Circle ( fill_opacity = 1 ) . scale ( 0.25 ) for _ in range ( 3 )] 
+ VGroup ( * targets ) . arrange ( DOWN , buff = 1 ) . shift ( 3 * RIGHT ) 
+
+ self . play ( * [ FadeIn ( s ) for s in starts ]) 
+ self . play ( 
+ FadeTransform ( starts [ 0 ], targets [ 0 ], stretch = True ), 
+ FadeTransform ( starts [ 1 ], targets [ 1 ], stretch = False , dim_to_match = 0 ), 
+ FadeTransform ( starts [ 2 ], targets [ 2 ], stretch = False , dim_to_match = 1 ) 
+ ) 
+
+ self . play ( * [ FadeOut ( mobj ) for mobj in self . mobjects ]) 
+
+```
+
+```
+
+class DifferentFadeTransforms(Scene):
+ def construct(self):
+ starts = [Rectangle(width=4, height=1) for _ in range(3)]
+ VGroup(*starts).arrange(DOWN, buff=1).shift(3*LEFT)
+ targets = [Circle(fill_opacity=1).scale(0.25) for _ in range(3)]
+ VGroup(*targets).arrange(DOWN, buff=1).shift(3*RIGHT)
+
+ self.play(*
+
+## Examples
+
+### Example 1
+```python
+class DifferentFadeTransforms ( Scene ): 
+ def construct ( self ): 
+ starts = [ Rectangle ( width = 4 , height = 1 ) for _ in range ( 3 )] 
+ VGroup ( * starts ) . arrange ( DOWN , buff = 1 ) . shift ( 3 * LEFT ) 
+ targets = [ Circle ( fill_opacity = 1 ) . scale ( 0.25 ) for _ in range ( 3 )] 
+ VGroup ( * targets ) . arrange ( DOWN , buff = 1 ) . shift ( 3 * RIGHT ) 
+
+ self . play ( * [ FadeIn ( s ) for s in starts ]) 
+ self . play ( 
+ FadeTransform ( starts [ 0 ], targets [ 0 ], stretch = True ), 
+ FadeTransform ( starts [ 1 ], targets [ 1 ], stretch = False , dim_to_match = 0 ), 
+ FadeTransform ( starts [ 2 ], targets [ 2 ], stretch = False , dim_to_match = 1 ) 
+ ) 
+
+ self . play ( * [ FadeOut ( mobj ) for mobj in self . mobjects ])
+```
+
+### Example 2
+```python
+class DifferentFadeTransforms(Scene):
+ def construct(self):
+ starts = [Rectangle(width=4, height=1) for _ in range(3)]
+ VGroup(*starts).arrange(DOWN, buff=1).shift(3*LEFT)
+ targets = [Circle(fill_opacity=1).scale(0.25) for _ in range(3)]
+ VGroup(*targets).arrange(DOWN, buff=1).shift(3*RIGHT)
+
+ self.play(*[FadeIn(s) for s in starts])
+ self.play(
+ FadeTransform(starts[0], targets[0], stretch=True),
+ FadeTransform(starts[1], targets[1], stretch=False, dim_to_match=0),
+ FadeTransform(starts[2], targets[2], stretch=False, dim_to_match=1)
+ )
+
+ self.play(*[FadeOut(mobj) for mobj in self.mobjects])
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.FadeTransform.html

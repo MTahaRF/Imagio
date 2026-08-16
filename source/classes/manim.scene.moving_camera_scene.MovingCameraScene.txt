@@ -1,0 +1,56 @@
+# manim.scene.moving_camera_scene.MovingCameraScene
+
+## Signature
+class MovingCameraScene ( camera_class = <class 'manim.camera.moving_camera.MovingCamera'> , **kwargs )
+
+## Summary
+class MovingCameraScene ( camera_class = <class 'manim.camera.moving_camera.MovingCamera'> , **kwargs ) [source] ¶ 
+ Bases: Scene 
+ This is a Scene, with special configurations and properties that
+make it suitable for cases where the camera must be moved around. 
+ Note: Examples are included in the 
+
+## Description
+MovingCameraScene ¶ 
+ Qualified name: manim.scene.moving\_camera\_scene.MovingCameraScene 
+
+ class MovingCameraScene ( camera_class = <class 'manim.camera.moving_camera.MovingCamera'> , **kwargs ) [source] ¶ 
+ Bases: Scene 
+ This is a Scene, with special configurations and properties that
+make it suitable for cases where the camera must be moved around. 
+ Note: Examples are included in the moving_camera_scene module
+documentation, see below in the ‘see also’ section. 
+
+ See also 
+ moving_camera_scene 
+ MovingCamera 
+
+ Methods 
+
+ get_moving_mobjects 
+ This method returns a list of all of the Mobjects in the Scene that are moving, that are also in the animations passed. 
+
+ Attributes 
+
+ camera 
+
+ time 
+ The time since the start of the scene. 
+
+ Parameters : 
+
+ camera_class ( type [ Camera ] ) 
+ kwargs ( Any ) 
+
+ get_moving_mobjects ( * animations ) [source] ¶ 
+ This method returns a list of all of the Mobjects in the Scene that
+are moving, that are also in the animations passed. 
+
+ Parameters : 
+ *animations ( Animation ) – The Animations whose mobjects will be checked. 
+
+ Return type : 
+ list[ Mobject ]
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.scene.moving_camera_scene.MovingCameraScene.html

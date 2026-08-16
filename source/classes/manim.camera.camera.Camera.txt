@@ -1,0 +1,67 @@
+# manim.camera.camera.Camera
+
+## Signature
+class Camera ( background_image = None , frame_center = array([0., 0., 0.])
+
+## Summary
+class Camera ( background_image = None , frame_center = array([0., 0., 0.]) , image_mode = 'RGBA' , n_channels = 4 , pixel_array_dtype = 'uint8' , cairo_line_width_multiple = 0.01 , use_z_index = True , background = None , pixel_height = None , pixel_width = None , frame_height = None , frame_width 
+
+## Description
+Camera ¶ 
+ Qualified name: manim.camera.camera.Camera 
+
+ class Camera ( background_image = None , frame_center = array([0., 0., 0.]) , image_mode = 'RGBA' , n_channels = 4 , pixel_array_dtype = 'uint8' , cairo_line_width_multiple = 0.01 , use_z_index = True , background = None , pixel_height = None , pixel_width = None , frame_height = None , frame_width = None , frame_rate = None , background_color = None , background_opacity = None , ** kwargs ) [source] ¶ 
+ Bases: object 
+ Base camera class. 
+ This is the object which takes care of what exactly is displayed
+on screen at any given moment. 
+
+ Parameters : 
+
+ background_image ( str | None ) – The path to an image that should be the background image.
+If not set, the background is filled with self.background_color 
+ background ( PixelArray | None ) – What background is set to. By default, None . 
+ pixel_height ( int | None ) – The height of the scene in pixels. 
+ pixel_width ( int | None ) – The width of the scene in pixels. 
+ kwargs ( Any ) – Additional arguments ( background_color , background_opacity )
+to be set. 
+ frame_center ( Point3D ) 
+ image_mode ( str ) 
+ n_channels ( int ) 
+ pixel_array_dtype ( str ) 
+ cairo_line_width_multiple ( float ) 
+ use_z_index ( bool ) 
+ frame_height ( float | None ) 
+ frame_width ( float | None ) 
+ frame_rate ( float | None ) 
+ background_color ( ParsableManimColor | None ) 
+ background_opacity ( float | None ) 
+
+ Methods 
+
+ adjust_out_of_range_points 
+ If any of the points in the passed array are out of the viable range, they are adjusted suitably. 
+
+ adjusted_thickness 
+ Computes the adjusted stroke width for a zoomed camera. 
+
+ apply_fill 
+ Fills the cairo context 
+
+ apply_stroke 
+ Applies a stroke to the VMobject in the cairo context. 
+
+ cache_cairo_context 
+ Caches the passed Pixel array into a Cairo Context 
+
+ capture_mobject 
+ Capture mobjects by storing it in pixel_array . 
+
+ capture_mobjects 
+ Capture mobjects by printing them on pixel_array . 
+
+ convert_pixel_array 
+ Conv
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.camera.camera.Camera.html

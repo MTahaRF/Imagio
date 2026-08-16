@@ -1,0 +1,89 @@
+# manim.mobject.types.image_mobject.AbstractImageMobject
+
+## Signature
+class AbstractImageMobject ( scale_to_resolution , pixel_array_dtype = 'uint8' , resampling_algorithm = Resampling.BICUBIC , ** kwargs )
+
+## Summary
+class AbstractImageMobject ( scale_to_resolution , pixel_array_dtype = 'uint8' , resampling_algorithm = Resampling.BICUBIC , ** kwargs ) [source] ¶ 
+ Bases: Mobject 
+ Automatically filters out black pixels
+
+## Description
+AbstractImageMobject ¶ 
+ Qualified name: manim.mobject.types.image\_mobject.AbstractImageMobject 
+
+ class AbstractImageMobject ( scale_to_resolution , pixel_array_dtype = 'uint8' , resampling_algorithm = Resampling.BICUBIC , ** kwargs ) [source] ¶ 
+ Bases: Mobject 
+ Automatically filters out black pixels 
+
+ Parameters : 
+
+ scale_to_resolution ( int ) – At this resolution the image is placed pixel by pixel onto the screen, so it
+will look the sharpest and best.
+This is a custom parameter of ImageMobject so that rendering a scene with
+e.g. the --quality low or --quality medium flag for faster rendering
+won’t effect the position of the image on the screen. 
+ pixel_array_dtype ( str ) 
+ resampling_algorithm ( Resampling ) 
+ kwargs ( Any ) 
+
+ Methods 
+
+ get_pixel_array 
+
+ reset_points 
+ Sets points to be the four image corners. 
+
+ set_color 
+ Condition is function which takes in one arguments, (x, y, z). 
+
+ set_resampling_algorithm 
+ Sets the interpolation method for upscaling the image. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ depth 
+ The depth of the mobject. 
+
+ height 
+ The height of the mobject. 
+
+ width 
+ The width of the mobject. 
+
+ original_id 
+
+ _original__init__ ( scale_to_resolution , pixel_array_dtype = 'uint8' , resampling_algorithm = Resampling.BICUBIC , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ scale_to_resolution ( int ) 
+ pixel_array_dtype ( str ) 
+ resampling_algorithm ( Resampling ) 
+ kwargs ( Any ) 
+
+ Return type : 
+ None 
+
+ reset_points ( ) [source] ¶ 
+ Sets points to be the four image corners. 
+
+ Return type : 
+ Self 
+
+ set_color ( color = ManimColor('#F7D96F') , alpha = None , family = True ) [source] ¶ 
+ Condition is function which takes in one arguments, (x, y, z).
+Here it just recurses to submobjects, but in subclasses this
+should be further implemented based on the the inne
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.types.image_mobject.AbstractImageMobject.html

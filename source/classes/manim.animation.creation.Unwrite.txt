@@ -1,0 +1,128 @@
+# manim.animation.creation.Unwrite
+
+## Signature
+class Unwrite ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+reverse ( bool ) – Set True to have the animation start erasing from the last submobject first. 
+ vmobject ( VMobject ) 
+ rate_func ( Callable [ [ float ] , float ] )
+
+## Description
+Unwrite ¶ 
+ Qualified name: manim.animation.creation.Unwrite 
+
+ class Unwrite ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Write 
+ Simulate erasing by hand a Text or a VMobject . 
+
+ Parameters : 
+
+ reverse ( bool ) – Set True to have the animation start erasing from the last submobject first. 
+ vmobject ( VMobject ) 
+ rate_func ( Callable [ [ float ] , float ] ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for UnwriteReverseTrue . 
+
+```
+ class UnwriteReverseTrue ( Scene ): 
+ def construct ( self ): 
+ text = Tex ( "Alice and Bob" ) . scale ( 3 ) 
+ self . add ( text ) 
+ self . play ( Unwrite ( text )) 
+
+```
+
+```
+
+class UnwriteReverseTrue(Scene):
+ def construct(self):
+ text = Tex("Alice and Bob").scale(3)
+ self.add(text)
+ self.play(Unwrite(text))
+
+```
+
+ Example Placeholder 
+ Placeholder block for UnwriteReverseFalse . 
+
+```
+ class UnwriteReverseFalse ( Scene ): 
+ def construct ( self ): 
+ text = Tex ( "Alice and Bob" ) . scale ( 3 ) 
+ self . add ( text ) 
+ self . play ( Unwrite ( text , reverse = False )) 
+
+```
+
+```
+
+class UnwriteReverseFalse(Scene):
+ def construct(self):
+ text = Tex("Alice and Bob").scale(3)
+ self.add(text)
+ self.play(Unwrite(text, reverse=False))
+
+```
+
+ Methods 
+
+ Attributes 
+
+ run_time 
+
+ _original__init__ ( vmobject , rate_func = <function linear> , reverse = True , **kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ vmobject ( VMobject ) 
+ rate_func ( Callable [ [ float ] , float ] ) 
+ reverse ( bool ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class UnwriteReverseTrue ( Scene ): 
+ def construct ( self ): 
+ text = Tex ( "Alice and Bob" ) . scale ( 3 ) 
+ self . add ( text ) 
+ self . play ( Unwrite ( text ))
+```
+
+### Example 2
+```python
+class UnwriteReverseTrue(Scene):
+ def construct(self):
+ text = Tex("Alice and Bob").scale(3)
+ self.add(text)
+ self.play(Unwrite(text))
+```
+
+### Example 3
+```python
+class UnwriteReverseFalse ( Scene ): 
+ def construct ( self ): 
+ text = Tex ( "Alice and Bob" ) . scale ( 3 ) 
+ self . add ( text ) 
+ self . play ( Unwrite ( text , reverse = False ))
+```
+
+### Example 4
+```python
+class UnwriteReverseFalse(Scene):
+ def construct(self):
+ text = Tex("Alice and Bob").scale(3)
+ self.add(text)
+ self.play(Unwrite(text, reverse=False))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.creation.Unwrite.html

@@ -1,0 +1,139 @@
+# manim.mobject.graphing.coordinate_systems.NumberPlane
+
+## Signature
+class NumberPlane ( x_range = (-7.111111111111111, 7.111111111111111, 1)
+
+## Summary
+class NumberPlane ( x_range = (-7.111111111111111, 7.111111111111111, 1) , y_range = (-4.0, 4.0, 1) , x_length = None , y_length = None , background_line_style = None , faded_line_style = None , faded_line_ratio = 1 , make_smooth_after_applying_functions = True , ** kwargs ) [source] ¶ 
+ Bases: Axes
+
+## Description
+NumberPlane ¶ 
+ Qualified name: manim.mobject.graphing.coordinate\_systems.NumberPlane 
+
+ class NumberPlane ( x_range = (-7.111111111111111, 7.111111111111111, 1) , y_range = (-4.0, 4.0, 1) , x_length = None , y_length = None , background_line_style = None , faded_line_style = None , faded_line_ratio = 1 , make_smooth_after_applying_functions = True , ** kwargs ) [source] ¶ 
+ Bases: Axes 
+ Creates a cartesian plane with background lines. 
+
+ Parameters : 
+
+ x_range ( Sequence [ float ] | None ) – The [x_min, x_max, x_step] values of the plane in the horizontal direction. 
+ y_range ( Sequence [ float ] | None ) – The [y_min, y_max, y_step] values of the plane in the vertical direction. 
+ x_length ( float | None ) – The width of the plane. 
+ y_length ( float | None ) – The height of the plane. 
+ background_line_style ( dict [ str , Any ] ) – Arguments that influence the construction of the background lines of the plane. 
+ faded_line_style ( dict [ str , Any ] | None ) – Similar to background_line_style , affects the construction of the scene’s background lines. 
+ faded_line_ratio ( int ) – Determines the number of boxes within the background lines: 2 = 4 boxes, 3 = 9 boxes. 
+ make_smooth_after_applying_functions ( bool ) – Currently non-functional. 
+ kwargs ( dict [ str , Any ] ) – Additional arguments to be passed to Axes . 
+
+ Note 
+ If x_length or y_length are not defined, they are automatically calculated such that
+one unit on each axis is one Manim unit long. 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for NumberPlaneExample . 
+
+```
+ class NumberPlaneExample ( Scene ): 
+ def construct ( self ): 
+ number_plane = NumberPlane ( 
+ background_line_style = { 
+ "stroke_color" : TEAL , 
+ "stroke_width" : 4 , 
+ "stroke_opacity" : 0.6 
+ } 
+ ) 
+ self . add ( number_plane ) 
+
+```
+
+```
+
+class NumberPlaneExample(Scene):
+ def construct(self):
+ number_plane = NumberPlane(
+ background_line_style={
+ "stroke_color": TEAL,
+ "stroke_width": 4,
+ "stroke_opacity": 0.6
+ }
+ )
+ s
+
+## Examples
+
+### Example 1
+```python
+class NumberPlaneExample ( Scene ): 
+ def construct ( self ): 
+ number_plane = NumberPlane ( 
+ background_line_style = { 
+ "stroke_color" : TEAL , 
+ "stroke_width" : 4 , 
+ "stroke_opacity" : 0.6 
+ } 
+ ) 
+ self . add ( number_plane )
+```
+
+### Example 2
+```python
+class NumberPlaneExample(Scene):
+ def construct(self):
+ number_plane = NumberPlane(
+ background_line_style={
+ "stroke_color": TEAL,
+ "stroke_width": 4,
+ "stroke_opacity": 0.6
+ }
+ )
+ self.add(number_plane)
+```
+
+### Example 3
+```python
+class NumberPlaneScaled ( Scene ): 
+ def construct ( self ): 
+ number_plane = NumberPlane ( 
+ x_range = ( - 4 , 11 , 1 ), 
+ y_range = ( - 3 , 3 , 1 ), 
+ x_length = 5 , 
+ y_length = 2 , 
+ ) . move_to ( LEFT * 3 ) 
+
+ number_plane_scaled_y = NumberPlane ( 
+ x_range = ( - 4 , 11 , 1 ), 
+ x_length = 5 , 
+ y_length = 4 , 
+ ) . move_to ( RIGHT * 3 ) 
+
+ self . add ( number_plane ) 
+ self . add ( number_plane_scaled_y )
+```
+
+### Example 4
+```python
+class NumberPlaneScaled(Scene):
+ def construct(self):
+ number_plane = NumberPlane(
+ x_range=(-4, 11, 1),
+ y_range=(-3, 3, 1),
+ x_length=5,
+ y_length=2,
+ ).move_to(LEFT*3)
+
+ number_plane_scaled_y = NumberPlane(
+ x_range=(-4, 11, 1),
+ x_length=5,
+ y_length=4,
+ ).move_to(RIGHT*3)
+
+ self.add(number_plane)
+ self.add(number_plane_scaled_y)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.graphing.coordinate_systems.NumberPlane.html

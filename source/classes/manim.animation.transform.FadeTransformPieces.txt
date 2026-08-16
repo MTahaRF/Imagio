@@ -1,0 +1,137 @@
+# manim.animation.transform.FadeTransformPieces
+
+## Signature
+class FadeTransformPieces ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+See also 
+ FadeTransform
+
+## Description
+FadeTransformPieces ¶ 
+ Qualified name: manim.animation.transform.FadeTransformPieces 
+
+ class FadeTransformPieces ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: FadeTransform 
+ Fades submobjects of one mobject into submobjects of another one. 
+
+ See also 
+ FadeTransform 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for FadeTransformSubmobjects . 
+
+```
+ class FadeTransformSubmobjects ( Scene ): 
+ def construct ( self ): 
+ src = VGroup ( Square (), Circle () . shift ( LEFT + UP )) 
+ src . shift ( 3 * LEFT + 2 * UP ) 
+ src_copy = src . copy () . shift ( 4 * DOWN ) 
+
+ target = VGroup ( Circle (), Triangle () . shift ( RIGHT + DOWN )) 
+ target . shift ( 3 * RIGHT + 2 * UP ) 
+ target_copy = target . copy () . shift ( 4 * DOWN ) 
+
+ self . play ( FadeIn ( src ), FadeIn ( src_copy )) 
+ self . play ( 
+ FadeTransform ( src , target ), 
+ FadeTransformPieces ( src_copy , target_copy ) 
+ ) 
+ self . play ( * [ FadeOut ( mobj ) for mobj in self . mobjects ]) 
+
+```
+
+```
+
+class FadeTransformSubmobjects(Scene):
+ def construct(self):
+ src = VGroup(Square(), Circle().shift(LEFT + UP))
+ src.shift(3*LEFT + 2*UP)
+ src_copy = src.copy().shift(4*DOWN)
+
+ target = VGroup(Circle(), Triangle().shift(RIGHT + DOWN))
+ target.shift(3*RIGHT + 2*UP)
+ target_copy = target.copy().shift(4*DOWN)
+
+ self.play(FadeIn(src), FadeIn(src_copy))
+ self.play(
+ FadeTransform(src, target),
+ FadeTransformPieces(src_copy, target_copy)
+ )
+ self.play(*[FadeOut(mobj) for mobj in self.mobjects])
+
+```
+
+ Methods 
+
+ begin 
+ Initial setup for the animation. 
+
+ ghost_to 
+ Replaces the source submobjects by the target submobjects and sets the opacity to 0. 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+
+ mobject ( Mobject ) 
+ target_mobject ( Mobject ) 
+ stretch ( bool ) 
+ dim_to_match ( int ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( mobject , target_mobject , stretch = True , dim_to_match = 1 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate sig
+
+## Examples
+
+### Example 1
+```python
+class FadeTransformSubmobjects ( Scene ): 
+ def construct ( self ): 
+ src = VGroup ( Square (), Circle () . shift ( LEFT + UP )) 
+ src . shift ( 3 * LEFT + 2 * UP ) 
+ src_copy = src . copy () . shift ( 4 * DOWN ) 
+
+ target = VGroup ( Circle (), Triangle () . shift ( RIGHT + DOWN )) 
+ target . shift ( 3 * RIGHT + 2 * UP ) 
+ target_copy = target . copy () . shift ( 4 * DOWN ) 
+
+ self . play ( FadeIn ( src ), FadeIn ( src_copy )) 
+ self . play ( 
+ FadeTransform ( src , target ), 
+ FadeTransformPieces ( src_copy , target_copy ) 
+ ) 
+ self . play ( * [ FadeOut ( mobj ) for mobj in self . mobjects ])
+```
+
+### Example 2
+```python
+class FadeTransformSubmobjects(Scene):
+ def construct(self):
+ src = VGroup(Square(), Circle().shift(LEFT + UP))
+ src.shift(3*LEFT + 2*UP)
+ src_copy = src.copy().shift(4*DOWN)
+
+ target = VGroup(Circle(), Triangle().shift(RIGHT + DOWN))
+ target.shift(3*RIGHT + 2*UP)
+ target_copy = target.copy().shift(4*DOWN)
+
+ self.play(FadeIn(src), FadeIn(src_copy))
+ self.play(
+ FadeTransform(src, target),
+ FadeTransformPieces(src_copy, target_copy)
+ )
+ self.play(*[FadeOut(mobj) for mobj in self.mobjects])
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.FadeTransformPieces.html

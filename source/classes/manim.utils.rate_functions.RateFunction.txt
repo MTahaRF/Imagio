@@ -1,0 +1,18 @@
+# manim.utils.rate_functions.RateFunction
+
+## Signature
+class RateFunction ( * args , ** kwargs )
+
+## Summary
+
+
+## Description
+RateFunction ¶ 
+ Qualified name: manim.utils.rate\_functions.RateFunction 
+
+ class RateFunction ( * args , ** kwargs ) [source] ¶ 
+ Bases: Protocol 
+ Methods
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.utils.rate_functions.RateFunction.html

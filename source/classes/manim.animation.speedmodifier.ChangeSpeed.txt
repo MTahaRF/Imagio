@@ -1,0 +1,202 @@
+# manim.animation.speedmodifier.ChangeSpeed
+
+## Signature
+class ChangeSpeed ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+class ChangeSpeed ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Animation 
+ Modifies the speed of passed animation.
+ AnimationGroup with different lag_ratio can also be used
+which combines multiple animations into one.
+The run_time of the passed animation is chang
+
+## Description
+ChangeSpeed ¶ 
+ Qualified name: manim.animation.speedmodifier.ChangeSpeed 
+
+ class ChangeSpeed ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Animation 
+ Modifies the speed of passed animation.
+ AnimationGroup with different lag_ratio can also be used
+which combines multiple animations into one.
+The run_time of the passed animation is changed to modify the speed. 
+
+ Parameters : 
+
+ anim ( Animation | _AnimationBuilder ) – Animation of which the speed is to be modified. 
+ speedinfo ( dict [ float , float ] ) – Contains nodes (percentage of run_time ) and its corresponding speed factor. 
+ rate_func ( Callable [ [ float ] , float ] | None ) – Overrides rate_func of passed animation, applied before changing speed. 
+ affects_speed_updaters ( bool ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for SpeedModifierExample . 
+
+```
+ class SpeedModifierExample ( Scene ): 
+ def construct ( self ): 
+ a = Dot () . shift ( LEFT * 4 ) 
+ b = Dot () . shift ( RIGHT * 4 ) 
+ self . add ( a , b ) 
+ self . play ( 
+ ChangeSpeed ( 
+ AnimationGroup ( 
+ a . animate ( run_time = 1 ) . shift ( RIGHT * 8 ), 
+ b . animate ( run_time = 1 ) . shift ( LEFT * 8 ), 
+ ), 
+ speedinfo = { 0.3 : 1 , 0.4 : 0.1 , 0.6 : 0.1 , 1 : 1 }, 
+ rate_func = linear , 
+ ) 
+ ) 
+
+```
+
+```
+
+class SpeedModifierExample(Scene):
+ def construct(self):
+ a = Dot().shift(LEFT * 4)
+ b = Dot().shift(RIGHT * 4)
+ self.add(a, b)
+ self.play(
+ ChangeSpeed(
+ AnimationGroup(
+ a.animate(run_time=1).shift(RIGHT * 8),
+ b.animate(run_time=1).shift(LEFT * 8),
+ ),
+ speedinfo={0.3: 1, 0.4: 0.1, 0.6: 0.1, 1: 1},
+ rate_func=linear,
+ )
+ )
+
+```
+
+ Example Placeholder 
+ Placeholder block for SpeedModifierUpdaterExample . 
+
+```
+ class SpeedModifierUpdaterExample ( Scene ): 
+ def construct ( self ): 
+ a = Dot () . shift ( LEFT * 4 ) 
+ self . add ( a ) 
+
+ ChangeSpeed . add_updater ( a , lambda x , dt : x . shift ( RIGHT * 4 * dt )) 
+ self . play ( 
+ ChangeSpeed ( 
+ Wait ( 2 ), 
+ speedinfo = { 0.4 : 1 , 0.5 : 0.
+
+## Examples
+
+### Example 1
+```python
+class SpeedModifierExample ( Scene ): 
+ def construct ( self ): 
+ a = Dot () . shift ( LEFT * 4 ) 
+ b = Dot () . shift ( RIGHT * 4 ) 
+ self . add ( a , b ) 
+ self . play ( 
+ ChangeSpeed ( 
+ AnimationGroup ( 
+ a . animate ( run_time = 1 ) . shift ( RIGHT * 8 ), 
+ b . animate ( run_time = 1 ) . shift ( LEFT * 8 ), 
+ ), 
+ speedinfo = { 0.3 : 1 , 0.4 : 0.1 , 0.6 : 0.1 , 1 : 1 }, 
+ rate_func = linear , 
+ ) 
+ )
+```
+
+### Example 2
+```python
+class SpeedModifierExample(Scene):
+ def construct(self):
+ a = Dot().shift(LEFT * 4)
+ b = Dot().shift(RIGHT * 4)
+ self.add(a, b)
+ self.play(
+ ChangeSpeed(
+ AnimationGroup(
+ a.animate(run_time=1).shift(RIGHT * 8),
+ b.animate(run_time=1).shift(LEFT * 8),
+ ),
+ speedinfo={0.3: 1, 0.4: 0.1, 0.6: 0.1, 1: 1},
+ rate_func=linear,
+ )
+ )
+```
+
+### Example 3
+```python
+class SpeedModifierUpdaterExample ( Scene ): 
+ def construct ( self ): 
+ a = Dot () . shift ( LEFT * 4 ) 
+ self . add ( a ) 
+
+ ChangeSpeed . add_updater ( a , lambda x , dt : x . shift ( RIGHT * 4 * dt )) 
+ self . play ( 
+ ChangeSpeed ( 
+ Wait ( 2 ), 
+ speedinfo = { 0.4 : 1 , 0.5 : 0.2 , 0.8 : 0.2 , 1 : 1 }, 
+ affects_speed_updaters = True , 
+ ) 
+ )
+```
+
+### Example 4
+```python
+class SpeedModifierUpdaterExample(Scene):
+ def construct(self):
+ a = Dot().shift(LEFT * 4)
+ self.add(a)
+
+ ChangeSpeed.add_updater(a, lambda x, dt: x.shift(RIGHT * 4 * dt))
+ self.play(
+ ChangeSpeed(
+ Wait(2),
+ speedinfo={0.4: 1, 0.5: 0.2, 0.8: 0.2, 1: 1},
+ affects_speed_updaters=True,
+ )
+ )
+```
+
+### Example 5
+```python
+class SpeedModifierUpdaterExample2 ( Scene ): 
+ def construct ( self ): 
+ a = Dot () . shift ( LEFT * 4 ) 
+ self . add ( a ) 
+
+ ChangeSpeed . add_updater ( a , lambda x , dt : x . shift ( RIGHT * 4 * dt )) 
+ self . wait () 
+ self . play ( 
+ ChangeSpeed ( 
+ Wait (), 
+ speedinfo = { 1 : 0 }, 
+ affects_speed_updaters = True , 
+ ) 
+ )
+```
+
+### Example 6
+```python
+class SpeedModifierUpdaterExample2(Scene):
+ def construct(self):
+ a = Dot().shift(LEFT * 4)
+ self.add(a)
+
+ ChangeSpeed.add_updater(a, lambda x, dt: x.shift(RIGHT * 4 * dt))
+ self.wait()
+ self.play(
+ ChangeSpeed(
+ Wait(),
+ speedinfo={1: 0},
+ affects_speed_updaters=True,
+ )
+ )
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.speedmodifier.ChangeSpeed.html

@@ -1,0 +1,45 @@
+# manim.animation.transform.ApplyFunction
+
+## Signature
+class ApplyFunction ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+function ( types.MethodType ) 
+ mobject ( Mobject )
+
+## Description
+ApplyFunction ¶ 
+ Qualified name: manim.animation.transform.ApplyFunction 
+
+ class ApplyFunction ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ Methods 
+
+ create_target 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+
+ function ( types.MethodType ) 
+ mobject ( Mobject ) 
+
+ _original__init__ ( function , mobject , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ function ( MethodType ) 
+ mobject ( Mobject ) 
+
+ Return type : 
+ None
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.ApplyFunction.html

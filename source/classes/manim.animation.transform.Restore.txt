@@ -1,0 +1,104 @@
+# manim.animation.transform.Restore
+
+## Signature
+class Restore ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+class Restore ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: ApplyMethod 
+ Transforms a mobject to its last saved state. 
+ To save the state of a mobject, use the save_state() method. 
+ Examples
+
+## Description
+Restore ¶ 
+ Qualified name: manim.animation.transform.Restore 
+
+ class Restore ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: ApplyMethod 
+ Transforms a mobject to its last saved state. 
+ To save the state of a mobject, use the save_state() method. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for RestoreExample . 
+
+```
+ class RestoreExample ( Scene ): 
+ def construct ( self ): 
+ s = Square () 
+ s . save_state () 
+ self . play ( FadeIn ( s )) 
+ self . play ( s . animate . set_color ( PURPLE ) . set_opacity ( 0.5 ) . shift ( 2 * LEFT ) . scale ( 3 )) 
+ self . play ( s . animate . shift ( 5 * DOWN ) . rotate ( PI / 4 )) 
+ self . wait () 
+ self . play ( Restore ( s ), run_time = 2 ) 
+
+```
+
+```
+
+class RestoreExample(Scene):
+ def construct(self):
+ s = Square()
+ s.save_state()
+ self.play(FadeIn(s))
+ self.play(s.animate.set_color(PURPLE).set_opacity(0.5).shift(2*LEFT).scale(3))
+ self.play(s.animate.shift(5*DOWN).rotate(PI/4))
+ self.wait()
+ self.play(Restore(s), run_time=2)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+ mobject ( Mobject ) 
+
+ _original__init__ ( mobject , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+ mobject ( Mobject ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class RestoreExample ( Scene ): 
+ def construct ( self ): 
+ s = Square () 
+ s . save_state () 
+ self . play ( FadeIn ( s )) 
+ self . play ( s . animate . set_color ( PURPLE ) . set_opacity ( 0.5 ) . shift ( 2 * LEFT ) . scale ( 3 )) 
+ self . play ( s . animate . shift ( 5 * DOWN ) . rotate ( PI / 4 )) 
+ self . wait () 
+ self . play ( Restore ( s ), run_time = 2 )
+```
+
+### Example 2
+```python
+class RestoreExample(Scene):
+ def construct(self):
+ s = Square()
+ s.save_state()
+ self.play(FadeIn(s))
+ self.play(s.animate.set_color(PURPLE).set_opacity(0.5).shift(2*LEFT).scale(3))
+ self.play(s.animate.shift(5*DOWN).rotate(PI/4))
+ self.wait()
+ self.play(Restore(s), run_time=2)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.Restore.html

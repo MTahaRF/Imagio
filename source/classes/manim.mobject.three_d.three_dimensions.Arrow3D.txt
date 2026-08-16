@@ -1,0 +1,136 @@
+# manim.mobject.three_d.three_dimensions.Arrow3D
+
+## Signature
+class Arrow3D ( start = array([-1., 0., 0.])
+
+## Summary
+class Arrow3D ( start = array([-1., 0., 0.]) , end = array([1., 0., 0.]) , thickness = 0.02 , height = 0.3 , base_radius = 0.08 , color = ManimColor('#FFFFFF') , resolution = 24 , ** kwargs ) [source] ¶ 
+ Bases: Line3D 
+ An arrow made out of a cylindrical line and a conical tip.
+
+## Description
+Arrow3D ¶ 
+ Qualified name: manim.mobject.three\_d.three\_dimensions.Arrow3D 
+
+ class Arrow3D ( start = array([-1., 0., 0.]) , end = array([1., 0., 0.]) , thickness = 0.02 , height = 0.3 , base_radius = 0.08 , color = ManimColor('#FFFFFF') , resolution = 24 , ** kwargs ) [source] ¶ 
+ Bases: Line3D 
+ An arrow made out of a cylindrical line and a conical tip. 
+
+ Parameters : 
+
+ start ( Point3DLike ) – The start position of the arrow. 
+ end ( Point3DLike ) – The end position of the arrow. 
+ thickness ( float ) – The thickness of the arrow. 
+ height ( float ) – The height of the conical tip. 
+ base_radius ( float ) – The base radius of the conical tip. 
+ color ( ManimColor ) – The color of the arrow. 
+ resolution ( int | tuple [ int , int ] ) – The resolution of the arrow line. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ExampleArrow3D . 
+
+```
+ class ExampleArrow3D ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ arrow = Arrow3D ( 
+ start = np . array ([ 0 , 0 , 0 ]), 
+ end = np . array ([ 2 , 2 , 2 ]), 
+ resolution = 8 
+ ) 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ self . add ( axes , arrow ) 
+
+```
+
+```
+
+class ExampleArrow3D(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ arrow = Arrow3D(
+ start=np.array([0, 0, 0]),
+ end=np.array([2, 2, 2]),
+ resolution=8
+ )
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ self.add(axes, arrow)
+
+```
+
+ Methods 
+
+ get_end 
+ Returns the ending point of the Line3D . 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ 
+
+## Examples
+
+### Example 1
+```python
+class ExampleArrow3D ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ arrow = Arrow3D ( 
+ start = np . array ([ 0 , 0 , 0 ]), 
+ end = np . array ([ 2 , 2 , 2 ]), 
+ resolution = 8 
+ ) 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ self . add ( axes , arrow )
+```
+
+### Example 2
+```python
+class ExampleArrow3D(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ arrow = Arrow3D(
+ start=np.array([0, 0, 0]),
+ end=np.array([2, 2, 2]),
+ resolution=8
+ )
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ self.add(axes, arrow)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.three_dimensions.Arrow3D.html

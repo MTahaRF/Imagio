@@ -1,0 +1,113 @@
+# manim.animation.transform.CyclicReplace
+
+## Signature
+class CyclicReplace ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+class CyclicReplace ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ An animation moving mobjects cyclically. 
+ In particular, this means: the first mobject takes the place
+of the second mobject, the second one takes the place of
+the third mobject, and so
+
+## Description
+CyclicReplace ¶ 
+ Qualified name: manim.animation.transform.CyclicReplace 
+
+ class CyclicReplace ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ An animation moving mobjects cyclically. 
+ In particular, this means: the first mobject takes the place
+of the second mobject, the second one takes the place of
+the third mobject, and so on. The last mobject takes the
+place of the first one. 
+
+ Parameters : 
+
+ mobjects ( Mobject ) – List of mobjects to be transformed. 
+ path_arc ( float ) – The angle of the arc (in radians) that the mobjects will follow to reach
+their target. 
+ kwargs – Further keyword arguments that are passed to Transform . 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for CyclicReplaceExample . 
+
+```
+ class CyclicReplaceExample ( Scene ): 
+ def construct ( self ): 
+ group = VGroup ( Square (), Circle (), Triangle (), Star ()) 
+ group . arrange ( RIGHT ) 
+ self . add ( group ) 
+
+ for _ in range ( 4 ): 
+ self . play ( CyclicReplace ( * group )) 
+
+```
+
+```
+
+class CyclicReplaceExample(Scene):
+ def construct(self):
+ group = VGroup(Square(), Circle(), Triangle(), Star())
+ group.arrange(RIGHT)
+ self.add(group)
+
+ for _ in range(4):
+ self.play(CyclicReplace(*group))
+
+```
+
+ Methods 
+
+ create_target 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ _original__init__ ( * mobjects , path_arc = 1.5707963267948966 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ mobjects ( Mobject ) 
+ path_arc ( float ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class CyclicReplaceExample ( Scene ): 
+ def construct ( self ): 
+ group = VGroup ( Square (), Circle (), Triangle (), Star ()) 
+ group . arrange ( RIGHT ) 
+ self . add ( group ) 
+
+ for _ in range ( 4 ): 
+ self . play ( CyclicReplace ( * group ))
+```
+
+### Example 2
+```python
+class CyclicReplaceExample(Scene):
+ def construct(self):
+ group = VGroup(Square(), Circle(), Triangle(), Star())
+ group.arrange(RIGHT)
+ self.add(group)
+
+ for _ in range(4):
+ self.play(CyclicReplace(*group))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.CyclicReplace.html

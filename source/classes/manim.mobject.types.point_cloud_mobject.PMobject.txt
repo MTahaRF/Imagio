@@ -1,0 +1,176 @@
+# manim.mobject.types.point_cloud_mobject.PMobject
+
+## Signature
+class PMobject ( stroke_width = 4 , ** kwargs )
+
+## Summary
+# As the scale factor increases, the number of points 
+ # removed increases. 
+ for sf in range ( 1 , 9 + 1 ): 
+ p = PointCloudDot ( density = 20 , radius = 1 ) . thin_out ( sf ) 
+ # PointCloudDot is a type of PMobject 
+ # and can therefore be added to a PGroup 
+ pG . add ( p )
+
+## Description
+PMobject ¶ 
+ Qualified name: manim.mobject.types.point\_cloud\_mobject.PMobject 
+
+ class PMobject ( stroke_width = 4 , ** kwargs ) [source] ¶ 
+ Bases: Mobject 
+ A disc made of a cloud of Dots 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for PMobjectExample . 
+
+```
+ class PMobjectExample ( Scene ): 
+ def construct ( self ): 
+
+ pG = PGroup () # This is just a collection of PMobject's 
+
+ # As the scale factor increases, the number of points 
+ # removed increases. 
+ for sf in range ( 1 , 9 + 1 ): 
+ p = PointCloudDot ( density = 20 , radius = 1 ) . thin_out ( sf ) 
+ # PointCloudDot is a type of PMobject 
+ # and can therefore be added to a PGroup 
+ pG . add ( p ) 
+
+ # This organizes all the shapes in a grid. 
+ pG . arrange_in_grid () 
+
+ self . add ( pG ) 
+
+```
+
+```
+
+class PMobjectExample(Scene):
+ def construct(self):
+
+ pG = PGroup() # This is just a collection of PMobject's
+
+ # As the scale factor increases, the number of points
+ # removed increases.
+ for sf in range(1, 9 + 1):
+ p = PointCloudDot(density=20, radius=1).thin_out(sf)
+ # PointCloudDot is a type of PMobject
+ # and can therefore be added to a PGroup
+ pG.add(p)
+
+ # This organizes all the shapes in a grid.
+ pG.arrange_in_grid()
+
+ self.add(pG)
+
+```
+
+ Methods 
+
+ add_points 
+ Add points. 
+
+ align_points_with_larger 
+
+ fade_to 
+
+ filter_out 
+
+ get_all_rgbas 
+
+ get_array_attrs 
+
+ get_color 
+ Returns the color of the Mobject 
+
+ get_mobject_type_class 
+ Return the base class of this mobject type. 
+
+ get_point_mobject 
+ The simplest Mobject to be transformed to or from self. 
+
+ get_stroke_width 
+
+ ingest_submobjects 
+
+ interpolate_color 
+
+ match_colors 
+
+ point_from_proportion 
+
+ pointwise_become_partial 
+
+ reset_points 
+ Sets points to be an empty array. 
+
+ set_color 
+ Condition is function which takes in one arguments, (x, y, z). 
+
+ set_color_by_gradient 
+
+ set_colors_by_radial_gradient 
+
+ set_stroke_width 
+
+ sort_points 
+ Function is any map from R^3 to R 
+
+ thin_out 
+ Removes all but every nth point for n = 
+
+## Examples
+
+### Example 1
+```python
+class PMobjectExample ( Scene ): 
+ def construct ( self ): 
+
+ pG = PGroup () # This is just a collection of PMobject's 
+
+ # As the scale factor increases, the number of points 
+ # removed increases. 
+ for sf in range ( 1 , 9 + 1 ): 
+ p = PointCloudDot ( density = 20 , radius = 1 ) . thin_out ( sf ) 
+ # PointCloudDot is a type of PMobject 
+ # and can therefore be added to a PGroup 
+ pG . add ( p ) 
+
+ # This organizes all the shapes in a grid. 
+ pG . arrange_in_grid () 
+
+ self . add ( pG )
+```
+
+### Example 2
+```python
+class PMobjectExample(Scene):
+ def construct(self):
+
+ pG = PGroup() # This is just a collection of PMobject's
+
+ # As the scale factor increases, the number of points
+ # removed increases.
+ for sf in range(1, 9 + 1):
+ p = PointCloudDot(density=20, radius=1).thin_out(sf)
+ # PointCloudDot is a type of PMobject
+ # and can therefore be added to a PGroup
+ pG.add(p)
+
+ # This organizes all the shapes in a grid.
+ pG.arrange_in_grid()
+
+ self.add(pG)
+```
+
+### Example 3
+```python
+>>> from manim import Square , RED 
+ >>> Square ( color = RED ) . get_color () == RED 
+ True
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.types.point_cloud_mobject.PMobject.html

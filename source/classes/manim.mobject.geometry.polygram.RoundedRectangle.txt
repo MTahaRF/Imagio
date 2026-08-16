@@ -1,0 +1,120 @@
+# manim.mobject.geometry.polygram.RoundedRectangle
+
+## Signature
+class RoundedRectangle ( corner_radius = 0.5 , ** kwargs )
+
+## Summary
+corner_radius ( float | list [ float ] ) – The curvature of the corners of the rectangle. 
+ kwargs ( Any ) – Additional arguments to be passed to Rectangle
+
+## Description
+RoundedRectangle ¶ 
+ Qualified name: manim.mobject.geometry.polygram.RoundedRectangle 
+
+ class RoundedRectangle ( corner_radius = 0.5 , ** kwargs ) [source] ¶ 
+ Bases: Rectangle 
+ A rectangle with rounded corners. 
+
+ Parameters : 
+
+ corner_radius ( float | list [ float ] ) – The curvature of the corners of the rectangle. 
+ kwargs ( Any ) – Additional arguments to be passed to Rectangle 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for RoundedRectangleExample . 
+
+```
+ class RoundedRectangleExample ( Scene ): 
+ def construct ( self ): 
+ rect_1 = RoundedRectangle ( corner_radius = 0.5 ) 
+ rect_2 = RoundedRectangle ( corner_radius = 1.5 , height = 4.0 , width = 4.0 ) 
+
+ rect_group = Group ( rect_1 , rect_2 ) . arrange ( buff = 1 ) 
+ self . add ( rect_group ) 
+
+```
+
+```
+
+class RoundedRectangleExample(Scene):
+ def construct(self):
+ rect_1 = RoundedRectangle(corner_radius=0.5)
+ rect_2 = RoundedRectangle(corner_radius=1.5, height=4.0, width=4.0)
+
+ rect_group = Group(rect_1, rect_2).arrange(buff=1)
+ self.add(rect_group)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( corner_radius = 0.5 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ corner_radius ( float | list [ float ] ) 
+ kwargs ( Any )
+
+## Examples
+
+### Example 1
+```python
+class RoundedRectangleExample ( Scene ): 
+ def construct ( self ): 
+ rect_1 = RoundedRectangle ( corner_radius = 0.5 ) 
+ rect_2 = RoundedRectangle ( corner_radius = 1.5 , height = 4.0 , width = 4.0 ) 
+
+ rect_group = Group ( rect_1 , rect_2 ) . arrange ( buff = 1 ) 
+ self . add ( rect_group )
+```
+
+### Example 2
+```python
+class RoundedRectangleExample(Scene):
+ def construct(self):
+ rect_1 = RoundedRectangle(corner_radius=0.5)
+ rect_2 = RoundedRectangle(corner_radius=1.5, height=4.0, width=4.0)
+
+ rect_group = Group(rect_1, rect_2).arrange(buff=1)
+ self.add(rect_group)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.polygram.RoundedRectangle.html

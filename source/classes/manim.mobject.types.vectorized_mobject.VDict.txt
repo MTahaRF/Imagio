@@ -1,0 +1,214 @@
+# manim.mobject.types.vectorized_mobject.VDict
+
+## Signature
+class VDict ( mapping_or_iterable = {} , show_keys = False , ** kwargs )
+
+## Summary
+mapping_or_iterable ( Mapping [ Hashable , VMobject ] | Iterable [ tuple [ Hashable , VMobject ] ] ) – The parameter specifying the key-value mapping of keys and mobjects. 
+ show_keys ( bool ) – Whether to also display the key associated with
+the mobject. This might be useful when debugging,
+especia
+
+## Description
+VDict ¶ 
+ Qualified name: manim.mobject.types.vectorized\_mobject.VDict 
+
+ class VDict ( mapping_or_iterable = {} , show_keys = False , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ A VGroup-like class, also offering submobject access by
+key, like a python dict 
+
+ Parameters : 
+
+ mapping_or_iterable ( Mapping [ Hashable , VMobject ] | Iterable [ tuple [ Hashable , VMobject ] ] ) – The parameter specifying the key-value mapping of keys and mobjects. 
+ show_keys ( bool ) – Whether to also display the key associated with
+the mobject. This might be useful when debugging,
+especially when there are a lot of mobjects in the
+ VDict . Defaults to False. 
+ kwargs – Other arguments to be passed to Mobject . 
+
+ show_keys ¶ 
+ Whether to also display the key associated with
+the mobject. This might be useful when debugging,
+especially when there are a lot of mobjects in the
+ VDict . When displayed, the key is towards
+the left of the mobject.
+Defaults to False. 
+
+ Type : 
+ bool 
+
+ submob_dict ¶ 
+ Is the actual python dictionary that is used to bind
+the keys to the mobjects. 
+
+ Type : 
+ dict 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ShapesWithVDict . 
+
+```
+ class ShapesWithVDict ( Scene ): 
+ def construct ( self ): 
+ square = Square () . set_color ( RED ) 
+ circle = Circle () . set_color ( YELLOW ) . next_to ( square , UP ) 
+
+ # create dict from list of tuples each having key-mobject pair 
+ pairs = [( "s" , square ), ( "c" , circle )] 
+ my_dict = VDict ( pairs , show_keys = True ) 
+
+ # display it just like a VGroup 
+ self . play ( Create ( my_dict )) 
+ self . wait () 
+
+ text = Tex ( "Some text" ) . set_color ( GREEN ) . next_to ( square , DOWN ) 
+
+ # add a key-value pair by wrapping it in a single-element list of tuple 
+ # after attrs branch is merged, it will be easier like `.add(t=text)` 
+ my_dict . add ([( "t" , text )]) 
+ self . wait () 
+
+ rect = Rectangle () . next_to ( text , DOWN ) 
+ # can also do key assignment like a python dict 
+ my_dict [ "r" ] = rect 
+
+ # a
+
+## Examples
+
+### Example 1
+```python
+class ShapesWithVDict ( Scene ): 
+ def construct ( self ): 
+ square = Square () . set_color ( RED ) 
+ circle = Circle () . set_color ( YELLOW ) . next_to ( square , UP ) 
+
+ # create dict from list of tuples each having key-mobject pair 
+ pairs = [( "s" , square ), ( "c" , circle )] 
+ my_dict = VDict ( pairs , show_keys = True ) 
+
+ # display it just like a VGroup 
+ self . play ( Create ( my_dict )) 
+ self . wait () 
+
+ text = Tex ( "Some text" ) . set_color ( GREEN ) . next_to ( square , DOWN ) 
+
+ # add a key-value pair by wrapping it in a single-element list of tuple 
+ # after attrs branch is merged, it will be easier like `.add(t=text)` 
+ my_dict . add ([( "t" , text )]) 
+ self . wait () 
+
+ rect = Rectangle () . next_to ( text , DOWN ) 
+ # can also do key assignment like a python dict 
+ my_dict [ "r" ] = rect 
+
+ # access submobjects like a python dict 
+ my_dict [ "t" ] . set_color ( PURPLE ) 
+ self . play ( my_dict [ "t" ] . animate . scale ( 3 )) 
+ self . wait () 
+
+ # also supports python dict styled reassignment 
+ my_dict [ "t" ] = Tex ( "Some other text" ) . set_color ( BLUE ) 
+ self . wait () 
+
+ # remove submobject by key 
+ my_dict . remove ( "t" ) 
+ self . wait () 
+
+ self . play ( Uncreate ( my_dict [ "s" ])) 
+ self . wait () 
+
+ self . play ( FadeOut ( my_dict [ "c" ])) 
+ self . wait () 
+
+ self . play ( FadeOut ( my_dict [ "r" ], shift = DOWN )) 
+ self . wait () 
+
+ # you can also make a VDict from an existing dict of mobjects 
+ plain_dict = { 
+ 1 : Integer ( 1 ) . shift 
+```
+
+### Example 2
+```python
+class ShapesWithVDict(Scene):
+ def construct(self):
+ square = Square().set_color(RED)
+ circle = Circle().set_color(YELLOW).next_to(square, UP)
+
+ # create dict from list of tuples each having key-mobject pair
+ pairs = [("s", square), ("c", circle)]
+ my_dict = VDict(pairs, show_keys=True)
+
+ # display it just like a VGroup
+ self.play(Create(my_dict))
+ self.wait()
+
+ text = Tex("Some text").set_color(GREEN).next_to(square, DOWN)
+
+ # add a key-value pair by wrapping it in a single-element list of tuple
+ # after attrs branch is merged, it will be easier like `.add(t=text)`
+ my_dict.add([("t", text)])
+ self.wait()
+
+ rect = Rectangle().next_to(text, DOWN)
+ # can also do key assignment like a python dict
+ my_dict["r"] = rect
+
+ # access submobjects like a python dict
+ my_dict["t"].set_color(PURPLE)
+ self.play(my_dict["t"].animate.scale(3))
+ self.wait()
+
+ # also supports python dict styled reassignment
+ my_dict["t"] = Tex("Some other text").set_color(BLUE)
+ self.wait()
+
+ # remove submobject by key
+ my_dict.remove("t")
+ self.wait()
+
+ self.play(Uncreate(my_dict["s"]))
+ self.wait()
+
+ self.play(FadeOut(my_dict["c"]))
+ self.wait()
+
+ self.play(FadeOut(my_dict["r"], shift=DOWN))
+ self.wait()
+
+ # you can also make a VDict from an existing dict of mobjects
+ plain_dict = {
+ 1: Integer(1).shift(DOWN),
+ 2: Integer(2).shift(2 * DOWN),
+ 3: Integer(3).shift(3 * DOWN),
+ }
+
+ vdict_from_plain_dict = VDict(plain_dict)
+ vdict_from_plain_dict.shift(1.5 * (UP + LEFT))
+ self.play(Create(vdict_from_plain_dict))
+```
+
+### Example 3
+```python
+square_obj = Square () 
+ my_dict . add ([( "s" , square_obj )])
+```
+
+### Example 4
+```python
+square_obj = Square () 
+ self . add_key_value_pair ( "s" , square_obj )
+```
+
+### Example 5
+```python
+for submob in my_dict . get_all_submobjects (): 
+ self . play ( Create ( submob ))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.types.vectorized_mobject.VDict.html

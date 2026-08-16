@@ -1,0 +1,118 @@
+# manim.mobject.geometry.arc.ArcBetweenPoints
+
+## Signature
+class ArcBetweenPoints ( start , end , angle = 1.5707963267948966 , radius = None , ** kwargs )
+
+## Summary
+class ArcBetweenPoints ( start , end , angle = 1.5707963267948966 , radius = None , ** kwargs ) [source] ¶ 
+ Bases: Arc 
+ Inherits from Arc and additionally takes 2 points between which the arc is spanned. 
+ Example
+
+## Description
+ArcBetweenPoints ¶ 
+ Qualified name: manim.mobject.geometry.arc.ArcBetweenPoints 
+
+ class ArcBetweenPoints ( start , end , angle = 1.5707963267948966 , radius = None , ** kwargs ) [source] ¶ 
+ Bases: Arc 
+ Inherits from Arc and additionally takes 2 points between which the arc is spanned. 
+ Example 
+
+ Example Placeholder 
+ Placeholder block for ArcBetweenPointsExample . 
+
+```
+ class ArcBetweenPointsExample ( Scene ): 
+ def construct ( self ): 
+ circle = Circle ( radius = 2 , stroke_color = GREY ) 
+ dot_1 = Dot ( color = GREEN ) . move_to ([ 2 , 0 , 0 ]) . scale ( 0.5 ) 
+ dot_1_text = Tex ( "(2,0)" ) . scale ( 0.5 ) . next_to ( dot_1 , RIGHT ) . set_color ( BLUE ) 
+ dot_2 = Dot ( color = GREEN ) . move_to ([ 0 , 2 , 0 ]) . scale ( 0.5 ) 
+ dot_2_text = Tex ( "(0,2)" ) . scale ( 0.5 ) . next_to ( dot_2 , UP ) . set_color ( BLUE ) 
+ arc = ArcBetweenPoints ( start = 2 * RIGHT , end = 2 * UP , stroke_color = YELLOW ) 
+ self . add ( circle , dot_1 , dot_2 , dot_1_text , dot_2_text ) 
+ self . play ( Create ( arc )) 
+
+```
+
+```
+
+class ArcBetweenPointsExample(Scene):
+ def construct(self):
+ circle = Circle(radius=2, stroke_color=GREY)
+ dot_1 = Dot(color=GREEN).move_to([2, 0, 0]).scale(0.5)
+ dot_1_text = Tex("(2,0)").scale(0.5).next_to(dot_1, RIGHT).set_color(BLUE)
+ dot_2 = Dot(color=GREEN).move_to([0, 2, 0]).scale(0.5)
+ dot_2_text = Tex("(0,2)").scale(0.5).next_to(dot_2, UP).set_color(BLUE)
+ arc= ArcBetweenPoints(start=2 * RIGHT, end=2 * UP, stroke_color=YELLOW)
+ self.add(circle, dot_1, dot_2, dot_1_text, dot_2_text)
+ self.play(Create(arc))
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target
+
+## Examples
+
+### Example 1
+```python
+class ArcBetweenPointsExample ( Scene ): 
+ def construct ( self ): 
+ circle = Circle ( radius = 2 , stroke_color = GREY ) 
+ dot_1 = Dot ( color = GREEN ) . move_to ([ 2 , 0 , 0 ]) . scale ( 0.5 ) 
+ dot_1_text = Tex ( "(2,0)" ) . scale ( 0.5 ) . next_to ( dot_1 , RIGHT ) . set_color ( BLUE ) 
+ dot_2 = Dot ( color = GREEN ) . move_to ([ 0 , 2 , 0 ]) . scale ( 0.5 ) 
+ dot_2_text = Tex ( "(0,2)" ) . scale ( 0.5 ) . next_to ( dot_2 , UP ) . set_color ( BLUE ) 
+ arc = ArcBetweenPoints ( start = 2 * RIGHT , end = 2 * UP , stroke_color = YELLOW ) 
+ self . add ( circle , dot_1 , dot_2 , dot_1_text , dot_2_text ) 
+ self . play ( Create ( arc ))
+```
+
+### Example 2
+```python
+class ArcBetweenPointsExample(Scene):
+ def construct(self):
+ circle = Circle(radius=2, stroke_color=GREY)
+ dot_1 = Dot(color=GREEN).move_to([2, 0, 0]).scale(0.5)
+ dot_1_text = Tex("(2,0)").scale(0.5).next_to(dot_1, RIGHT).set_color(BLUE)
+ dot_2 = Dot(color=GREEN).move_to([0, 2, 0]).scale(0.5)
+ dot_2_text = Tex("(0,2)").scale(0.5).next_to(dot_2, UP).set_color(BLUE)
+ arc= ArcBetweenPoints(start=2 * RIGHT, end=2 * UP, stroke_color=YELLOW)
+ self.add(circle, dot_1, dot_2, dot_1_text, dot_2_text)
+ self.play(Create(arc))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.arc.ArcBetweenPoints.html

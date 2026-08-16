@@ -1,0 +1,235 @@
+# manim.mobject.types.vectorized_mobject.VGroup
+
+## Signature
+class VGroup ( * vmobjects , ** kwargs )
+
+## Summary
+class VGroup ( * vmobjects , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ A group of vectorized mobjects. 
+ This can be used to group multiple VMobject instances together
+in order to scale, move, … them together. 
+ Notes 
+ When adding the same mobject more than once, repetitions are ignored.
+Use Mobje
+
+## Description
+VGroup ¶ 
+ Qualified name: manim.mobject.types.vectorized\_mobject.VGroup 
+
+ class VGroup ( * vmobjects , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ A group of vectorized mobjects. 
+ This can be used to group multiple VMobject instances together
+in order to scale, move, … them together. 
+ Notes 
+ When adding the same mobject more than once, repetitions are ignored.
+Use Mobject.copy() to create a separate copy which can then
+be added to the group. 
+ Examples 
+ To add VGroup , you can either use the
+ add() method, or use the + and += operators. Similarly, you
+can subtract elements of a VGroup via remove() method, or
+ - and -= operators: 
+
+```
+ >>> from manim import Triangle , Square , VGroup 
+ >>> vg = VGroup () 
+ >>> triangle , square = Triangle (), Square () 
+ >>> vg . add ( triangle ) 
+ VGroup(Triangle) 
+ >>> vg + square # a new VGroup is constructed 
+ VGroup(Triangle, Square) 
+ >>> vg # not modified 
+ VGroup(Triangle) 
+ >>> vg += square 
+ >>> vg # modifies vg 
+ VGroup(Triangle, Square) 
+ >>> vg . remove ( triangle ) 
+ VGroup(Square) 
+ >>> vg - square # a new VGroup is constructed 
+ VGroup() 
+ >>> vg # not modified 
+ VGroup(Square) 
+ >>> vg -= square 
+ >>> vg # modifies vg 
+ VGroup() 
+
+```
+
+ Example Placeholder 
+ Placeholder block for ArcShapeIris . 
+
+```
+ class ArcShapeIris ( Scene ): 
+ def construct ( self ): 
+ colors = [ DARK_BROWN , BLUE_E , BLUE_D , BLUE_A , TEAL_B , GREEN_B , YELLOW_E ] 
+ radius = [ 1 + rad * 0.1 for rad in range ( len ( colors ))] 
+
+ circles_group = VGroup () 
+
+ # zip(radius, color) makes the iterator [(radius[i], color[i]) for i in range(radius)] 
+ circles_group . add ( * [ Circle ( radius = rad , stroke_width = 10 , color = col ) 
+ for rad , col in zip ( radius , colors )]) 
+ self . add ( circles_group ) 
+
+```
+
+```
+
+class ArcShapeIris(Scene):
+ def construct(self):
+ colors = [DARK_BROWN, BLUE_E, BLUE_D, BLUE_A, TEAL_B, GREEN_B, YELLOW_E]
+ radius = [1 + rad * 0.1 for rad in range(len(colors))]
+
+ circles_group = VGroup()
+
+ # zip(radius, color
+
+## Examples
+
+### Example 1
+```python
+>>> from manim import Triangle , Square , VGroup 
+ >>> vg = VGroup () 
+ >>> triangle , square = Triangle (), Square () 
+ >>> vg . add ( triangle ) 
+ VGroup(Triangle) 
+ >>> vg + square # a new VGroup is constructed 
+ VGroup(Triangle, Square) 
+ >>> vg # not modified 
+ VGroup(Triangle) 
+ >>> vg += square 
+ >>> vg # modifies vg 
+ VGroup(Triangle, Square) 
+ >>> vg . remove ( triangle ) 
+ VGroup(Square) 
+ >>> vg - square # a new VGroup is constructed 
+ VGroup() 
+ >>> vg # not modified 
+ VGroup(Square) 
+ >>> vg -= square 
+ >>> vg # modifies vg 
+ VGroup()
+```
+
+### Example 2
+```python
+class ArcShapeIris ( Scene ): 
+ def construct ( self ): 
+ colors = [ DARK_BROWN , BLUE_E , BLUE_D , BLUE_A , TEAL_B , GREEN_B , YELLOW_E ] 
+ radius = [ 1 + rad * 0.1 for rad in range ( len ( colors ))] 
+
+ circles_group = VGroup () 
+
+ # zip(radius, color) makes the iterator [(radius[i], color[i]) for i in range(radius)] 
+ circles_group . add ( * [ Circle ( radius = rad , stroke_width = 10 , color = col ) 
+ for rad , col in zip ( radius , colors )]) 
+ self . add ( circles_group )
+```
+
+### Example 3
+```python
+class ArcShapeIris(Scene):
+ def construct(self):
+ colors = [DARK_BROWN, BLUE_E, BLUE_D, BLUE_A, TEAL_B, GREEN_B, YELLOW_E]
+ radius = [1 + rad * 0.1 for rad in range(len(colors))]
+
+ circles_group = VGroup()
+
+ # zip(radius, color) makes the iterator [(radius[i], color[i]) for i in range(radius)]
+ circles_group.add(*[Circle(radius=rad, stroke_width=10, color=col)
+ for rad, col in zip(radius, colors)])
+ self.add(circles_group)
+```
+
+### Example 4
+```python
+class AddToVGroup ( Scene ): 
+ def construct ( self ): 
+ circle_red = Circle ( color = RED ) 
+ circle_green = Circle ( color = GREEN ) 
+ circle_blue = Circle ( color = BLUE ) 
+ circle_red . shift ( LEFT ) 
+ circle_blue . shift ( RIGHT ) 
+ gr = VGroup ( circle_red , circle_green ) 
+ gr2 = VGroup ( circle_blue ) # Constructor uses add directly 
+ self . add ( gr , gr2 ) 
+ self . wait () 
+ gr += gr2 # Add group to another 
+ self . play ( 
+ gr . animate . shift ( DOWN ), 
+ ) 
+ gr -= gr2 # Remove group 
+ self . play ( # Animate groups separately 
+ gr . animate . shift ( LEFT ), 
+ gr2 . animate . shift ( UP ), 
+ ) 
+ self . play ( #Animate groups without modification 
+ ( gr + gr2 ) . animate . shift ( RIGHT ) 
+ ) 
+ self . play ( # Animate group without component 
+ ( gr - circle_red ) . animate . shift ( RIGHT ) 
+ )
+```
+
+### Example 5
+```python
+class AddToVGroup(Scene):
+ def construct(self):
+ circle_red = Circle(color=RED)
+ circle_green = Circle(color=GREEN)
+ circle_blue = Circle(color=BLUE)
+ circle_red.shift(LEFT)
+ circle_blue.shift(RIGHT)
+ gr = VGroup(circle_red, circle_green)
+ gr2 = VGroup(circle_blue) # Constructor uses add directly
+ self.add(gr,gr2)
+ self.wait()
+ gr += gr2 # Add group to another
+ self.play(
+ gr.animate.shift(DOWN),
+ )
+ gr -= gr2 # Remove group
+ self.play( # Animate groups separately
+ gr.animate.shift(LEFT),
+ gr2.animate.shift(UP),
+ )
+ self.play( #Animate groups without modification
+ (gr+gr2).animate.shift(RIGHT)
+ )
+ self.play( # Animate group without component
+ (gr-circle_red).animate.shift(RIGHT)
+ )
+```
+
+### Example 6
+```python
+class AddIterableToVGroupExample ( Scene ): 
+ def construct ( self ): 
+ v = VGroup ( 
+ Square (), # Singular VMobject instance 
+ [ Circle (), Triangle ()], # List of VMobject instances 
+ Dot (), 
+ ( Dot () for _ in range ( 2 )), # Iterable that generates VMobjects 
+ ) 
+ v . arrange () 
+ self . add ( v )
+```
+
+### Example 7
+```python
+class AddIterableToVGroupExample(Scene):
+ def construct(self):
+ v = VGroup(
+ Square(), # Singular VMobject instance
+ [Circle(), Triangle()], # List of VMobject instances
+ Dot(),
+ (Dot() for _ in range(2)), # Iterable that generates VMobjects
+ )
+ v.arrange()
+ self.add(v)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.types.vectorized_mobject.VGroup.html

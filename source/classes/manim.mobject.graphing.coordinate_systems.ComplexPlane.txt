@@ -1,0 +1,158 @@
+# manim.mobject.graphing.coordinate_systems.ComplexPlane
+
+## Signature
+class ComplexPlane ( ** kwargs )
+
+## Summary
+```
+ class ComplexPlaneExample ( Scene ): 
+ def construct ( self ): 
+ plane = ComplexPlane () . add_coordinates () 
+ self . add ( plane ) 
+ d1 = Dot ( plane . n2p ( 2 + 1 j ), color = YELLOW ) 
+ d2 = Dot ( plane . n2p ( - 3 - 2 j ), color = YELLOW ) 
+ label1 = MathTex ( "2+i" ) . next_to ( d1 , UR ,
+
+## Description
+ComplexPlane ¶ 
+ Qualified name: manim.mobject.graphing.coordinate\_systems.ComplexPlane 
+
+ class ComplexPlane ( ** kwargs ) [source] ¶ 
+ Bases: NumberPlane 
+ A NumberPlane specialized for use with complex numbers. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ComplexPlaneExample . 
+
+```
+ class ComplexPlaneExample ( Scene ): 
+ def construct ( self ): 
+ plane = ComplexPlane () . add_coordinates () 
+ self . add ( plane ) 
+ d1 = Dot ( plane . n2p ( 2 + 1 j ), color = YELLOW ) 
+ d2 = Dot ( plane . n2p ( - 3 - 2 j ), color = YELLOW ) 
+ label1 = MathTex ( "2+i" ) . next_to ( d1 , UR , 0.1 ) 
+ label2 = MathTex ( "-3-2i" ) . next_to ( d2 , UR , 0.1 ) 
+ self . add ( 
+ d1 , 
+ label1 , 
+ d2 , 
+ label2 , 
+ ) 
+
+```
+
+```
+
+class ComplexPlaneExample(Scene):
+ def construct(self):
+ plane = ComplexPlane().add_coordinates()
+ self.add(plane)
+ d1 = Dot(plane.n2p(2 + 1j), color=YELLOW)
+ d2 = Dot(plane.n2p(-3 - 2j), color=YELLOW)
+ label1 = MathTex("2+i").next_to(d1, UR, 0.1)
+ label2 = MathTex("-3-2i").next_to(d2, UR, 0.1)
+ self.add(
+ d1,
+ label1,
+ d2,
+ label2,
+ )
+
+```
+
+ Methods 
+
+ add_coordinates 
+ Adds the labels produced from get_coordinate_labels() to the plane. 
+
+ get_coordinate_labels 
+ Generates the DecimalNumber mobjects for the coordinates of the plane. 
+
+ n2p 
+ Abbreviation for number_to_point() . 
+
+ number_to_point 
+ Accepts a float/complex number and returns the equivalent point on the plane. 
+
+ p2n 
+ Abbreviation for point_to_number() . 
+
+ point_to_number 
+ Accepts a point and returns a complex number equivalent to that point on the plane. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ 
+
+## Examples
+
+### Example 1
+```python
+class ComplexPlaneExample ( Scene ): 
+ def construct ( self ): 
+ plane = ComplexPlane () . add_coordinates () 
+ self . add ( plane ) 
+ d1 = Dot ( plane . n2p ( 2 + 1 j ), color = YELLOW ) 
+ d2 = Dot ( plane . n2p ( - 3 - 2 j ), color = YELLOW ) 
+ label1 = MathTex ( "2+i" ) . next_to ( d1 , UR , 0.1 ) 
+ label2 = MathTex ( "-3-2i" ) . next_to ( d2 , UR , 0.1 ) 
+ self . add ( 
+ d1 , 
+ label1 , 
+ d2 , 
+ label2 , 
+ )
+```
+
+### Example 2
+```python
+class ComplexPlaneExample(Scene):
+ def construct(self):
+ plane = ComplexPlane().add_coordinates()
+ self.add(plane)
+ d1 = Dot(plane.n2p(2 + 1j), color=YELLOW)
+ d2 = Dot(plane.n2p(-3 - 2j), color=YELLOW)
+ label1 = MathTex("2+i").next_to(d1, UR, 0.1)
+ label2 = MathTex("-3-2i").next_to(d2, UR, 0.1)
+ self.add(
+ d1,
+ label1,
+ d2,
+ label2,
+ )
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.graphing.coordinate_systems.ComplexPlane.html

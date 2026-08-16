@@ -1,0 +1,124 @@
+# manim.animation.changing.AnimatedBoundary
+
+## Signature
+class AnimatedBoundary ( vmobject, colors=[ManimColor('#29ABCA')
+
+## Summary
+class AnimatedBoundary ( vmobject, colors=[ManimColor('#29ABCA'), ManimColor('#9CDCEB'), ManimColor('#236B8E'), ManimColor('#736357')], max_stroke_width=3, cycle_rate=0.5, back_and_forth=True, draw_rate_func=<function smooth>, fade_rate_func=<function smooth>, **kwargs ) [source] ¶ 
+ Bases: VGroup 
+
+
+## Description
+AnimatedBoundary ¶ 
+ Qualified name: manim.animation.changing.AnimatedBoundary 
+
+ class AnimatedBoundary ( vmobject, colors=[ManimColor('#29ABCA'), ManimColor('#9CDCEB'), ManimColor('#236B8E'), ManimColor('#736357')], max_stroke_width=3, cycle_rate=0.5, back_and_forth=True, draw_rate_func=<function smooth>, fade_rate_func=<function smooth>, **kwargs ) [source] ¶ 
+ Bases: VGroup 
+ Boundary of a VMobject with animated color change. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for AnimatedBoundaryExample . 
+
+```
+ class AnimatedBoundaryExample ( Scene ): 
+ def construct ( self ): 
+ text = Text ( "So shiny!" ) 
+ boundary = AnimatedBoundary ( text , colors = [ RED , GREEN , BLUE ], 
+ cycle_rate = 3 ) 
+ self . add ( text , boundary ) 
+ self . wait ( 2 ) 
+
+```
+
+```
+
+class AnimatedBoundaryExample(Scene):
+ def construct(self):
+ text = Text("So shiny!")
+ boundary = AnimatedBoundary(text, colors=[RED, GREEN, BLUE],
+ cycle_rate=3)
+ self.add(text, boundary)
+ self.wait(2)
+
+```
+
+ Methods 
+
+ full_family_become_partial 
+
+ update_boundary_copies 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+
+ vmobject ( VMobject ) 
+ colors ( Sequence [ ParsableManimColor ] ) 
+ max_stroke_width ( float ) 
+ cycle_rate ( float ) 
+ back_and_forth ( bool ) 
+ draw_rate_func ( RateFunction ) 
+ fade_rate_func ( RateFunction ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( vmobject, colors=[ManimColor('#29ABCA'), ManimColor('#9CDCEB'), ManimColor('#236B8E'), ManimColor('#736357')], max_stroke_width=3, cycle_rate=0.5, back_and_forth=True, draw_rate_func=<function smooth>, fade_rate_func=<function smo
+
+## Examples
+
+### Example 1
+```python
+class AnimatedBoundaryExample ( Scene ): 
+ def construct ( self ): 
+ text = Text ( "So shiny!" ) 
+ boundary = AnimatedBoundary ( text , colors = [ RED , GREEN , BLUE ], 
+ cycle_rate = 3 ) 
+ self . add ( text , boundary ) 
+ self . wait ( 2 )
+```
+
+### Example 2
+```python
+class AnimatedBoundaryExample(Scene):
+ def construct(self):
+ text = Text("So shiny!")
+ boundary = AnimatedBoundary(text, colors=[RED, GREEN, BLUE],
+ cycle_rate=3)
+ self.add(text, boundary)
+ self.wait(2)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.changing.AnimatedBoundary.html

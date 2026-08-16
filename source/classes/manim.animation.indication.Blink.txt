@@ -1,0 +1,93 @@
+# manim.animation.indication.Blink
+
+## Signature
+class Blink ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+mobject ( Mobject ) – The mobject to be blinked. 
+ time_on ( float ) – The duration that the mobject is shown for one blink. 
+ time_off ( float ) – The duration that the mobject is hidden for one blink. 
+ blinks ( int ) – The number of blinks 
+ hide_at_end ( bool ) – Whether to hide the mobject at t
+
+## Description
+Blink ¶ 
+ Qualified name: manim.animation.indication.Blink 
+
+ class Blink ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Succession 
+ Blink the mobject. 
+
+ Parameters : 
+
+ mobject ( Mobject ) – The mobject to be blinked. 
+ time_on ( float ) – The duration that the mobject is shown for one blink. 
+ time_off ( float ) – The duration that the mobject is hidden for one blink. 
+ blinks ( int ) – The number of blinks 
+ hide_at_end ( bool ) – Whether to hide the mobject at the end of the animation. 
+ kwargs ( Any ) – Additional arguments to be passed to the Succession constructor. 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for BlinkingExample . 
+
+```
+ class BlinkingExample ( Scene ): 
+ def construct ( self ): 
+ text = Text ( "Blinking" ) . scale ( 1.5 ) 
+ self . add ( text ) 
+ self . play ( Blink ( text , blinks = 3 )) 
+
+```
+
+```
+
+class BlinkingExample(Scene):
+ def construct(self):
+ text = Text("Blinking").scale(1.5)
+ self.add(text)
+ self.play(Blink(text, blinks=3))
+
+```
+
+ Methods 
+
+ Attributes 
+
+ run_time 
+
+ _original__init__ ( mobject , time_on = 0.5 , time_off = 0.5 , blinks = 1 , hide_at_end = False , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ mobject ( Mobject ) 
+ time_on ( float ) 
+ time_off ( float ) 
+ blinks ( int ) 
+ hide_at_end ( bool ) 
+ kwargs ( Any )
+
+## Examples
+
+### Example 1
+```python
+class BlinkingExample ( Scene ): 
+ def construct ( self ): 
+ text = Text ( "Blinking" ) . scale ( 1.5 ) 
+ self . add ( text ) 
+ self . play ( Blink ( text , blinks = 3 ))
+```
+
+### Example 2
+```python
+class BlinkingExample(Scene):
+ def construct(self):
+ text = Text("Blinking").scale(1.5)
+ self.add(text)
+ self.play(Blink(text, blinks=3))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.indication.Blink.html

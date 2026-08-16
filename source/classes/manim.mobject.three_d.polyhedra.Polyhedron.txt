@@ -1,0 +1,148 @@
+# manim.mobject.three_d.polyhedra.Polyhedron
+
+## Signature
+class Polyhedron ( vertex_coords , faces_list , faces_config = {} , graph_config = {} )
+
+## Summary
+class Polyhedron ( vertex_coords , faces_list , faces_config = {} , graph_config = {} ) [source] ¶ 
+ Bases: VGroup 
+ An abstract polyhedra class. 
+ In this implementation, polyhedra are defined with a list of vertex coordinates in space, and a list
+of faces. This implementation mirrors that of a sta
+
+## Description
+Polyhedron ¶ 
+ Qualified name: manim.mobject.three\_d.polyhedra.Polyhedron 
+
+ class Polyhedron ( vertex_coords , faces_list , faces_config = {} , graph_config = {} ) [source] ¶ 
+ Bases: VGroup 
+ An abstract polyhedra class. 
+ In this implementation, polyhedra are defined with a list of vertex coordinates in space, and a list
+of faces. This implementation mirrors that of a standard polyhedral data format (OFF, object file format). 
+
+ Parameters : 
+
+ vertex_coords ( Point3DLike_Array ) – A list of coordinates of the corresponding vertices in the polyhedron. Each coordinate will correspond to
+a vertex. The vertices are indexed with the usual indexing of Python. 
+ faces_list ( list [ list [ int ] ] ) – A list of faces. Each face is a sublist containing the indices of the vertices that form the corners of that face. 
+ faces_config ( dict [ str , str | int | float | bool ] ) – Configuration for the polygons representing the faces of the polyhedron. 
+ graph_config ( dict [ str , Any ] ) – Configuration for the graph containing the vertices and edges of the polyhedron. 
+
+ Examples 
+ To understand how to create a custom polyhedra, let’s use the example of a rather simple one - a square pyramid. 
+
+ Example Placeholder 
+ Placeholder block for SquarePyramidScene . 
+
+```
+ class SquarePyramidScene ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ vertex_coords = [ 
+ [ 1 , 1 , 0 ], 
+ [ 1 , - 1 , 0 ], 
+ [ - 1 , - 1 , 0 ], 
+ [ - 1 , 1 , 0 ], 
+ [ 0 , 0 , 2 ] 
+ ] 
+ faces_list = [ 
+ [ 0 , 1 , 4 ], 
+ [ 1 , 2 , 4 ], 
+ [ 2 , 3 , 4 ], 
+ [ 3 , 0 , 4 ], 
+ [ 0 , 1 , 2 , 3 ] 
+ ] 
+ pyramid = Polyhedron ( vertex_coords , faces_list ) 
+ self . add ( pyramid ) 
+
+```
+
+```
+
+class SquarePyramidScene(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ vertex_coords = [
+ [1, 1, 0],
+ [1, -1, 0],
+ [-1, -1, 0],
+ [-1, 1, 0],
+ [0, 0, 2]
+ ]
+ faces_list = [
+ [0, 1, 4],
+ [1, 2, 4],
+ [2, 
+
+## Examples
+
+### Example 1
+```python
+class SquarePyramidScene ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ vertex_coords = [ 
+ [ 1 , 1 , 0 ], 
+ [ 1 , - 1 , 0 ], 
+ [ - 1 , - 1 , 0 ], 
+ [ - 1 , 1 , 0 ], 
+ [ 0 , 0 , 2 ] 
+ ] 
+ faces_list = [ 
+ [ 0 , 1 , 4 ], 
+ [ 1 , 2 , 4 ], 
+ [ 2 , 3 , 4 ], 
+ [ 3 , 0 , 4 ], 
+ [ 0 , 1 , 2 , 3 ] 
+ ] 
+ pyramid = Polyhedron ( vertex_coords , faces_list ) 
+ self . add ( pyramid )
+```
+
+### Example 2
+```python
+class SquarePyramidScene(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ vertex_coords = [
+ [1, 1, 0],
+ [1, -1, 0],
+ [-1, -1, 0],
+ [-1, 1, 0],
+ [0, 0, 2]
+ ]
+ faces_list = [
+ [0, 1, 4],
+ [1, 2, 4],
+ [2, 3, 4],
+ [3, 0, 4],
+ [0, 1, 2, 3]
+ ]
+ pyramid = Polyhedron(vertex_coords, faces_list)
+ self.add(pyramid)
+```
+
+### Example 3
+```python
+class PolyhedronSubMobjects ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ octahedron = Octahedron ( edge_length = 3 ) 
+ octahedron . graph [ 0 ] . set_color ( RED ) 
+ octahedron . faces [ 2 ] . set_color ( YELLOW ) 
+ self . add ( octahedron )
+```
+
+### Example 4
+```python
+class PolyhedronSubMobjects(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ octahedron = Octahedron(edge_length = 3)
+ octahedron.graph[0].set_color(RED)
+ octahedron.faces[2].set_color(YELLOW)
+ self.add(octahedron)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.polyhedra.Polyhedron.html

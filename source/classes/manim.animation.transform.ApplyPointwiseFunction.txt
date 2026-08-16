@@ -1,0 +1,106 @@
+# manim.animation.transform.ApplyPointwiseFunction
+
+## Signature
+class ApplyPointwiseFunction ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+Example Placeholder 
+ Placeholder block for WarpSquare .
+
+## Description
+ApplyPointwiseFunction ¶ 
+ Qualified name: manim.animation.transform.ApplyPointwiseFunction 
+
+ class ApplyPointwiseFunction ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: ApplyMethod 
+ Animation that applies a pointwise function to a mobject. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for WarpSquare . 
+
+```
+ class WarpSquare ( Scene ): 
+ def construct ( self ): 
+ square = Square () 
+ self . play ( 
+ ApplyPointwiseFunction ( 
+ lambda point : complex_to_R3 ( np . exp ( R3_to_complex ( point ))), square 
+ ) 
+ ) 
+ self . wait () 
+
+```
+
+```
+
+class WarpSquare(Scene):
+ def construct(self):
+ square = Square()
+ self.play(
+ ApplyPointwiseFunction(
+ lambda point: complex_to_R3(np.exp(R3_to_complex(point))), square
+ )
+ )
+ self.wait()
+
+```
+
+ Methods 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+
+ function ( types.MethodType ) 
+ mobject ( Mobject ) 
+ run_time ( float ) 
+
+ _original__init__ ( function , mobject , run_time = 3.0 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ function ( MethodType ) 
+ mobject ( Mobject ) 
+ run_time ( float ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class WarpSquare ( Scene ): 
+ def construct ( self ): 
+ square = Square () 
+ self . play ( 
+ ApplyPointwiseFunction ( 
+ lambda point : complex_to_R3 ( np . exp ( R3_to_complex ( point ))), square 
+ ) 
+ ) 
+ self . wait ()
+```
+
+### Example 2
+```python
+class WarpSquare(Scene):
+ def construct(self):
+ square = Square()
+ self.play(
+ ApplyPointwiseFunction(
+ lambda point: complex_to_R3(np.exp(R3_to_complex(point))), square
+ )
+ )
+ self.wait()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.ApplyPointwiseFunction.html

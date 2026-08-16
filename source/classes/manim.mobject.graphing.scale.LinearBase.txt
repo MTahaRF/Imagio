@@ -1,0 +1,48 @@
+# manim.mobject.graphing.scale.LinearBase
+
+## Signature
+class LinearBase ( scale_factor = 1.0 )
+
+## Summary
+Parameters : 
+ scale_factor ( float ) – The slope of the linear function, by default 1.0
+
+## Description
+LinearBase ¶ 
+ Qualified name: manim.mobject.graphing.scale.LinearBase 
+
+ class LinearBase ( scale_factor = 1.0 ) [source] ¶ 
+ Bases: _ScaleBase 
+ The default scaling class. 
+
+ Parameters : 
+ scale_factor ( float ) – The slope of the linear function, by default 1.0 
+
+ Methods 
+
+ function 
+ Multiplies the value by the scale factor. 
+
+ inverse_function 
+ Inverse of function. 
+
+ function ( value ) [source] ¶ 
+ Multiplies the value by the scale factor. 
+
+ Parameters : 
+ value ( float ) – Value to be multiplied by the scale factor. 
+
+ Return type : 
+ float 
+
+ inverse_function ( value ) [source] ¶ 
+ Inverse of function. Divides the value by the scale factor. 
+
+ Parameters : 
+ value ( float ) – value to be divided by the scale factor. 
+
+ Return type : 
+ float
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.graphing.scale.LinearBase.html

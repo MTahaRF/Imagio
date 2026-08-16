@@ -1,0 +1,125 @@
+# manim.animation.transform.CounterclockwiseTransform
+
+## Signature
+class CounterclockwiseTransform ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+See also 
+ Transform , ClockwiseTransform
+
+## Description
+CounterclockwiseTransform ¶ 
+ Qualified name: manim.animation.transform.CounterclockwiseTransform 
+
+ class CounterclockwiseTransform ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ Transforms the points of a mobject along a counterclockwise oriented arc. 
+
+ See also 
+ Transform , ClockwiseTransform 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for CounterclockwiseTransform_vs_Transform . 
+
+```
+ class CounterclockwiseTransform_vs_Transform ( Scene ): 
+ def construct ( self ): 
+ # set up the numbers 
+ c_transform = VGroup ( DecimalNumber ( number = 3.141 , num_decimal_places = 3 ), DecimalNumber ( number = 1.618 , num_decimal_places = 3 )) 
+ text_1 = Text ( "CounterclockwiseTransform" , color = RED ) 
+ c_transform . add ( text_1 ) 
+
+ transform = VGroup ( DecimalNumber ( number = 1.618 , num_decimal_places = 3 ), DecimalNumber ( number = 3.141 , num_decimal_places = 3 )) 
+ text_2 = Text ( "Transform" , color = BLUE ) 
+ transform . add ( text_2 ) 
+
+ ints = VGroup ( c_transform , transform ) 
+ texts = VGroup ( text_1 , text_2 ) . scale ( 0.75 ) 
+ c_transform . arrange ( direction = UP , buff = 1 ) 
+ transform . arrange ( direction = UP , buff = 1 ) 
+
+ ints . arrange ( buff = 2 ) 
+ self . add ( ints , texts ) 
+
+ # The mobs move in clockwise direction for ClockwiseTransform() 
+ self . play ( CounterclockwiseTransform ( c_transform [ 0 ], c_transform [ 1 ])) 
+
+ # The mobs move straight up for Transform() 
+ self . play ( Transform ( transform [ 0 ], transform [ 1 ])) 
+
+```
+
+```
+
+class CounterclockwiseTransform_vs_Transform(Scene):
+ def construct(self):
+ # set up the numbers
+ c_transform = VGroup(DecimalNumber(number=3.141, num_decimal_places=3), DecimalNumber(number=1.618, num_decimal_places=3))
+ text_1 = Text("CounterclockwiseTransform", color=RED)
+ c_transform.add(text_1)
+
+ transform = VGroup(DecimalNumber(number=1.618, num_decimal_places=3), DecimalNumber(number=3.141, num_decimal_places=3))
+ text_2 = Text("Transform"
+
+## Examples
+
+### Example 1
+```python
+class CounterclockwiseTransform_vs_Transform ( Scene ): 
+ def construct ( self ): 
+ # set up the numbers 
+ c_transform = VGroup ( DecimalNumber ( number = 3.141 , num_decimal_places = 3 ), DecimalNumber ( number = 1.618 , num_decimal_places = 3 )) 
+ text_1 = Text ( "CounterclockwiseTransform" , color = RED ) 
+ c_transform . add ( text_1 ) 
+
+ transform = VGroup ( DecimalNumber ( number = 1.618 , num_decimal_places = 3 ), DecimalNumber ( number = 3.141 , num_decimal_places = 3 )) 
+ text_2 = Text ( "Transform" , color = BLUE ) 
+ transform . add ( text_2 ) 
+
+ ints = VGroup ( c_transform , transform ) 
+ texts = VGroup ( text_1 , text_2 ) . scale ( 0.75 ) 
+ c_transform . arrange ( direction = UP , buff = 1 ) 
+ transform . arrange ( direction = UP , buff = 1 ) 
+
+ ints . arrange ( buff = 2 ) 
+ self . add ( ints , texts ) 
+
+ # The mobs move in clockwise direction for ClockwiseTransform() 
+ self . play ( CounterclockwiseTransform ( c_transform [ 0 ], c_transform [ 1 ])) 
+
+ # The mobs move straight up for Transform() 
+ self . play ( Transform ( transform [ 0 ], transform [ 1 ]))
+```
+
+### Example 2
+```python
+class CounterclockwiseTransform_vs_Transform(Scene):
+ def construct(self):
+ # set up the numbers
+ c_transform = VGroup(DecimalNumber(number=3.141, num_decimal_places=3), DecimalNumber(number=1.618, num_decimal_places=3))
+ text_1 = Text("CounterclockwiseTransform", color=RED)
+ c_transform.add(text_1)
+
+ transform = VGroup(DecimalNumber(number=1.618, num_decimal_places=3), DecimalNumber(number=3.141, num_decimal_places=3))
+ text_2 = Text("Transform", color=BLUE)
+ transform.add(text_2)
+
+ ints = VGroup(c_transform, transform)
+ texts = VGroup(text_1, text_2).scale(0.75)
+ c_transform.arrange(direction=UP, buff=1)
+ transform.arrange(direction=UP, buff=1)
+
+ ints.arrange(buff=2)
+ self.add(ints, texts)
+
+ # The mobs move in clockwise direction for ClockwiseTransform()
+ self.play(CounterclockwiseTransform(c_transform[0], c_transform[1]))
+
+ # The mobs move straight up for Transform()
+ self.play(Transform(transform[0], transform[1]))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.CounterclockwiseTransform.html

@@ -1,0 +1,153 @@
+# manim.mobject.three_d.three_dimensions.Line3D
+
+## Signature
+class Line3D ( start = array([-1., 0., 0.])
+
+## Summary
+class Line3D ( start = array([-1., 0., 0.]) , end = array([1., 0., 0.]) , thickness = 0.02 , color = None , resolution = 24 , ** kwargs ) [source] ¶ 
+ Bases: Cylinder 
+ A cylindrical line, for use in ThreeDScene.
+
+## Description
+Line3D ¶ 
+ Qualified name: manim.mobject.three\_d.three\_dimensions.Line3D 
+
+ class Line3D ( start = array([-1., 0., 0.]) , end = array([1., 0., 0.]) , thickness = 0.02 , color = None , resolution = 24 , ** kwargs ) [source] ¶ 
+ Bases: Cylinder 
+ A cylindrical line, for use in ThreeDScene. 
+
+ Parameters : 
+
+ start ( Point3DLike ) – The start point of the line. 
+ end ( Point3DLike ) – The end point of the line. 
+ thickness ( float ) – The thickness of the line. 
+ color ( ManimColor ) – The color of the line. 
+ resolution ( tuple [ int , int ] ) – The resolution of the line.
+By default this value is the number of points the line will sampled at.
+If you want the line to also come out checkered, use a tuple.
+For example, for a line made of 24 points with 4 checker points on each
+cylinder, pass the tuple (4, 24). 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ExampleLine3D . 
+
+```
+ class ExampleLine3D ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ line = Line3D ( start = np . array ([ 0 , 0 , 0 ]), end = np . array ([ 2 , 2 , 2 ])) 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ self . add ( axes , line ) 
+
+```
+
+```
+
+class ExampleLine3D(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ line = Line3D(start=np.array([0, 0, 0]), end=np.array([2, 2, 2]))
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ self.add(axes, line)
+
+```
+
+ Methods 
+
+ get_end 
+ Returns the ending point of the Line3D . 
+
+ get_start 
+ Returns the starting point of the Line3D . 
+
+ parallel_to 
+ Returns a line parallel to another line going through a given point. 
+
+ perpendicular_to 
+ Returns a line perpendicular to another line going through a given point. 
+
+ pointify 
+ Gets a point representing the center of the Mobjects . 
+
+ set_start_and_end_attrs 
+ Sets the start and end points of the line. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the applic
+
+## Examples
+
+### Example 1
+```python
+class ExampleLine3D ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ line = Line3D ( start = np . array ([ 0 , 0 , 0 ]), end = np . array ([ 2 , 2 , 2 ])) 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ self . add ( axes , line )
+```
+
+### Example 2
+```python
+class ExampleLine3D(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ line = Line3D(start=np.array([0, 0, 0]), end=np.array([2, 2, 2]))
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ self.add(axes, line)
+```
+
+### Example 3
+```python
+class ParallelLineExample ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( PI / 3 , - PI / 4 ) 
+ ax = ThreeDAxes (( - 5 , 5 ), ( - 5 , 5 ), ( - 5 , 5 ), 10 , 10 , 10 ) 
+ line1 = Line3D ( RIGHT * 2 , UP + OUT , color = RED ) 
+ line2 = Line3D . parallel_to ( line1 , color = YELLOW ) 
+ self . add ( ax , line1 , line2 )
+```
+
+### Example 4
+```python
+class ParallelLineExample(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(PI / 3, -PI / 4)
+ ax = ThreeDAxes((-5, 5), (-5, 5), (-5, 5), 10, 10, 10)
+ line1 = Line3D(RIGHT * 2, UP + OUT, color=RED)
+ line2 = Line3D.parallel_to(line1, color=YELLOW)
+ self.add(ax, line1, line2)
+```
+
+### Example 5
+```python
+class PerpLineExample ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( PI / 3 , - PI / 4 ) 
+ ax = ThreeDAxes (( - 5 , 5 ), ( - 5 , 5 ), ( - 5 , 5 ), 10 , 10 , 10 ) 
+ line1 = Line3D ( RIGHT * 2 , UP + OUT , color = RED ) 
+ line2 = Line3D . perpendicular_to ( line1 , color = BLUE ) 
+ self . add ( ax , line1 , line2 )
+```
+
+### Example 6
+```python
+class PerpLineExample(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(PI / 3, -PI / 4)
+ ax = ThreeDAxes((-5, 5), (-5, 5), (-5, 5), 10, 10, 10)
+ line1 = Line3D(RIGHT * 2, UP + OUT, color=RED)
+ line2 = Line3D.perpendicular_to(line1, color=BLUE)
+ self.add(ax, line1, line2)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.three_dimensions.Line3D.html

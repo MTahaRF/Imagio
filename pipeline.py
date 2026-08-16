@@ -10,7 +10,6 @@ from src.agents.scene_director import SceneDirector
 from src.tools.merger       import VideoMerger
 from src.tools.manim_runner import render_code_string
 from src.tools.cleanup      import cleanup
-from src.tools.manim_docs   import ManimDocsSearcher
 from src.templates.registry import get_template
 
 
@@ -36,11 +35,7 @@ def run_pipeline(
 
     feasibility_agent = FeasibilityAgent(ClientFactory.get_client(agent_config))
     planner_agent     = ScenePlanner(ClientFactory.get_client(agent_config))
-    docs_tool         = ManimDocsSearcher(index_dir="source", scorer="embeddings")  # lazy-loads on first search
-    director_agent    = SceneDirector(
-        ClientFactory.get_client(agent_config),
-        docs_tool=docs_tool,
-    )
+    director_agent    = SceneDirector(ClientFactory.get_client(agent_config))
     merger_tool       = VideoMerger()
 
     # ── Step 1: Feasibility ───────────────────────────────────────
@@ -144,7 +139,3 @@ def run_pipeline(
 
     # server.py reads this file into memory, then deletes it.
     return final
-
-
-if __name__ == "__main__":
-    run_pipeline("The Geometry of Linear Algebra", lang_code="en")

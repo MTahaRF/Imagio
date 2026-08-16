@@ -1,0 +1,123 @@
+# manim.animation.creation.TypeWithCursor
+
+## Signature
+class TypeWithCursor ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+class TypeWithCursor ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: AddTextLetterByLetter 
+ Similar to AddTextLetterByLetter , but with an additional cursor mobject at the end.
+
+## Description
+TypeWithCursor ¶ 
+ Qualified name: manim.animation.creation.TypeWithCursor 
+
+ class TypeWithCursor ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: AddTextLetterByLetter 
+ Similar to AddTextLetterByLetter , but with an additional cursor mobject at the end. 
+
+ Parameters : 
+
+ time_per_char ( float ) – Frequency of appearance of the letters. 
+ cursor ( Mobject ) – Mobject shown after the last added letter. 
+ buff ( float ) – Controls how far away the cursor is to the right of the last added letter. 
+ keep_cursor_y ( bool ) – If True , the cursor’s y-coordinate is set to the center of the Text and remains the same throughout the animation. Otherwise, it is set to the center of the last added letter. 
+ leave_cursor_on ( bool ) – Whether to show the cursor after the animation. 
+ tip:: ( .. ) – This is currently only possible for class: ~.Text and not for class: ~.MathTex . 
+ text ( Text ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for InsertingTextExample . 
+
+```
+ class InsertingTextExample ( Scene ): 
+ def construct ( self ): 
+ text = Text ( "Inserting" , color = PURPLE ) . scale ( 1.5 ) . to_edge ( LEFT ) 
+ cursor = Rectangle ( 
+ color = GREY_A , 
+ fill_color = GREY_A , 
+ fill_opacity = 1.0 , 
+ height = 1.1 , 
+ width = 0.5 , 
+ ) . move_to ( text [ 0 ]) # Position the cursor 
+
+ self . play ( TypeWithCursor ( text , cursor )) 
+ self . play ( Blink ( cursor , blinks = 2 )) 
+
+```
+
+```
+
+class InsertingTextExample(Scene):
+ def construct(self):
+ text = Text("Inserting", color=PURPLE).scale(1.5).to_edge(LEFT)
+ cursor = Rectangle(
+ color = GREY_A,
+ fill_color = GREY_A,
+ fill_opacity = 1.0,
+ height = 1.1,
+ width = 0.5,
+ ).move_to(text[0]) # Position the cursor
+
+ self.play(TypeWithCursor(text, cursor))
+ self.play(Blink(cursor, blinks=2))
+
+```
+
+ Methods 
+
+ begin 
+ Begin the animation. 
+
+ clean_up_from_scene 
+ Clean up the Scene after finishing the animation. 
+
+ finish 
+ Finish the animation. 
+
+ update_submobject_list 
+
+ Attributes 
+
+ ru
+
+## Examples
+
+### Example 1
+```python
+class InsertingTextExample ( Scene ): 
+ def construct ( self ): 
+ text = Text ( "Inserting" , color = PURPLE ) . scale ( 1.5 ) . to_edge ( LEFT ) 
+ cursor = Rectangle ( 
+ color = GREY_A , 
+ fill_color = GREY_A , 
+ fill_opacity = 1.0 , 
+ height = 1.1 , 
+ width = 0.5 , 
+ ) . move_to ( text [ 0 ]) # Position the cursor 
+
+ self . play ( TypeWithCursor ( text , cursor )) 
+ self . play ( Blink ( cursor , blinks = 2 ))
+```
+
+### Example 2
+```python
+class InsertingTextExample(Scene):
+ def construct(self):
+ text = Text("Inserting", color=PURPLE).scale(1.5).to_edge(LEFT)
+ cursor = Rectangle(
+ color = GREY_A,
+ fill_color = GREY_A,
+ fill_opacity = 1.0,
+ height = 1.1,
+ width = 0.5,
+ ).move_to(text[0]) # Position the cursor
+
+ self.play(TypeWithCursor(text, cursor))
+ self.play(Blink(cursor, blinks=2))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.creation.TypeWithCursor.html

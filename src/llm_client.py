@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 import litellm
 from .config import Config
 
@@ -7,6 +8,10 @@ class LLMClient(ABC):
 
     @abstractmethod
     def generate(self, system_prompt: str, user_prompt: str, json_mode: bool = False) -> str:
+        pass
+
+    @abstractmethod
+    def chat(self, messages: list[dict], json_mode: bool = False, tools: list | None = None, tool_choice: str = "auto") -> Any:
         pass
 
 class NebiusClient(LLMClient):
@@ -19,19 +24,27 @@ class NebiusClient(LLMClient):
         self.model = model
 
     def generate(self, system_prompt: str, user_prompt: str, json_mode: bool = False) -> str:
-        params = {
-            "model": self.model,
-            "messages": [
+        return self.chat(
+            messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
+            json_mode=json_mode
+        ).content or ""
+
+    def chat(self, messages: list[dict], json_mode: bool = False, tools: list | None = None, tool_choice: str = "auto") -> Any:
+        params = {
+            "model": self.model,
+            "messages": messages,
             "temperature": 0.2 if json_mode else 0.7,
         }
         if json_mode:
             params["response_format"] = {"type": "json_object"}
+        if tools:
+            params["tools"] = tools
+            params["tool_choice"] = tool_choice
         response = self.client.chat.completions.create(**params)
-        content = response.choices[0].message.content
-        return str(content) if content is not None else ""
+        return response.choices[0].message
 
 class MistralClient(LLMClient):
     def __init__(self, model: str):
@@ -42,16 +55,26 @@ class MistralClient(LLMClient):
         self.model = model
 
     def generate(self, system_prompt: str, user_prompt: str, json_mode: bool = False) -> str:
-        response = self.client.chat.complete(
-            model=self.model,
+        return self.chat(
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            response_format={"type": "json_object"} if json_mode else None
-        )
-        content = response.choices[0].message.content
-        return str(content) if content is not None else ""
+            json_mode=json_mode
+        ).content or ""
+
+    def chat(self, messages: list[dict], json_mode: bool = False, tools: list | None = None, tool_choice: str = "auto") -> Any:
+        params = {
+            "model": self.model,
+            "messages": messages,
+        }
+        if json_mode:
+            params["response_format"] = {"type": "json_object"}
+        if tools:
+            params["tools"] = tools
+            params["tool_choice"] = tool_choice
+        response = self.client.chat.complete(**params)
+        return response.choices[0].message
 
 class LiteLLMClient(LLMClient):
     def __init__(self, provider: str, model: str, api_key: str | None = None):
@@ -73,25 +96,32 @@ class LiteLLMClient(LLMClient):
         litellm.drop_params = True
 
     def generate(self, system_prompt: str, user_prompt: str, json_mode: bool = False) -> str:
-        params: dict = {
-            "model": self.model,
-            "messages": [
+        return self.chat(
+            messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
+            json_mode=json_mode
+        ).content or ""
+
+    def chat(self, messages: list[dict], json_mode: bool = False, tools: list | None = None, tool_choice: str = "auto") -> Any:
+        params: dict = {
+            "model": self.model,
+            "messages": messages,
             "temperature": 0.2 if json_mode else 0.7,
         }
-
         if json_mode:
             params["response_format"] = {"type": "json_object"}
+        if tools:
+            params["tools"] = tools
+            params["tool_choice"] = tool_choice
 
         key = self.api_key or Config.LITELLM_KEY
         if key:
             params["api_key"] = key
 
         response = litellm.completion(**params)
-        content = response.choices[0].message.content
-        return str(content) if content is not None else ""
+        return response.choices[0].message
 
 class ClientFactory:
     @staticmethod

@@ -1,0 +1,121 @@
+# manim.mobject.three_d.three_dimensions.Torus
+
+## Signature
+class Torus ( major_radius = 3 , minor_radius = 1 , u_range = (0, 6.283185307179586)
+
+## Summary
+major_radius ( float ) – Distance from the center of the tube to the center of the torus. 
+ minor_radius ( float ) – Radius of the tube. 
+ u_range ( tuple [ float , float ] ) – The range of the u variable: (u_min, u_max) . 
+ v_range ( tuple [ float , float ] ) – The range of the v variable: (v_min, 
+
+## Description
+Torus ¶ 
+ Qualified name: manim.mobject.three\_d.three\_dimensions.Torus 
+
+ class Torus ( major_radius = 3 , minor_radius = 1 , u_range = (0, 6.283185307179586) , v_range = (0, 6.283185307179586) , resolution = None , ** kwargs ) [source] ¶ 
+ Bases: Surface 
+ A torus. 
+
+ Parameters : 
+
+ major_radius ( float ) – Distance from the center of the tube to the center of the torus. 
+ minor_radius ( float ) – Radius of the tube. 
+ u_range ( tuple [ float , float ] ) – The range of the u variable: (u_min, u_max) . 
+ v_range ( tuple [ float , float ] ) – The range of the v variable: (v_min, v_max) . 
+ resolution ( int | tuple [ int , int ] | None ) – The number of samples taken of the Torus . A tuple can be
+used to define different resolutions for u and v respectively. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ExampleTorus . 
+
+```
+ class ExampleTorus ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ torus = Torus () 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ self . add ( axes , torus ) 
+
+```
+
+```
+
+class ExampleTorus(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ torus = Torus()
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ self.add(axes, torus)
+
+```
+
+ Methods 
+
+ func 
+ The z values defining the Torus being plotted. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( major_radius = 3 , minor_radius = 1 , u_range = (0, 6.283185307179586) , v_range = (0, 6.283185307179586) , resolution = None , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) fo
+
+## Examples
+
+### Example 1
+```python
+class ExampleTorus ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ torus = Torus () 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ self . add ( axes , torus )
+```
+
+### Example 2
+```python
+class ExampleTorus(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ torus = Torus()
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ self.add(axes, torus)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.three_dimensions.Torus.html

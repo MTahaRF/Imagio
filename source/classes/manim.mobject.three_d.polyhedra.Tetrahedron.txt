@@ -1,0 +1,112 @@
+# manim.mobject.three_d.polyhedra.Tetrahedron
+
+## Signature
+class Tetrahedron ( edge_length = 1 , ** kwargs )
+
+## Summary
+edge_length ( float ) – The length of an edge between any two vertices. 
+ kwargs ( Any )
+
+## Description
+Tetrahedron ¶ 
+ Qualified name: manim.mobject.three\_d.polyhedra.Tetrahedron 
+
+ class Tetrahedron ( edge_length = 1 , ** kwargs ) [source] ¶ 
+ Bases: Polyhedron 
+ A tetrahedron, one of the five platonic solids. It has 4 faces, 6 edges, and 4 vertices. 
+
+ Parameters : 
+
+ edge_length ( float ) – The length of an edge between any two vertices. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for TetrahedronScene . 
+
+```
+ class TetrahedronScene ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ obj = Tetrahedron () 
+ self . add ( obj ) 
+
+```
+
+```
+
+class TetrahedronScene(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ obj = Tetrahedron()
+ self.add(obj)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( edge_length = 1 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ edge_length ( float ) 
+ kwargs ( Any )
+
+## Examples
+
+### Example 1
+```python
+class TetrahedronScene ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ obj = Tetrahedron () 
+ self . add ( obj )
+```
+
+### Example 2
+```python
+class TetrahedronScene(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ obj = Tetrahedron()
+ self.add(obj)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.polyhedra.Tetrahedron.html

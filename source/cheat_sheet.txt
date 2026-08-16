@@ -1,0 +1,315 @@
+# Manim CE Cheat Sheet
+# Format: qualified_name | short signature | when to use / what it does
+
+## Core Animation Base
+manim.animation.animation.Animation | Animation(mobject=None, *args, **kwargs) | Base class for all animations. Sets run_time (duration in seconds), rate_func (easing), lag_ratio, remover, suspend_mobject_updating. All animations inherit from this.
+manim.animation.animation.Add | Add(mobject, *args, **kwargs) | Instantly adds mobjects to the scene without animating. Useful when you need to add something without a visual transition.
+manim.animation.animation.Wait | Wait(mobject=None, *args, **kwargs) | Pauses the scene for run_time seconds. Essential for pacing between animations.
+
+## Animation Composition (arranging multiple animations)
+manim.animation.composition.AnimationGroup | AnimationGroup(*animations) | Plays multiple animations simultaneously in parallel. Use lag_ratio to stagger them.
+manim.animation.composition.LaggedStart | LaggedStart(*animations, lag_ratio=0.05) | Plays animations in sequence with overlap. The next animation starts before the previous finishes.
+manim.animation.composition.LaggedStartMap | LaggedStartMap(animation_class, mobject) | Applies the same animation to every submobject of a mobject, one after another with overlap.
+manim.animation.composition.Succession | Succession(*animations) | Plays animations strictly one after another (no overlap). Good for step-by-step sequences.
+
+## Creation Animations (objects appearing on screen)
+manim.animation.creation.Create | Create(vmobject) | Draws a VMobject on screen incrementally (like it is being sketched). Works on any VMobject.
+manim.animation.creation.Write | Write(text_or_mathtex) | Draws text or MathTex character by character. Best for revealing equations or labels.
+manim.animation.creation.Uncreate | Uncreate(vmobject) | Reverse of Create, erases a VMobject from the scene.
+manim.animation.creation.Unwrite | Unwrite(vmobject) | Reverse of Write, erases text from the scene.
+manim.animation.creation.DrawBorderThenFill | DrawBorderThenFill(vmobject) | Draws the border first, then fills the shape. Great for shapes like Circle, Rectangle, Polygon.
+manim.animation.creation.AddTextLetterByLetter | AddTextLetterByLetter(Text) | Reveals a Text object letter by letter. Only works with Text, not MathTex.
+manim.animation.creation.AddTextWordByWord | AddTextWordByWord(Text) | Reveals a Text object word by word.
+manim.animation.creation.RemoveTextLetterByLetter | RemoveTextLetterByLetter(Text) | Removes Text letter by letter.
+manim.animation.creation.ShowIncreasingSubsets | ShowIncreasingSubsets(group) | Shows submobjects one at a time, keeping previous ones visible. Good for building up lists.
+manim.animation.creation.ShowSubmobjectsOneByOne | ShowSubmobjectsOneByOne(group) | Shows submobjects one at a time, removing previous ones. Good for highlighting items sequentially.
+manim.animation.creation.SpiralIn | SpiralIn(mobject) | Object spirals into view. Decorative entrance effect.
+manim.animation.creation.TypeWithCursor | TypeWithCursor(Text) | Types text with a blinking cursor at the end, like a terminal.
+manim.animation.creation.UntypeWithCursor | UntypeWithCursor(Text) | Untypes text with a blinking cursor.
+
+## Fading Animations
+manim.animation.fading.FadeIn | FadeIn(mobject, shift=...) | Fades a mobject in. Optionally shifts it while fading. Use shift=UP/DOWN/LEFT/RIGHT for directional fade.
+manim.animation.fading.FadeOut | FadeOut(mobject, shift=...) | Fades a mobject out. Optionally shifts it while fading.
+
+## Growing Animations (objects scaling in)
+manim.animation.growing.GrowArrow | GrowArrow(arrow) | Grows an arrow from its base to full length. Use for arrows pointing at things.
+manim.animation.growing.GrowFromCenter | GrowFromCenter(mobject) | Grows a mobject outward from its center. Great for Circle, Square, Rectangle.
+manim.animation.growing.GrowFromEdge | GrowFromEdge(mobject, edge) | Grows a mobject from a specified edge (UP, DOWN, LEFT, RIGHT).
+manim.animation.growing.GrowFromPoint | GrowFromPoint(mobject, point) | Grows a mobject from a specific point in space.
+manim.animation.growing.SpinInFromNothing | SpinInFromNothing(mobject) | Spins a mobject into view from nothing. Decorative.
+
+## Indication Animations (drawing attention)
+manim.animation.indication.Indicate | Indicate(mobject) | Temporarily scales up and changes color of a mobject to emphasize it, then returns to normal.
+manim.animation.indication.FocusOn | FocusOn(point_or_mobject) | Creates a spotlight that focuses on a point or mobject.
+manim.animation.indication.Circumscribe | Circumscribe(mobject, shape=Rectangle) | Draws a shape (Rectangle or Circle) around a mobject to highlight it.
+manim.animation.indication.Flash | Flash(point) | Radiates flash lines from a point. Good for explosions or emphasis.
+manim.animation.indication.Wiggle | Wiggle(mobject) | Wiggles a mobject back and forth. Good for playful emphasis.
+manim.animation.indication.ApplyWave | ApplyWave(mobject) | Applies a wave-like distortion to a mobject.
+manim.animation.indication.Blink | Blink(mobject) | Blinks a mobject on and off repeatedly.
+manim.animation.indication.ShowPassingFlash | ShowPassingFlash(vmobject) | Sends a flash of light along the stroke of a VMobject.
+
+## Movement Animations
+manim.animation.movement.MoveAlongPath | MoveAlongPath(mobject, path) | Moves a mobject along a defined path (Line, Arc, or any VMobject used as path).
+manim.animation.movement.Homotopy | Homotopy(function, mobject) | Continuously warps the points of a mobject according to a function.
+
+## Number Animations
+manim.animation.numbers.ChangeDecimalToValue | ChangeDecimalToValue(decimal_number, target) | Animates a DecimalNumber changing to a target value. Great for counting up/down.
+manim.animation.numbers.ChangingDecimal | ChangingDecimal(decimal_number, func) | Animates a DecimalNumber updating according to a function over time.
+
+## Rotation Animations
+manim.animation.rotation.Rotate | Rotate(mobject, angle=PI/2) | Rotates a mobject by an angle. Use about_point to rotate around a specific point.
+manim.animation.rotation.Rotating | Rotating(mobject, angle=2*PI, run_time=...) | Continuously rotates a mobject over time.
+
+## Transform Animations (morphing one object into another)
+manim.animation.transform.Transform | Transform(mobject, target) | Morphs a mobject into a target mobject. The original mobject is mutated and replaced.
+manim.animation.transform.ReplacementTransform | ReplacementTransform(mobject, target) | Transforms a mobject into a target, replacing the original. Keeps rendering cleaner.
+manim.animation.transform.TransformFromCopy | TransformFromCopy(mobject, target) | Keeps a copy of the original and transforms the copy into the target. Useful for "deriving from" effects.
+manim.animation.transform.FadeTransform | FadeTransform(mobject, target) | Fades one mobject out while fading the other in. Smooth way to swap content.
+manim.animation.transform.FadeTransformPieces | FadeTransformPieces(mobject, target) | Fade transforms each matching piece individually.
+manim.animation.transform.ApplyMethod | ApplyMethod(mobject.method()) | Animates applying any method to a mobject. e.g. ApplyMethod(mobject.shift, UP).
+manim.animation.transform.ApplyMatrix | ApplyMatrix(matrix, mobject) | Applies a matrix transformation to a mobject. Good for linear algebra visualizations.
+manim.animation.transform.FadeToColor | FadeToColor(mobject, color) | Fades a mobject to a target color. Good for color-coding changes.
+manim.animation.transform.MoveToTarget | MoveToTarget(mobject) | After calling mobject.generate_target(), transforms the mobject to its target state.
+manim.animation.transform.ScaleInPlace | ScaleInPlace(mobject, factor) | Scales a mobject in place without moving its center.
+manim.animation.transform.ShrinkToCenter | ShrinkToCenter(mobject) | Shrinks a mobject down to its center point and removes it.
+manim.animation.transform.ApplyFunction | ApplyFunction(function, mobject) | Applies a function (like np.sin) to the points of a mobject.
+manim.animation.transform.ApplyPointwiseFunction | ApplyPointwiseFunction(function, mobject) | Applies a pointwise function to each point of a mobject.
+manim.animation.transform.ClockwiseTransform | ClockwiseTransform(mobject, target) | Transforms with a clockwise arc path.
+manim.animation.transform.CounterclockwiseTransform | CounterclockwiseTransform(mobject, target) | Transforms with a counterclockwise arc path.
+manim.animation.transform.CyclicReplace | CyclicReplace(*mobjects) | Moves mobjects cyclically - each takes the next one's position.
+manim.animation.transform.Restore | Restore(mobject) | Restores a mobject to its last saved state (use mobject.save_state() first).
+manim.animation.transform.Swap | Swap(*mobjects) | Swaps the positions of mobjects.
+manim.animation.transform.TransformAnimations | TransformAnimations(starter, finisher) | Transforms one animation into another.
+
+## Transform Matching (smart morphing)
+manim.animation.transform_matching_parts.TransformMatchingShapes | TransformMatchingShapes(source, target) | Transforms groups by matching the shape of their submobjects. Smart morphing.
+manim.animation.transform_matching_parts.TransformMatchingTex | TransformMatchingTex(source_tex, target_tex) | Transforms LaTeX by matching tex_string parts. Great for equation derivations.
+
+## Updater Animations (continuous updates)
+manim.animation.updaters.update.UpdateFromFunc | UpdateFromFunc(mobject, func) | Continuously updates a mobject using a function of the form func(mobject). Used for dependent mobjects.
+
+## Changing Animations
+manim.animation.changing.TracedPath | TracedPath(point_func) | Traces the path of a moving point. Pass a lambda that returns the current position of another mobject.
+
+## Cameras
+manim.camera.camera.Camera | Camera(background_color=..., frame_height=8, ...) | Base camera class. Controls what is rendered and how.
+manim.camera.moving_camera.MovingCamera | MovingCamera(frame_width=...) | Camera that can zoom and pan. Use camera.frame.move_to(...) and camera.frame.set(width=...) to move/zoom.
+manim.camera.three_d_camera.ThreeDCamera | ThreeDCamera(...) | 3D camera for ThreeDScene. Set orientation with set_camera_orientation(phi=..., theta=...).
+
+## Frames
+manim.mobject.frame.ScreenRectangle | ScreenRectangle(aspect_ratio=16/9, height=4) | A rectangle with the screen's aspect ratio. Good for framing elements.
+manim.mobject.frame.FullScreenRectangle | FullScreenRectangle() | A rectangle covering the full screen. Good for full-screen overlays or backgrounds.
+
+## Geometry - Arcs and Curves
+manim.mobject.geometry.arc.Circle | Circle(radius=1, color=..., fill_opacity=...) | A circle. Most basic shape. Use radius, color, fill_opacity, stroke_width.
+manim.mobject.geometry.arc.Dot | Dot(point=ORIGIN, radius=0.08, color=...) | A small filled circle. Good for points, particles, markers.
+manim.mobject.geometry.arc.Arc | Arc(radius=1, start_angle=0, angle=PI/2) | A circular arc. Use for partial circles or angle indicators.
+manim.mobject.geometry.arc.ArcBetweenPoints | ArcBetweenPoints(start, end, angle=PI/2) | An arc spanning between two points. Good for curved connections.
+manim.mobject.geometry.arc.Ellipse | Ellipse(width=2, height=1) | An ellipse. Use width and height for the axes.
+manim.mobject.geometry.arc.Annulus | Annulus(inner_radius=1, outer_radius=2) | A ring (region between two concentric circles). Good for donut charts.
+manim.mobject.geometry.arc.Sector | Sector(radius=1, angle=PI/2) | A pie-slice shape. Good for pie charts and angle visualization.
+manim.mobject.geometry.arc.CurvedArrow | CurvedArrow(start_point, end_point) | A curved arrow between two points. Good for showing rotation or flow.
+manim.mobject.geometry.arc.LabeledDot | LabeledDot("text", radius=...) | A dot with a label in its center. Good for labeled points.
+manim.mobject.geometry.arc.AnnotationDot | AnnotationDot(radius=...) | A dot with a bold stroke for annotations.
+manim.mobject.geometry.arc.TipableVMobject | TipableVMobject(...) | Base for shapes that can have arrow tips (Arc and Line inherit from this).
+manim.mobject.geometry.arc.AnnularSector | AnnularSector(inner_radius, outer_radius, angle) | A sector of a ring. Good for donut chart segments.
+manim.mobject.geometry.arc.ArcPolygon | ArcPolygon(*vertices) | A polygon where edges can be arcs instead of straight lines.
+manim.mobject.geometry.arc.CubicBezier | CubicBezier(anchor1, handle1, handle2, anchor2) | A cubic Bezier curve from control points.
+
+## Geometry - Boolean Operations
+manim.mobject.geometry.boolean_ops.Union | Union(*vmobjects) | Combines multiple shapes into one (union). Good for complex shapes.
+manim.mobject.geometry.boolean_ops.Intersection | Intersection(*vmobjects) | Keeps only the overlapping region of shapes.
+manim.mobject.geometry.boolean_ops.Difference | Difference(subject, clip) | Subtracts one shape from another. Good for cutouts.
+
+## Geometry - Labeled Shapes
+manim.mobject.geometry.labeled.Label | Label("text", ...) | A label with a box around it. Good for annotated pins.
+manim.mobject.geometry.labeled.LabeledLine | LabeledLine("text", start, end) | A line with a label box along its length.
+manim.mobject.geometry.labeled.LabeledArrow | LabeledArrow("text", start, end) | An arrow with a label box along its length.
+
+## Geometry - Lines
+manim.mobject.geometry.line.Line | Line(start=LEFT, end=RIGHT, color=...) | A straight line between two points. Use buff to add spacing from endpoints.
+manim.mobject.geometry.line.Arrow | Arrow(start, end, buff=0.25, color=...) | An arrow with a tip. The default arrow type.
+manim.mobject.geometry.line.DashedLine | DashedLine(start, end, dash_length=0.05) | A dashed line. Good for guides, axes, and secondary elements.
+manim.mobject.geometry.line.DoubleArrow | DoubleArrow(start, end) | An arrow with tips on both ends.
+manim.mobject.geometry.line.Vector | Vector(direction=[1,0,0], color=...) | An arrow from origin in a direction. Good for vector visualization.
+manim.mobject.geometry.line.Angle | Angle(line1, line2, radius=...) | An arc representing the angle between two lines. Good for geometry proofs.
+manim.mobject.geometry.line.RightAngle | RightAngle(line1, line2) | A right angle marker (small square). Good for perpendicular indicators.
+manim.mobject.geometry.line.TangentLine | TangentLine(vmobject, alpha=0.5, length=1) | A tangent line to a curve at a specific point (alpha 0-1 along the curve).
+
+## Geometry - Polygons
+manim.mobject.geometry.polygram.Rectangle | Rectangle(width=4, height=2, color=...) | A rectangle. Use width, height, corner_radius, grid_xstep/ystep.
+manim.mobject.geometry.polygram.Square | Square(side_length=2) | A square.
+manim.mobject.geometry.polygram.Polygon | Polygon(*vertices) | A polygon from a list of vertex points.
+manim.mobject.geometry.polygram.RegularPolygon | RegularPolygon(n=6) | A regular polygon with n sides. Use for hexagons, pentagons, etc.
+manim.mobject.geometry.polygram.RoundedRectangle | RoundedRectangle(corner_radius=0.5) | A rectangle with rounded corners. Good for cards and boxes.
+manim.mobject.geometry.polygram.Triangle | Triangle() | An equilateral triangle.
+manim.mobject.geometry.polygram.Star | Star(n=5, outer_radius=1) | A star shape.
+manim.mobject.geometry.polygram.Polygram | Polygram(*vertex_groups) | A generalized polygon that can have multiple vertex groups.
+manim.mobject.geometry.polygram.RegularPolygram | RegularPolygram(num_vertices, density=2) | A star-like polygram shape.
+manim.mobject.geometry.polygram.Cutout | Cutout(main_shape, *cutouts) | Cuts smaller shapes out of a main shape. Good for creating hollow shapes.
+manim.mobject.geometry.polygram.ConvexHull | ConvexHull(*points) | The convex hull of a set of points.
+
+## Geometry - Shape Matchers (decorative helpers)
+manim.mobject.geometry.shape_matchers.SurroundingRectangle | SurroundingRectangle(mobject, color=YELLOW, buff=0.1) | Draws a rectangle around a mobject. Perfect for highlighting or boxing content.
+manim.mobject.geometry.shape_matchers.BackgroundRectangle | BackgroundRectangle(*mobjects, fill_opacity=0.75) | Placed behind mobjects to make them readable. Good for text over busy backgrounds.
+manim.mobject.geometry.shape_matchers.Cross | Cross(mobject) | An X mark over a mobject. Good for marking something as wrong.
+manim.mobject.geometry.shape_matchers.Underline | Underline(mobject, buff=0.1) | An underline beneath a mobject. Good for titles or emphasis.
+
+## Graphs
+manim.mobject.graph.Graph | Graph(vertices, edges, layout='spring') | An undirected graph. vertices=[1,2,3], edges=[(1,2),(2,3)]. Use layout='circular'/'spring'/'tree'.
+manim.mobject.graph.DiGraph | DiGraph(vertices, edges) | A directed graph with arrows on edges.
+
+## Coordinate Systems and Axes
+manim.mobject.graphing.coordinate_systems.Axes | Axes(x_range=[-4,4,1], y_range=[-2,2,1], x_length=10) | Creates 2D axes with ticks and labels. Essential for plotting.
+manim.mobject.graphing.coordinate_systems.NumberPlane | NumberPlane(x_range=[-7,7,1], y_range=[-4,4,1]) | A cartesian plane with background grid lines. Good for coordinate space visualization.
+manim.mobject.graphing.coordinate_systems.PolarPlane | PolarPlane(radius_max=4, radius_step=1) | A polar coordinate plane with radial and azimuthal grid lines.
+manim.mobject.graphing.coordinate_systems.ComplexPlane | ComplexPlane() | A NumberPlane for complex numbers. Use plane.n2p(complex_num) to convert.
+manim.mobject.graphing.coordinate_systems.ThreeDAxes | ThreeDAxes(x_range=[-6,6,1], y_range=[-5,5,1], z_range=[-4,4,1]) | 3D axes for ThreeDScene.
+
+## Graphing Functions
+manim.mobject.graphing.functions.FunctionGraph | FunctionGraph(lambda x: np.sin(x), x_range=[-4,4]) | Plots a function f(x) on existing Axes by passing axes.get_graph(lambda x: ...).
+manim.mobject.graphing.functions.ParametricFunction | ParametricFunction(lambda t: [np.cos(t), np.sin(t), 0]) | A parametric curve from a function. Good for circles, spirals, custom curves.
+
+## Number Lines
+manim.mobject.graphing.number_line.NumberLine | NumberLine(x_range=[-5,5,1], include_numbers=True) | A horizontal number line with tick marks and optional number labels.
+manim.mobject.graphing.number_line.UnitInterval | UnitInterval() | A number line from 0 to 1.
+
+## Charts and Probability
+manim.mobject.graphing.probability.BarChart | BarChart(values=[1,2,3], bar_names=['A','B','C']) | A bar chart with customizable bars and colors.
+
+## Matrices
+manim.mobject.matrix.Matrix | Matrix([[1,2],[3,4]]) | Displays a matrix with bracket notation. Good for linear algebra.
+manim.mobject.matrix.IntegerMatrix | IntegerMatrix([[1,2],[3,4]]) | A matrix with integer entries.
+manim.mobject.matrix.DecimalMatrix | DecimalMatrix([[1.5,2.5],[3.5,4.5]]) | A matrix with decimal entries.
+
+## Base Mobjects (essential building blocks)
+manim.mobject.mobject.Mobject | Mobject() | The base class for ALL displayable objects. Provides move_to, shift, scale, rotate, set_color, set_opacity, next_to, align_to, etc.
+manim.mobject.mobject.Group | Group(*mobjects) | Groups any Mobjects together so you can move/scale/transform them as one.
+
+## SVG and Braces
+manim.mobject.svg.brace.Brace | Brace(mobject) | A curly brace adjacent to a mobject. Good for annotating dimensions or ranges.
+manim.mobject.svg.brace.BraceLabel | BraceLabel(mobject, "text") | A brace with a label (MathTex default) attached. Good for labeled ranges.
+manim.mobject.svg.brace.BraceText | BraceText(mobject, "text") | A brace with a text label (Text default).
+manim.mobject.svg.brace.BraceBetweenPoints | BraceBetweenPoints(point1, point2) | A brace between two points.
+manim.mobject.svg.svg_mobject.SVGMobject | SVGMobject("file.svg") | Creates a mobject from an SVG file. Good for importing icons or diagrams.
+
+## Tables
+manim.mobject.table.Table | Table(data, row_labels=..., col_labels=...) | Displays a table. Good for data presentation.
+manim.mobject.table.MathTable | MathTable(data) | A table with MathTex entries.
+manim.mobject.table.IntegerTable | IntegerTable(data) | A table with integer entries.
+manim.mobject.table.DecimalTable | DecimalTable(data) | A table with decimal entries.
+
+## Text
+manim.mobject.text.text_mobject.Text | Text("hello", font_size=48, color=...) | Plain text. Use t2c={"word": RED} to color specific words, t2f for fonts.
+manim.mobject.text.text_mobject.MarkupText | MarkupText('<span color="red">text</span>') | Text with Pango markup for advanced styling (colors, bold, italics inline).
+manim.mobject.text.text_mobject.Paragraph | Paragraph("line1", "line2") | Multiple lines of text as a paragraph. Good for body text.
+manim.mobject.text.tex_mobject.MathTex | MathTex(r"x^2 + y^2 = z^2") | LaTeX math mode. Essential for equations and formulas.
+manim.mobject.text.tex_mobject.Tex | Tex(r"\textbf{Bold text}") | LaTeX normal mode. Good for styled non-math text.
+manim.mobject.text.tex_mobject.Title | Title("Video Title") | An underlined title at the top of the screen.
+manim.mobject.text.tex_mobject.BulletedList | BulletedList("point1", "point2") | A bulleted list with dots. Good for key points.
+manim.mobject.text.numbers.DecimalNumber | DecimalNumber(3.14, num_decimal_places=2) | A number display that can be animated (change value, count up).
+manim.mobject.text.numbers.Integer | Integer(42) | An integer display.
+manim.mobject.text.numbers.Variable | Variable(value, "x") | Shows "label = value" with value updating from a ValueTracker.
+manim.mobject.text.code_mobject.Code | Code(code_string="...", language="python") | A highlighted code block. Good for code_walkthrough scenes.
+
+## 3D Shapes
+manim.mobject.three_d.three_dimensions.Sphere | Sphere(radius=1, center=ORIGIN) | A 3D sphere. Use in ThreeDScene.
+manim.mobject.three_d.three_dimensions.Cube | Cube(side_length=2) | A 3D cube.
+manim.mobject.three_d.three_dimensions.Cylinder | Cylinder(radius=1, height=2) | A 3D cylinder.
+manim.mobject.three_d.three_dimensions.Cone | Cone(base_radius=1, height=1) | A 3D cone.
+manim.mobject.three_d.three_dimensions.Torus | Torus(major_radius=3, minor_radius=1) | A 3D torus (donut shape).
+manim.mobject.three_d.three_dimensions.Surface | Surface(func, u_range=[0,1], v_range=[0,1]) | A parametric 3D surface.
+manim.mobject.three_d.three_dimensions.Line3D | Line3D(start, end, thickness=0.02) | A 3D line for ThreeDScene.
+manim.mobject.three_d.three_dimensions.Arrow3D | Arrow3D(start, end) | A 3D arrow for ThreeDScene.
+manim.mobject.three_d.three_dimensions.Dot3D | Dot3D(point) | A 3D dot for ThreeDScene.
+manim.mobject.three_d.three_dimensions.Prism | Prism(dimensions=[3,2,1]) | A 3D rectangular prism.
+manim.mobject.three_d.polyhedra.Tetrahedron | Tetrahedron(edge_length=1) | A 3D tetrahedron.
+manim.mobject.three_d.polyhedra.Octahedron | Octahedron(edge_length=1) | A 3D octahedron.
+manim.mobject.three_d.polyhedra.Dodecahedron | Dodecahedron(edge_length=1) | A 3D dodecahedron.
+manim.mobject.three_d.polyhedra.Icosahedron | Icosahedron(edge_length=1) | A 3D icosahedron.
+
+## Image and Vectorized Types
+manim.mobject.types.image_mobject.ImageMobject | ImageMobject("image.png") | Displays an image from a file or numpy array. Use with picture_slide template.
+manim.mobject.types.vectorized_mobject.VMobject | VMobject(fill_color=..., stroke_width=4) | The base for all vectorized shapes. Provides fill, stroke, and smooth curve methods.
+manim.mobject.types.vectorized_mobject.VGroup | VGroup(*vmobjects) | A group of vectorized mobjects. Essential for combining shapes and moving them together.
+manim.mobject.types.vectorized_mobject.DashedVMobject | DashedVMobject(vmobject, num_dashes=15) | Converts any VMobject to dashed style.
+
+## Value Trackers (for dynamic values)
+manim.mobject.value_tracker.ValueTracker | ValueTracker(0) | Tracks a real number that can be animated. Use mobject.add_updater(lambda m: m.set_value(tracker.get_value())) to link.
+manim.mobject.value_tracker.ComplexValueTracker | ComplexValueTracker(0) | Tracks a complex number.
+
+## Vector Fields
+manim.mobject.vector_field.ArrowVectorField | ArrowVectorField(lambda p: [-p[1], p[0], 0]) | Shows a vector field with arrows. Good for physics/math visualizations.
+manim.mobject.vector_field.StreamLines | StreamLines(func, ...) | Shows stream lines of a vector field.
+manim.mobject.vector_field.VectorField | VectorField(func) | Base class for vector fields.
+
+## Scenes (canvas types)
+manim.scene.scene.Scene | Scene() | The base canvas for animations. Provides play(), add(), wait(), remove(), clear().
+manim.scene.three_d_scene.ThreeDScene | ThreeDScene() | A scene with 3D capability. Use set_camera_orientation(phi=60*DEGREES, theta=-45*DEGREES).
+manim.scene.moving_camera_scene.MovingCameraScene | MovingCameraScene() | A scene with a moving camera. Use self.camera.frame.animate.move_to(...) to pan/zoom.
+manim.scene.vector_space_scene.VectorScene | VectorScene() | A scene with axes and vector helpers.
+manim.scene.vector_space_scene.LinearTransformationScene | LinearTransformationScene() | A scene for showing linear transformations of vectors.
+
+## Additional Useful Classes (Niche but available)
+manim.animation.changing.AnimatedBoundary | AnimatedBoundary(vmobject, colors=[...], max_stroke_width=3) | An animated boundary of colors around a mobject. Decorative border effect.
+manim.animation.specialized.Broadcast | Broadcast(mobject) | Broadcasts a mobject from a small size to full size. Good for spreading effects.
+manim.animation.speedmodifier.ChangeSpeed | ChangeSpeed(animation, speedinfo=...) | Changes the speed of another animation at specific times.
+manim.animation.transform.ApplyComplexFunction | ApplyComplexFunction(function, mobject) | Applies a complex function to a mobject's points. Advanced morphing.
+manim.animation.transform.ApplyPointwiseFunctionToCenter | ApplyPointwiseFunctionToCenter(function, mobject) | Applies a function to the center of a mobject.
+manim.animation.transform_matching_parts.TransformMatchingAbstractBase | TransformMatchingAbstractBase(...) | Abstract base for TransformMatchingShapes and TransformMatchingTex.
+manim.animation.updaters.update.MaintainPositionRelativeTo | MaintainPositionRelativeTo(mobject, target) | Keeps a mobject in the same relative position to a target mobject.
+manim.animation.updaters.update.UpdateFromAlphaFunc | UpdateFromAlphaFunc(mobject, func) | Updates a mobject using a function of the animation progress (alpha).
+manim.camera.mapping_camera.MappingCamera | MappingCamera(mapping_func=...) | A camera that maps 3D points to custom positions. Advanced camera effects.
+manim.camera.mapping_camera.SplitScreenCamera | SplitScreenCamera(left, right) | Splits the screen between two cameras. Good for side-by-side views.
+manim.camera.multi_camera.MultiCamera | MultiCamera(...) | A camera supporting multiple perspectives simultaneously.
+manim.mobject.geometry.arc.ArcPolygonFromArcs | ArcPolygonFromArcs(*arcs) | A polygon built from pre-existing arc mobjects.
+manim.mobject.geometry.arc.CurvedDoubleArrow | CurvedDoubleArrow(start, end) | A curved arrow with tips on both ends.
+manim.mobject.geometry.arc.TangentialArc | TangentialArc(line1, line2, radius) | An arc tangent to two intersecting lines. Good for fillets and rounded corners.
+manim.mobject.geometry.boolean_ops.Exclusion | Exclusion(subject, clip) | The XOR of two shapes. Keeps the non-overlapping areas.
+manim.mobject.geometry.labeled.LabeledPolygram | LabeledPolygram(*vertices, label=...) | A polygram with a label at its center.
+manim.mobject.geometry.line.Elbow | Elbow(width=0.2) | An L-shaped right angle bracket. Good for corner markers.
+manim.mobject.geometry.tips.ArrowTip | ArrowTip(...) | Base class for all arrow tip shapes.
+manim.mobject.geometry.tips.ArrowTriangleTip | ArrowTriangleTip(length=0.35) | A triangular (unfilled) arrow tip.
+manim.mobject.geometry.tips.ArrowTriangleFilledTip | ArrowTriangleFilledTip(length=0.35) | A filled triangular arrow tip. This is the default Manim arrow tip.
+manim.mobject.geometry.tips.ArrowCircleTip | ArrowCircleTip(length=0.35) | A circular arrow tip.
+manim.mobject.geometry.tips.ArrowCircleFilledTip | ArrowCircleFilledTip(length=0.35) | A filled circular arrow tip.
+manim.mobject.geometry.tips.ArrowSquareTip | ArrowSquareTip(length=0.35) | A square-shaped arrow tip.
+manim.mobject.geometry.tips.ArrowSquareFilledTip | ArrowSquareFilledTip(length=0.35) | A filled square arrow tip.
+manim.mobject.geometry.tips.StealthTip | StealthTip(length=0.175) | A stealth-fighter shaped arrow tip.
+manim.mobject.graph.GenericGraph | GenericGraph(vertices, edges, ...) | Abstract base class for Graph and DiGraph.
+manim.mobject.graphing.coordinate_systems.CoordinateSystem | CoordinateSystem(...) | Abstract base for Axes and NumberPlane. Provides coords_to_point and point_to_coords.
+manim.mobject.graphing.functions.ImplicitFunction | ImplicitFunction(func, x_range=..., y_range=...) | Plots an implicit function of the form f(x,y)=0.
+manim.mobject.graphing.probability.SampleSpace | SampleSpace(height=3, width=3) | A rectangular sample space box. Good for probability diagrams.
+manim.mobject.graphing.scale.LinearBase | LinearBase(scale_factor=1.0) | Linear scaling for axes. Used when creating custom scales.
+manim.mobject.graphing.scale.LogBase | LogBase(base=10) | Logarithmic scaling for axes.
+manim.mobject.matrix.MobjectMatrix | MobjectMatrix(matrix) | A matrix whose entries are arbitrary mobjects.
+manim.mobject.svg.brace.ArcBrace | ArcBrace(arc) | A brace that wraps around an arc. Good for angle annotations.
+manim.mobject.svg.svg_mobject.VMobjectFromSVGPath | VMobjectFromSVGPath(path_obj) | Creates a VMobject from an SVG path string.
+manim.mobject.table.MobjectTable | MobjectTable(table) | A table whose entries are mobjects.
+manim.mobject.text.tex_mobject.SingleStringMathTex | SingleStringMathTex(tex_string) | A single LaTeX string mobject. Lower-level than MathTex.
+manim.mobject.text.typst_mobject.Typst | Typst(typst_code) | Renders text using the Typst typesetting system.
+manim.mobject.text.typst_mobject.MathTypst | MathTypst(expression) | Renders math using Typst's math syntax.
+manim.mobject.three_d.polyhedra.Polyhedron | Polyhedron(vertex_coords, faces_list) | An abstract polyhedron base class. Good for custom 3D shapes.
+manim.mobject.three_d.polyhedra.ConvexHull3D | ConvexHull3D(*points) | The 3D convex hull of a set of points.
+manim.mobject.three_d.three_dimensions.ThreeDVMobject | ThreeDVMobject(shade_in_3d=True) | A VMobject that supports 3D shading in ThreeDScene.
+manim.mobject.types.image_mobject.AbstractImageMobject | AbstractImageMobject(...) | Abstract base for image mobjects.
+manim.mobject.types.point_cloud_mobject.PMobject | PMobject(stroke_width=4) | A mobject composed of points. Base for point cloud shapes.
+manim.mobject.types.point_cloud_mobject.Mobject1D | Mobject1D(density=10) | A 1D point cloud mobject (a curve made of points).
+manim.mobject.types.point_cloud_mobject.Mobject2D | Mobject2D(density=25) | A 2D point cloud mobject (an area made of points).
+manim.mobject.types.point_cloud_mobject.PGroup | PGroup(*pmobs) | A group of point cloud mobjects.
+manim.mobject.types.point_cloud_mobject.Point | Point(location=ORIGIN) | A single point mobject.
+manim.mobject.types.point_cloud_mobject.PointCloudDot | PointCloudDot(center=ORIGIN, radius=2) | A disc made of a cloud of dots. Good for particle effects.
+manim.mobject.types.vectorized_mobject.VDict | VDict(mapping) | A dictionary that holds named VMobjects for easy access.
+manim.mobject.types.vectorized_mobject.CurvesAsSubmobjects | CurvesAsSubmobjects(vmobject) | Splits a VMobject so each curve is a separate submobject. Good for per-curve coloring.
+manim.mobject.types.vectorized_mobject.VectorizedPoint | VectorizedPoint(location=ORIGIN) | A point represented as a VMobject. Good for invisible anchor points.
+manim.scene.three_d_scene.SpecialThreeDScene | SpecialThreeDScene(...) | A ThreeDScene with extra convenience settings (axes, sphere, camera orientations).
+manim.scene.zoomed_scene.ZoomedScene | ZoomedScene(...) | A scene with a zoomed-in display window showing a magnified section.
+manim.utils.color.core.HSV | HSV(hsv, alpha=1.0) | An HSV color space representation.
+manim.utils.color.core.RGBA | RGBA(...) | An RGBA color space representation.
+manim.utils.color.core.RandomColorGenerator | RandomColorGenerator(seed=..., sample_colors=[...]) | Generates reproducible random colors from a list of given colors.
+manim.utils.rate_functions.RateFunction | RateFunction(...) | Protocol type for rate functions. Use linear, smooth, ease_in_out, rush_into, etc.
+manim.utils.tex.TexTemplate | TexTemplate(tex_compiler='latex', preamble=...) | Configures the LaTeX compiler for Tex/MathTex rendering. Can add custom preamble.
+manim.utils.tex_templates.TexTemplateLibrary | TexTemplateLibrary | A collection of basic TeX templates. Use TexTemplateLibrary.ctex for Chinese, etc.
+
+## Color
+manim.utils.color.core.ManimColor | ManimColor("#FF0000") | The internal color representation. Use predefined colors like RED, BLUE, GREEN, YELLOW, WHITE, or hex strings.

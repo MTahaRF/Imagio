@@ -1,0 +1,129 @@
+# manim.mobject.three_d.three_dimensions.Dot3D
+
+## Signature
+class Dot3D ( point = array([0., 0., 0.])
+
+## Summary
+point ( Point3D ) – The location of the dot. 
+ radius ( float ) – The radius of the dot. 
+ color ( ManimColor ) – The color of the Dot3D . 
+ resolution ( int | tuple [ int , int ] | None ) – The number of samples taken of the Dot3D . A tuple can be
+used to define different resolutions for u and v re
+
+## Description
+Dot3D ¶ 
+ Qualified name: manim.mobject.three\_d.three\_dimensions.Dot3D 
+
+ class Dot3D ( point = array([0., 0., 0.]) , radius = 0.08 , color = ManimColor('#FFFFFF') , resolution = (8, 8) , ** kwargs ) [source] ¶ 
+ Bases: Sphere 
+ A spherical dot. 
+
+ Parameters : 
+
+ point ( Point3D ) – The location of the dot. 
+ radius ( float ) – The radius of the dot. 
+ color ( ManimColor ) – The color of the Dot3D . 
+ resolution ( int | tuple [ int , int ] | None ) – The number of samples taken of the Dot3D . A tuple can be
+used to define different resolutions for u and v respectively. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for Dot3DExample . 
+
+```
+ class Dot3DExample ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta =- 45 * DEGREES ) 
+
+ axes = ThreeDAxes () 
+ dot_1 = Dot3D ( point = axes . coords_to_point ( 0 , 0 , 1 ), color = RED ) 
+ dot_2 = Dot3D ( point = axes . coords_to_point ( 2 , 0 , 0 ), radius = 0.1 , color = BLUE ) 
+ dot_3 = Dot3D ( point = [ 0 , 0 , 0 ], radius = 0.1 , color = ORANGE ) 
+ self . add ( axes , dot_1 , dot_2 , dot_3 ) 
+
+```
+
+```
+
+class Dot3DExample(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75*DEGREES, theta=-45*DEGREES)
+
+ axes = ThreeDAxes()
+ dot_1 = Dot3D(point=axes.coords_to_point(0, 0, 1), color=RED)
+ dot_2 = Dot3D(point=axes.coords_to_point(2, 0, 0), radius=0.1, color=BLUE)
+ dot_3 = Dot3D(point=[0, 0, 0], radius=0.1, color=ORANGE)
+ self.add(axes, dot_1, dot_2,dot_3)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__
+
+## Examples
+
+### Example 1
+```python
+class Dot3DExample ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta =- 45 * DEGREES ) 
+
+ axes = ThreeDAxes () 
+ dot_1 = Dot3D ( point = axes . coords_to_point ( 0 , 0 , 1 ), color = RED ) 
+ dot_2 = Dot3D ( point = axes . coords_to_point ( 2 , 0 , 0 ), radius = 0.1 , color = BLUE ) 
+ dot_3 = Dot3D ( point = [ 0 , 0 , 0 ], radius = 0.1 , color = ORANGE ) 
+ self . add ( axes , dot_1 , dot_2 , dot_3 )
+```
+
+### Example 2
+```python
+class Dot3DExample(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75*DEGREES, theta=-45*DEGREES)
+
+ axes = ThreeDAxes()
+ dot_1 = Dot3D(point=axes.coords_to_point(0, 0, 1), color=RED)
+ dot_2 = Dot3D(point=axes.coords_to_point(2, 0, 0), radius=0.1, color=BLUE)
+ dot_3 = Dot3D(point=[0, 0, 0], radius=0.1, color=ORANGE)
+ self.add(axes, dot_1, dot_2,dot_3)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.three_dimensions.Dot3D.html

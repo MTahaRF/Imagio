@@ -1,0 +1,160 @@
+# manim.mobject.geometry.line.Vector
+
+## Signature
+class Vector ( direction = array([1., 0., 0.])
+
+## Summary
+coordinate_label 
+ Creates a label based on the coordinates of the vector.
+
+## Description
+Vector ¶ 
+ Qualified name: manim.mobject.geometry.line.Vector 
+
+ class Vector ( direction = array([1., 0., 0.]) , buff = 0 , ** kwargs ) [source] ¶ 
+ Bases: Arrow 
+ A vector specialized for use in graphs. 
+
+ Caution 
+ Do not confuse with the Vector2D ,
+ Vector3D or VectorND type aliases,
+which are not Mobjects! 
+
+ Parameters : 
+
+ direction ( Vector2DLike | Vector3DLike ) – The direction of the arrow. 
+ buff ( float ) – The distance of the vector from its endpoints. 
+ kwargs ( Any ) – Additional arguments to be passed to Arrow 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for VectorExample . 
+
+```
+ class VectorExample ( Scene ): 
+ def construct ( self ): 
+ plane = NumberPlane () 
+ vector_1 = Vector ([ 1 , 2 ]) 
+ vector_2 = Vector ([ - 5 , - 2 ]) 
+ self . add ( plane , vector_1 , vector_2 ) 
+
+```
+
+```
+
+class VectorExample(Scene):
+ def construct(self):
+ plane = NumberPlane()
+ vector_1 = Vector([1,2])
+ vector_2 = Vector([-5,-2])
+ self.add(plane, vector_1, vector_2)
+
+```
+
+ Methods 
+
+ coordinate_label 
+ Creates a label based on the coordinates of the vector. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( direction = array([1., 0., 0.]) , buff = 0 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ direction ( TypeAliasForwardRef ( '~manim.typing.Vector2DLike' ) | TypeAliasForwardRef ( '~manim.typing.Vector3DLike' ) ) 
+ buff ( float ) 
+ kwargs ( Any ) 
+
+ Return type : 
+ None 
+
+ coordinate_label ( integer_labels = True , n_dim = 2 , color = None , ** kwargs ) [source] ¶ 
+ Creates a label based on the coor
+
+## Examples
+
+### Example 1
+```python
+class VectorExample ( Scene ): 
+ def construct ( self ): 
+ plane = NumberPlane () 
+ vector_1 = Vector ([ 1 , 2 ]) 
+ vector_2 = Vector ([ - 5 , - 2 ]) 
+ self . add ( plane , vector_1 , vector_2 )
+```
+
+### Example 2
+```python
+class VectorExample(Scene):
+ def construct(self):
+ plane = NumberPlane()
+ vector_1 = Vector([1,2])
+ vector_2 = Vector([-5,-2])
+ self.add(plane, vector_1, vector_2)
+```
+
+### Example 3
+```python
+class VectorCoordinateLabel ( Scene ): 
+ def construct ( self ): 
+ plane = NumberPlane () 
+
+ vec_1 = Vector ([ 1 , 2 ]) 
+ vec_2 = Vector ([ - 3 , - 2 ]) 
+ label_1 = vec_1 . coordinate_label () 
+ label_2 = vec_2 . coordinate_label ( color = YELLOW ) 
+
+ self . add ( plane , vec_1 , vec_2 , label_1 , label_2 )
+```
+
+### Example 4
+```python
+class VectorCoordinateLabel(Scene):
+ def construct(self):
+ plane = NumberPlane()
+
+ vec_1 = Vector([1, 2])
+ vec_2 = Vector([-3, -2])
+ label_1 = vec_1.coordinate_label()
+ label_2 = vec_2.coordinate_label(color=YELLOW)
+
+ self.add(plane, vec_1, vec_2, label_1, label_2)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.line.Vector.html

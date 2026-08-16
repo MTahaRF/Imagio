@@ -1,0 +1,99 @@
+# manim.mobject.geometry.arc.TipableVMobject
+
+## Signature
+class TipableVMobject ( tip_length = 0.35 , normal_vector = array([0., 0., 1.])
+
+## Summary
+class TipableVMobject ( tip_length = 0.35 , normal_vector = array([0., 0., 1.]) , tip_style = None , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ Meant for shared functionality between Arc and Line.
+Functionality can be classified broadly into these groups:
+
+## Description
+TipableVMobject ¶ 
+ Qualified name: manim.mobject.geometry.arc.TipableVMobject 
+
+ class TipableVMobject ( tip_length = 0.35 , normal_vector = array([0., 0., 1.]) , tip_style = None , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ Meant for shared functionality between Arc and Line.
+Functionality can be classified broadly into these groups: 
+
+ Adding, Creating, Modifying tips 
+
+ add_tip calls create_tip, before pushing the new tip into the TipableVMobject’s list of submobjects 
+
+ stylistic and positional configuration 
+
+ Checking for tips 
+
+ Boolean checks for whether the TipableVMobject has a tip and a starting tip 
+
+ Getters 
+
+ Straightforward accessors, returning information pertaining to the TipableVMobject instance’s tip(s), its length etc 
+
+ Methods 
+
+ add_tip 
+ Adds a tip to the TipableVMobject instance, recognising that the endpoints might need to be switched if it's a 'starting tip' or not. 
+
+ assign_tip_attr 
+
+ create_tip 
+ Stylises the tip, positions it spatially, and returns the newly instantiated tip to the caller. 
+
+ get_default_tip_length 
+
+ get_end 
+ Returns the point, where the stroke that surrounds the Mobject ends. 
+
+ get_first_handle 
+
+ get_last_handle 
+
+ get_length 
+
+ get_start 
+ Returns the point, where the stroke that surrounds the Mobject starts. 
+
+ get_tip 
+ Returns the TipableVMobject instance's (first) tip, otherwise throws an exception. 
+
+ get_tips 
+ Returns a VGroup (collection of VMobjects) containing the TipableVMObject instance's tips. 
+
+ get_unpositioned_tip 
+ Returns a tip that has been stylistically configured, but has not yet been given a position in space. 
+
+ has_start_tip 
+
+ has_tip 
+
+ pop_tips 
+
+ position_tip 
+
+ reset_endpoints_based_on_tip 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ hei
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.arc.TipableVMobject.html

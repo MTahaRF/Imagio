@@ -1,0 +1,139 @@
+# manim.mobject.geometry.line.DoubleArrow
+
+## Signature
+class DoubleArrow ( * args , ** kwargs )
+
+## Summary
+args ( Any ) – Arguments to be passed to Arrow 
+ kwargs ( Any ) – Additional arguments to be passed to Arrow
+
+## Description
+DoubleArrow ¶ 
+ Qualified name: manim.mobject.geometry.line.DoubleArrow 
+
+ class DoubleArrow ( * args , ** kwargs ) [source] ¶ 
+ Bases: Arrow 
+ An arrow with tips on both ends. 
+
+ Parameters : 
+
+ args ( Any ) – Arguments to be passed to Arrow 
+ kwargs ( Any ) – Additional arguments to be passed to Arrow 
+
+ See also 
+ ArrowTip 
+ CurvedDoubleArrow 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for DoubleArrowExample . 
+
+```
+ from manim.mobject.geometry.tips import ArrowCircleFilledTip 
+ class DoubleArrowExample ( Scene ): 
+ def construct ( self ): 
+ circle = Circle ( radius = 2.0 ) 
+ d_arrow = DoubleArrow ( start = circle . get_left (), end = circle . get_right ()) 
+ d_arrow_2 = DoubleArrow ( tip_shape_end = ArrowCircleFilledTip , tip_shape_start = ArrowCircleFilledTip ) 
+ group = Group ( Group ( circle , d_arrow ), d_arrow_2 ) . arrange ( UP , buff = 1 ) 
+ self . add ( group ) 
+
+```
+
+```
+
+from manim.mobject.geometry.tips import ArrowCircleFilledTip
+class DoubleArrowExample(Scene):
+ def construct(self):
+ circle = Circle(radius=2.0)
+ d_arrow = DoubleArrow(start=circle.get_left(), end=circle.get_right())
+ d_arrow_2 = DoubleArrow(tip_shape_end=ArrowCircleFilledTip, tip_shape_start=ArrowCircleFilledTip)
+ group = Group(Group(circle, d_arrow), d_arrow_2).arrange(UP, buff=1)
+ self.add(group)
+
+```
+
+ Example Placeholder 
+ Placeholder block for DoubleArrowExample2 . 
+
+```
+ class DoubleArrowExample2 ( Scene ): 
+ def construct ( self ): 
+ box = Square () 
+ p1 = box . get_left () 
+ p2 = box . get_right () 
+ d1 = DoubleArrow ( p1 , p2 , buff = 0 ) 
+ d2 = DoubleArrow ( p1 , p2 , buff = 0 , tip_length = 0.2 , color = YELLOW ) 
+ d3 = DoubleArrow ( p1 , p2 , buff = 0 , tip_length = 0.4 , color = BLUE ) 
+ Group ( d1 , d2 , d3 ) . arrange ( DOWN ) 
+ self . add ( box , d1 , d2 , d3 ) 
+
+```
+
+```
+
+class DoubleArrowExample2(Scene):
+ def construct(self):
+ box = Square()
+ p1 = box.get_left()
+ p2 = box.get_right()
+ d1 = DoubleArrow(p1, p2, buff=0)
+ d2 = DoubleArrow(p1, p2, buff=0, tip_l
+
+## Examples
+
+### Example 1
+```python
+from manim.mobject.geometry.tips import ArrowCircleFilledTip 
+ class DoubleArrowExample ( Scene ): 
+ def construct ( self ): 
+ circle = Circle ( radius = 2.0 ) 
+ d_arrow = DoubleArrow ( start = circle . get_left (), end = circle . get_right ()) 
+ d_arrow_2 = DoubleArrow ( tip_shape_end = ArrowCircleFilledTip , tip_shape_start = ArrowCircleFilledTip ) 
+ group = Group ( Group ( circle , d_arrow ), d_arrow_2 ) . arrange ( UP , buff = 1 ) 
+ self . add ( group )
+```
+
+### Example 2
+```python
+from manim.mobject.geometry.tips import ArrowCircleFilledTip
+class DoubleArrowExample(Scene):
+ def construct(self):
+ circle = Circle(radius=2.0)
+ d_arrow = DoubleArrow(start=circle.get_left(), end=circle.get_right())
+ d_arrow_2 = DoubleArrow(tip_shape_end=ArrowCircleFilledTip, tip_shape_start=ArrowCircleFilledTip)
+ group = Group(Group(circle, d_arrow), d_arrow_2).arrange(UP, buff=1)
+ self.add(group)
+```
+
+### Example 3
+```python
+class DoubleArrowExample2 ( Scene ): 
+ def construct ( self ): 
+ box = Square () 
+ p1 = box . get_left () 
+ p2 = box . get_right () 
+ d1 = DoubleArrow ( p1 , p2 , buff = 0 ) 
+ d2 = DoubleArrow ( p1 , p2 , buff = 0 , tip_length = 0.2 , color = YELLOW ) 
+ d3 = DoubleArrow ( p1 , p2 , buff = 0 , tip_length = 0.4 , color = BLUE ) 
+ Group ( d1 , d2 , d3 ) . arrange ( DOWN ) 
+ self . add ( box , d1 , d2 , d3 )
+```
+
+### Example 4
+```python
+class DoubleArrowExample2(Scene):
+ def construct(self):
+ box = Square()
+ p1 = box.get_left()
+ p2 = box.get_right()
+ d1 = DoubleArrow(p1, p2, buff=0)
+ d2 = DoubleArrow(p1, p2, buff=0, tip_length=0.2, color=YELLOW)
+ d3 = DoubleArrow(p1, p2, buff=0, tip_length=0.4, color=BLUE)
+ Group(d1, d2, d3).arrange(DOWN)
+ self.add(box, d1, d2, d3)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.line.DoubleArrow.html

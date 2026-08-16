@@ -1,0 +1,122 @@
+# manim.mobject.geometry.arc.Ellipse
+
+## Signature
+class Ellipse ( width = 2 , height = 1 , ** kwargs )
+
+## Summary
+width ( float ) – The horizontal width of the ellipse. 
+ height ( float ) – The vertical height of the ellipse. 
+ kwargs ( Any ) – Additional arguments to be passed to Circle .
+
+## Description
+Ellipse ¶ 
+ Qualified name: manim.mobject.geometry.arc.Ellipse 
+
+ class Ellipse ( width = 2 , height = 1 , ** kwargs ) [source] ¶ 
+ Bases: Circle 
+ A circular shape; oval, circle. 
+
+ Parameters : 
+
+ width ( float ) – The horizontal width of the ellipse. 
+ height ( float ) – The vertical height of the ellipse. 
+ kwargs ( Any ) – Additional arguments to be passed to Circle . 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for EllipseExample . 
+
+```
+ class EllipseExample ( Scene ): 
+ def construct ( self ): 
+ ellipse_1 = Ellipse ( width = 2.0 , height = 4.0 , color = BLUE_B ) 
+ ellipse_2 = Ellipse ( width = 4.0 , height = 1.0 , color = BLUE_D ) 
+ ellipse_group = Group ( ellipse_1 , ellipse_2 ) . arrange ( buff = 1 ) 
+ self . add ( ellipse_group ) 
+
+```
+
+```
+
+class EllipseExample(Scene):
+ def construct(self):
+ ellipse_1 = Ellipse(width=2.0, height=4.0, color=BLUE_B)
+ ellipse_2 = Ellipse(width=4.0, height=1.0, color=BLUE_D)
+ ellipse_group = Group(ellipse_1,ellipse_2).arrange(buff=1)
+ self.add(ellipse_group)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( width = 2 , height = 1 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ width ( float ) 
+ height ( float ) 
+ kwargs ( Any ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class EllipseExample ( Scene ): 
+ def construct ( self ): 
+ ellipse_1 = Ellipse ( width = 2.0 , height = 4.0 , color = BLUE_B ) 
+ ellipse_2 = Ellipse ( width = 4.0 , height = 1.0 , color = BLUE_D ) 
+ ellipse_group = Group ( ellipse_1 , ellipse_2 ) . arrange ( buff = 1 ) 
+ self . add ( ellipse_group )
+```
+
+### Example 2
+```python
+class EllipseExample(Scene):
+ def construct(self):
+ ellipse_1 = Ellipse(width=2.0, height=4.0, color=BLUE_B)
+ ellipse_2 = Ellipse(width=4.0, height=1.0, color=BLUE_D)
+ ellipse_group = Group(ellipse_1,ellipse_2).arrange(buff=1)
+ self.add(ellipse_group)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.arc.Ellipse.html

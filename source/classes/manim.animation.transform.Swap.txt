@@ -1,0 +1,107 @@
+# manim.animation.transform.Swap
+
+## Signature
+class Swap ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+```
+ class SwapExample ( Scene ): 
+ def construct ( self ): 
+ text_a = Text ( "A" ) . move_to ( LEFT ) 
+ text_b = Text ( "B" ) . move_to ( RIGHT ) 
+ text_group = Group ( text_a , text_b ) 
+ self . play ( FadeIn ( text_group )) 
+ self . play ( Swap ( text_group )) 
+ self . wait ()
+
+## Description
+Swap ¶ 
+ Qualified name: manim.animation.transform.Swap 
+
+ class Swap ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: CyclicReplace 
+ Another name for CyclicReplace , which is more understandable for two entries. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for SwapExample . 
+
+```
+ class SwapExample ( Scene ): 
+ def construct ( self ): 
+ text_a = Text ( "A" ) . move_to ( LEFT ) 
+ text_b = Text ( "B" ) . move_to ( RIGHT ) 
+ text_group = Group ( text_a , text_b ) 
+ self . play ( FadeIn ( text_group )) 
+ self . play ( Swap ( text_group )) 
+ self . wait () 
+
+```
+
+```
+
+class SwapExample(Scene):
+ def construct(self):
+ text_a = Text("A").move_to(LEFT)
+ text_b = Text("B").move_to(RIGHT)
+ text_group = Group(text_a, text_b)
+ self.play(FadeIn(text_group))
+ self.play(Swap(text_group))
+ self.wait()
+
+```
+
+ Methods 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+
+ mobjects ( Mobject ) 
+ path_arc ( float ) 
+
+ _original__init__ ( * mobjects , path_arc = 1.5707963267948966 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ mobjects ( Mobject ) 
+ path_arc ( float ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class SwapExample ( Scene ): 
+ def construct ( self ): 
+ text_a = Text ( "A" ) . move_to ( LEFT ) 
+ text_b = Text ( "B" ) . move_to ( RIGHT ) 
+ text_group = Group ( text_a , text_b ) 
+ self . play ( FadeIn ( text_group )) 
+ self . play ( Swap ( text_group )) 
+ self . wait ()
+```
+
+### Example 2
+```python
+class SwapExample(Scene):
+ def construct(self):
+ text_a = Text("A").move_to(LEFT)
+ text_b = Text("B").move_to(RIGHT)
+ text_group = Group(text_a, text_b)
+ self.play(FadeIn(text_group))
+ self.play(Swap(text_group))
+ self.wait()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.Swap.html

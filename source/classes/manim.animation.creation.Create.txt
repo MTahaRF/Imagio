@@ -1,0 +1,86 @@
+# manim.animation.creation.Create
+
+## Signature
+class Create ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+mobject ( VMobject | OpenGLVMobject | OpenGLSurface ) – The VMobject to animate. 
+ lag_ratio ( float ) 
+ introducer ( bool )
+
+## Description
+Create ¶ 
+ Qualified name: manim.animation.creation.Create 
+
+ class Create ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: ShowPartial 
+ Incrementally show a VMobject. 
+
+ Parameters : 
+
+ mobject ( VMobject | OpenGLVMobject | OpenGLSurface ) – The VMobject to animate. 
+ lag_ratio ( float ) 
+ introducer ( bool ) 
+
+ Raises : 
+ TypeError – If mobject is not an instance of VMobject . 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for CreateScene . 
+
+```
+ class CreateScene ( Scene ): 
+ def construct ( self ): 
+ self . play ( Create ( Square ())) 
+
+```
+
+```
+
+class CreateScene(Scene):
+ def construct(self):
+ self.play(Create(Square()))
+
+```
+
+ See also 
+ ShowPassingFlash 
+
+ Methods 
+
+ Attributes 
+
+ run_time 
+
+ _original__init__ ( mobject , lag_ratio = 1.0 , introducer = True , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ mobject ( VMobject | OpenGLVMobject | OpenGLSurface ) 
+ lag_ratio ( float ) 
+ introducer ( bool ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class CreateScene ( Scene ): 
+ def construct ( self ): 
+ self . play ( Create ( Square ()))
+```
+
+### Example 2
+```python
+class CreateScene(Scene):
+ def construct(self):
+ self.play(Create(Square()))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.creation.Create.html

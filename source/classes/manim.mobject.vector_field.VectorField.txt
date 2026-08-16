@@ -1,0 +1,127 @@
+# manim.mobject.vector_field.VectorField
+
+## Signature
+class VectorField ( func , color = None , color_scheme = None , min_color_scheme_value = 0 , max_color_scheme_value = 2 , colors = [ManimColor('#236B8E')
+
+## Summary
+class VectorField ( func , color = None , color_scheme = None , min_color_scheme_value = 0 , max_color_scheme_value = 2 , colors = [ManimColor('#236B8E'), ManimColor('#83C167'), ManimColor('#F7D96F'), ManimColor('#FC6255')] , ** kwargs ) [source] ¶ 
+ Bases: VGroup 
+ A vector field. 
+ Vector fields a
+
+## Description
+VectorField ¶ 
+ Qualified name: manim.mobject.vector\_field.VectorField 
+
+ class VectorField ( func , color = None , color_scheme = None , min_color_scheme_value = 0 , max_color_scheme_value = 2 , colors = [ManimColor('#236B8E'), ManimColor('#83C167'), ManimColor('#F7D96F'), ManimColor('#FC6255')] , ** kwargs ) [source] ¶ 
+ Bases: VGroup 
+ A vector field. 
+ Vector fields are based on a function defining a vector at every position.
+This class does by default not include any visible elements but provides
+methods to move other Mobject s along the vector field. 
+
+ Parameters : 
+
+ func ( Callable [ [ Point3D ] , Vector3D ] ) – The function defining the rate of change at every position of the VectorField . 
+ color ( ManimColor ) – The color of the vector field. If set, position-specific coloring is disabled. 
+ color_scheme ( Callable [ [ Vector3D ] , float ] | None ) – A function mapping a vector to a single value. This value gives the position in the color gradient defined using min_color_scheme_value , max_color_scheme_value and colors . 
+ min_color_scheme_value ( float ) – The value of the color_scheme function to be mapped to the first color in colors . Lower values also result in the first color of the gradient. 
+ max_color_scheme_value ( float ) – The value of the color_scheme function to be mapped to the last color in colors . Higher values also result in the last color of the gradient. 
+ colors ( Sequence [ ParsableManimColor ] ) – The colors defining the color gradient of the vector field. 
+ kwargs – Additional arguments to be passed to the VGroup constructor 
+
+ Methods 
+
+ fit_to_coordinate_system 
+ Scale the vector field to fit a coordinate system. 
+
+ get_colored_background_image 
+ Generate an image that displays the vector field. 
+
+ get_nudge_updater 
+ Get an update function to move a Mobject along the vector field. 
+
+ get_vectorized_rgba_gradient_function 
+ Generates a gradient of rgbas as a numpy array 
+
+ nudge 
+ Nudge a Mobject along the vector field. 
+
+ nud
+
+## Examples
+
+### Example 1
+```python
+class Nudging ( Scene ): 
+ def construct ( self ): 
+ func = lambda pos : np . sin ( pos [ 1 ] / 2 ) * RIGHT + np . cos ( pos [ 0 ] / 2 ) * UP 
+ vector_field = ArrowVectorField ( 
+ func , x_range = [ - 7 , 7 , 1 ], y_range = [ - 4 , 4 , 1 ], length_func = lambda x : x / 2 
+ ) 
+ self . add ( vector_field ) 
+ circle = Circle ( radius = 2 ) . shift ( LEFT ) 
+ self . add ( circle . copy () . set_color ( GRAY )) 
+ dot = Dot () . move_to ( circle ) 
+
+ vector_field . nudge ( circle , - 2 , 60 , True ) 
+ vector_field . nudge ( dot , - 2 , 60 ) 
+
+ circle . add_updater ( vector_field . get_nudge_updater ( pointwise = True )) 
+ dot . add_updater ( vector_field . get_nudge_updater ()) 
+ self . add ( circle , dot ) 
+ self . wait ( 6 )
+```
+
+### Example 2
+```python
+class Nudging(Scene):
+ def construct(self):
+ func = lambda pos: np.sin(pos[1] / 2) * RIGHT + np.cos(pos[0] / 2) * UP
+ vector_field = ArrowVectorField(
+ func, x_range=[-7, 7, 1], y_range=[-4, 4, 1], length_func=lambda x: x / 2
+ )
+ self.add(vector_field)
+ circle = Circle(radius=2).shift(LEFT)
+ self.add(circle.copy().set_color(GRAY))
+ dot = Dot().move_to(circle)
+
+ vector_field.nudge(circle, -2, 60, True)
+ vector_field.nudge(dot, -2, 60)
+
+ circle.add_updater(vector_field.get_nudge_updater(pointwise=True))
+ dot.add_updater(vector_field.get_nudge_updater())
+ self.add(circle, dot)
+ self.wait(6)
+```
+
+### Example 3
+```python
+class ScaleVectorFieldFunction ( Scene ): 
+ def construct ( self ): 
+ func = lambda pos : np . sin ( pos [ 1 ]) * RIGHT + np . cos ( pos [ 0 ]) * UP 
+ vector_field = ArrowVectorField ( func ) 
+ self . add ( vector_field ) 
+ self . wait () 
+
+ func = VectorField . scale_func ( func , 0.5 ) 
+ self . play ( vector_field . animate . become ( ArrowVectorField ( func ))) 
+ self . wait ()
+```
+
+### Example 4
+```python
+class ScaleVectorFieldFunction(Scene):
+ def construct(self):
+ func = lambda pos: np.sin(pos[1]) * RIGHT + np.cos(pos[0]) * UP
+ vector_field = ArrowVectorField(func)
+ self.add(vector_field)
+ self.wait()
+
+ func = VectorField.scale_func(func, 0.5)
+ self.play(vector_field.animate.become(ArrowVectorField(func)))
+ self.wait()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.vector_field.VectorField.html

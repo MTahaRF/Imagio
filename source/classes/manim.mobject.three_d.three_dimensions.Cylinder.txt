@@ -1,0 +1,111 @@
+# manim.mobject.three_d.three_dimensions.Cylinder
+
+## Signature
+class Cylinder ( radius = 1 , height = 2 , direction = array([0., 0., 1.])
+
+## Summary
+class Cylinder ( radius = 1 , height = 2 , direction = array([0., 0., 1.]) , v_range = (0, 6.283185307179586) , show_ends = True , resolution = (24, 24) , ** kwargs ) [source] ¶ 
+ Bases: Surface 
+ A cylinder, defined by its height, radius and direction,
+
+## Description
+Cylinder ¶ 
+ Qualified name: manim.mobject.three\_d.three\_dimensions.Cylinder 
+
+ class Cylinder ( radius = 1 , height = 2 , direction = array([0., 0., 1.]) , v_range = (0, 6.283185307179586) , show_ends = True , resolution = (24, 24) , ** kwargs ) [source] ¶ 
+ Bases: Surface 
+ A cylinder, defined by its height, radius and direction, 
+
+ Parameters : 
+
+ radius ( float ) – The radius of the cylinder. 
+ height ( float ) – The height of the cylinder. 
+ direction ( Vector3DLike ) – The direction of the central axis of the cylinder. 
+ v_range ( tuple [ float , float ] ) – The height along the height axis (given by direction) to start and end on. 
+ show_ends ( bool ) – Whether to show the end caps or not. 
+ resolution ( int | tuple [ int , int ] ) – The number of samples taken of the Cylinder . A tuple can be used
+to define different resolutions for u and v respectively. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ExampleCylinder . 
+
+```
+ class ExampleCylinder ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ cylinder = Cylinder ( radius = 2 , height = 3 ) 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ self . add ( axes , cylinder ) 
+
+```
+
+```
+
+class ExampleCylinder(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ cylinder = Cylinder(radius=2, height=3)
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ self.add(axes, cylinder)
+
+```
+
+ Methods 
+
+ add_bases 
+ Adds the end caps of the cylinder. 
+
+ func 
+ Converts from cylindrical coordinates to cartesian. 
+
+ get_direction 
+ Returns the direction of the central axis of the Cylinder . 
+
+ set_direction 
+ Sets the direction of the central axis of the Cylinder . 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) th
+
+## Examples
+
+### Example 1
+```python
+class ExampleCylinder ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ cylinder = Cylinder ( radius = 2 , height = 3 ) 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta = 30 * DEGREES ) 
+ self . add ( axes , cylinder )
+```
+
+### Example 2
+```python
+class ExampleCylinder(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ cylinder = Cylinder(radius=2, height=3)
+ self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
+ self.add(axes, cylinder)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.three_dimensions.Cylinder.html

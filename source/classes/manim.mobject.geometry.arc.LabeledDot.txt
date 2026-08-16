@@ -1,0 +1,135 @@
+# manim.mobject.geometry.arc.LabeledDot
+
+## Signature
+class LabeledDot ( label , radius = None , buff = 0.1 , ** kwargs )
+
+## Summary
+label ( str | SingleStringMathTex | Text | Tex ) – The label of the Dot . This is rendered as MathTex 
+by default (i.e., when passing a str ), but other classes
+representing rendered strings like Text or Tex 
+can be passed as well. 
+ radius ( float | None ) – The radius of the Dot . If provided, the
+
+## Description
+LabeledDot ¶ 
+ Qualified name: manim.mobject.geometry.arc.LabeledDot 
+
+ class LabeledDot ( label , radius = None , buff = 0.1 , ** kwargs ) [source] ¶ 
+ Bases: Dot 
+ A Dot containing a label in its center. 
+
+ Parameters : 
+
+ label ( str | SingleStringMathTex | Text | Tex ) – The label of the Dot . This is rendered as MathTex 
+by default (i.e., when passing a str ), but other classes
+representing rendered strings like Text or Tex 
+can be passed as well. 
+ radius ( float | None ) – The radius of the Dot . If provided, the buff is ignored.
+If None (the default), the radius is calculated based on the size
+of the label and the buff . 
+ buff ( float ) 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for SeveralLabeledDots . 
+
+```
+ class SeveralLabeledDots ( Scene ): 
+ def construct ( self ): 
+ sq = Square ( fill_color = RED , fill_opacity = 1 ) 
+ self . add ( sq ) 
+ dot1 = LabeledDot ( Tex ( "42" , color = RED )) 
+ dot2 = LabeledDot ( MathTex ( "a" , color = GREEN )) 
+ dot3 = LabeledDot ( Text ( "ii" , color = BLUE )) 
+ dot4 = LabeledDot ( "3" ) 
+ dot1 . next_to ( sq , UL ) 
+ dot2 . next_to ( sq , UR ) 
+ dot3 . next_to ( sq , DL ) 
+ dot4 . next_to ( sq , DR ) 
+ self . add ( dot1 , dot2 , dot3 , dot4 ) 
+
+```
+
+```
+
+class SeveralLabeledDots(Scene):
+ def construct(self):
+ sq = Square(fill_color=RED, fill_opacity=1)
+ self.add(sq)
+ dot1 = LabeledDot(Tex("42", color=RED))
+ dot2 = LabeledDot(MathTex("a", color=GREEN))
+ dot3 = LabeledDot(Text("ii", color=BLUE))
+ dot4 = LabeledDot("3")
+ dot1.next_to(sq, UL)
+ dot2.next_to(sq, UR)
+ dot3.next_to(sq, DL)
+ dot4.next_to(sq, DR)
+ self.add(dot1, dot2, dot3, dot4)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per
+
+## Examples
+
+### Example 1
+```python
+class SeveralLabeledDots ( Scene ): 
+ def construct ( self ): 
+ sq = Square ( fill_color = RED , fill_opacity = 1 ) 
+ self . add ( sq ) 
+ dot1 = LabeledDot ( Tex ( "42" , color = RED )) 
+ dot2 = LabeledDot ( MathTex ( "a" , color = GREEN )) 
+ dot3 = LabeledDot ( Text ( "ii" , color = BLUE )) 
+ dot4 = LabeledDot ( "3" ) 
+ dot1 . next_to ( sq , UL ) 
+ dot2 . next_to ( sq , UR ) 
+ dot3 . next_to ( sq , DL ) 
+ dot4 . next_to ( sq , DR ) 
+ self . add ( dot1 , dot2 , dot3 , dot4 )
+```
+
+### Example 2
+```python
+class SeveralLabeledDots(Scene):
+ def construct(self):
+ sq = Square(fill_color=RED, fill_opacity=1)
+ self.add(sq)
+ dot1 = LabeledDot(Tex("42", color=RED))
+ dot2 = LabeledDot(MathTex("a", color=GREEN))
+ dot3 = LabeledDot(Text("ii", color=BLUE))
+ dot4 = LabeledDot("3")
+ dot1.next_to(sq, UL)
+ dot2.next_to(sq, UR)
+ dot3.next_to(sq, DL)
+ dot4.next_to(sq, DR)
+ self.add(dot1, dot2, dot3, dot4)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.arc.LabeledDot.html

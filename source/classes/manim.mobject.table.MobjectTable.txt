@@ -1,0 +1,141 @@
+# manim.mobject.table.MobjectTable
+
+## Signature
+class MobjectTable ( table , element_to_mobject = <function MobjectTable.<lambda>> , **kwargs )
+
+## Summary
+```
+ class MobjectTableExample ( Scene ): 
+ def construct ( self ): 
+ cross = VGroup ( 
+ Line ( UP + LEFT , DOWN + RIGHT ), 
+ Line ( UP + RIGHT , DOWN + LEFT ), 
+ ) 
+ a = Circle () . set_color ( RED ) . scale ( 0.5 ) 
+ b = cross . set_color ( BLUE ) . scale ( 0.5 ) 
+ t0 = MobjectTable ( 
+ [[ a . cop
+
+## Description
+MobjectTable ¶ 
+ Qualified name: manim.mobject.table.MobjectTable 
+
+ class MobjectTable ( table , element_to_mobject = <function MobjectTable.<lambda>> , **kwargs ) [source] ¶ 
+ Bases: Table 
+ A specialized Table mobject for use with Mobject . 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for MobjectTableExample . 
+
+```
+ class MobjectTableExample ( Scene ): 
+ def construct ( self ): 
+ cross = VGroup ( 
+ Line ( UP + LEFT , DOWN + RIGHT ), 
+ Line ( UP + RIGHT , DOWN + LEFT ), 
+ ) 
+ a = Circle () . set_color ( RED ) . scale ( 0.5 ) 
+ b = cross . set_color ( BLUE ) . scale ( 0.5 ) 
+ t0 = MobjectTable ( 
+ [[ a . copy (), b . copy (), a . copy ()], 
+ [ b . copy (), a . copy (), a . copy ()], 
+ [ a . copy (), b . copy (), b . copy ()]] 
+ ) 
+ line = Line ( 
+ t0 . get_corner ( DL ), t0 . get_corner ( UR ) 
+ ) . set_color ( RED ) 
+ self . add ( t0 , line ) 
+
+```
+
+```
+
+class MobjectTableExample(Scene):
+ def construct(self):
+ cross = VGroup(
+ Line(UP + LEFT, DOWN + RIGHT),
+ Line(UP + RIGHT, DOWN + LEFT),
+ )
+ a = Circle().set_color(RED).scale(0.5)
+ b = cross.set_color(BLUE).scale(0.5)
+ t0 = MobjectTable(
+ [[a.copy(),b.copy(),a.copy()],
+ [b.copy(),a.copy(),a.copy()],
+ [a.copy(),b.copy(),b.copy()]]
+ )
+ line = Line(
+ t0.get_corner(DL), t0.get_corner(UR)
+ ).set_color(RED)
+ self.add(t0, line)
+
+```
+
+ Special case of Table with element_to_mobject set to an identity function.
+Here, every item in table must already be of type Mobject . 
+
+ Parameters : 
+
+ table ( Iterable [ Iterable [ VMobject ] ] ) – A non-empty, finite iterable of equally sized iterables containing
+objects of type Mobject . 
+ element_to_mobject ( Callable [ [ VMobject ] , VMobject ] | type [ VMobject ] ) – The Mobject class applied to the table entries. Set as lambda m : m to return itself. 
+ kwargs ( Any ) – Additional arguments to be passed to Table . 
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_ov
+
+## Examples
+
+### Example 1
+```python
+class MobjectTableExample ( Scene ): 
+ def construct ( self ): 
+ cross = VGroup ( 
+ Line ( UP + LEFT , DOWN + RIGHT ), 
+ Line ( UP + RIGHT , DOWN + LEFT ), 
+ ) 
+ a = Circle () . set_color ( RED ) . scale ( 0.5 ) 
+ b = cross . set_color ( BLUE ) . scale ( 0.5 ) 
+ t0 = MobjectTable ( 
+ [[ a . copy (), b . copy (), a . copy ()], 
+ [ b . copy (), a . copy (), a . copy ()], 
+ [ a . copy (), b . copy (), b . copy ()]] 
+ ) 
+ line = Line ( 
+ t0 . get_corner ( DL ), t0 . get_corner ( UR ) 
+ ) . set_color ( RED ) 
+ self . add ( t0 , line )
+```
+
+### Example 2
+```python
+class MobjectTableExample(Scene):
+ def construct(self):
+ cross = VGroup(
+ Line(UP + LEFT, DOWN + RIGHT),
+ Line(UP + RIGHT, DOWN + LEFT),
+ )
+ a = Circle().set_color(RED).scale(0.5)
+ b = cross.set_color(BLUE).scale(0.5)
+ t0 = MobjectTable(
+ [[a.copy(),b.copy(),a.copy()],
+ [b.copy(),a.copy(),a.copy()],
+ [a.copy(),b.copy(),b.copy()]]
+ )
+ line = Line(
+ t0.get_corner(DL), t0.get_corner(UR)
+ ).set_color(RED)
+ self.add(t0, line)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.table.MobjectTable.html

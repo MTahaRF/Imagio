@@ -1,0 +1,133 @@
+# manim.mobject.three_d.three_dimensions.Cube
+
+## Signature
+class Cube ( side_length = 2 , fill_opacity = 0.75 , fill_color = ManimColor('#58C4DD')
+
+## Summary
+side_length ( float ) – Length of each side of the Cube . 
+ fill_opacity ( float ) – The opacity of the Cube , from 0 being fully transparent to 1 being
+fully opaque. Defaults to 0.75. 
+ fill_color ( ParsableManimColor ) – The color of the Cube . 
+ stroke_width ( float ) – The width of the stroke su
+
+## Description
+Cube ¶ 
+ Qualified name: manim.mobject.three\_d.three\_dimensions.Cube 
+
+ class Cube ( side_length = 2 , fill_opacity = 0.75 , fill_color = ManimColor('#58C4DD') , stroke_width = 0 , ** kwargs ) [source] ¶ 
+ Bases: VGroup 
+ A three-dimensional cube. 
+
+ Parameters : 
+
+ side_length ( float ) – Length of each side of the Cube . 
+ fill_opacity ( float ) – The opacity of the Cube , from 0 being fully transparent to 1 being
+fully opaque. Defaults to 0.75. 
+ fill_color ( ParsableManimColor ) – The color of the Cube . 
+ stroke_width ( float ) – The width of the stroke surrounding each face of the Cube . 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for CubeExample . 
+
+```
+ class CubeExample ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta =- 45 * DEGREES ) 
+
+ axes = ThreeDAxes () 
+ cube = Cube ( side_length = 3 , fill_opacity = 0.7 , fill_color = BLUE ) 
+ self . add ( cube ) 
+
+```
+
+```
+
+class CubeExample(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75*DEGREES, theta=-45*DEGREES)
+
+ axes = ThreeDAxes()
+ cube = Cube(side_length=3, fill_opacity=0.7, fill_color=BLUE)
+ self.add(cube)
+
+```
+
+ Methods 
+
+ generate_points 
+ Creates the sides of the Cube . 
+
+ init_points 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( side_length = 2 , fill_opacity = 0.75 , fill_color = ManimColor('#58C4DD') , stroke_width = 0 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ side_length ( float ) 
+ fill_opacity ( float ) 
+ fill_color ( P
+
+## Examples
+
+### Example 1
+```python
+class CubeExample ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta =- 45 * DEGREES ) 
+
+ axes = ThreeDAxes () 
+ cube = Cube ( side_length = 3 , fill_opacity = 0.7 , fill_color = BLUE ) 
+ self . add ( cube )
+```
+
+### Example 2
+```python
+class CubeExample(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=75*DEGREES, theta=-45*DEGREES)
+
+ axes = ThreeDAxes()
+ cube = Cube(side_length=3, fill_opacity=0.7, fill_color=BLUE)
+ self.add(cube)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.three_dimensions.Cube.html

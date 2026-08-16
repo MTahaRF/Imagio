@@ -1,0 +1,133 @@
+# manim.animation.numbers.ChangingDecimal
+
+## Signature
+class ChangingDecimal ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+decimal_mob ( DecimalNumber ) – The DecimalNumber instance to animate. 
+ number_update_func ( Callable [ [ float ] , float ] ) – A function that returns the number to display at each point in the animation. 
+ suspend_mobject_updating ( bool ) – If True , the mobject is not updated outside this anima
+
+## Description
+ChangingDecimal ¶ 
+ Qualified name: manim.animation.numbers.ChangingDecimal 
+
+ class ChangingDecimal ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Animation 
+ Animate a DecimalNumber to values specified by a user-supplied function. 
+
+ Parameters : 
+
+ decimal_mob ( DecimalNumber ) – The DecimalNumber instance to animate. 
+ number_update_func ( Callable [ [ float ] , float ] ) – A function that returns the number to display at each point in the animation. 
+ suspend_mobject_updating ( bool ) – If True , the mobject is not updated outside this animation. 
+ kwargs ( Any ) 
+
+ Raises : 
+ TypeError – If decimal_mob is not an instance of DecimalNumber . 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ChangingDecimalExample . 
+
+```
+ class ChangingDecimalExample ( Scene ): 
+ def construct ( self ): 
+ number = DecimalNumber ( 0 ) 
+ self . add ( number ) 
+ self . play ( 
+ ChangingDecimal ( 
+ number , 
+ lambda a : 5 * a , 
+ run_time = 3 
+ ) 
+ ) 
+ self . wait () 
+
+```
+
+```
+
+class ChangingDecimalExample(Scene):
+ def construct(self):
+ number = DecimalNumber(0)
+ self.add(number)
+ self.play(
+ ChangingDecimal(
+ number,
+ lambda a: 5 * a,
+ run_time=3
+ )
+ )
+ self.wait()
+
+```
+
+ Methods 
+
+ check_validity_of_input 
+
+ interpolate_mobject 
+ Interpolates the mobject of the Animation based on alpha value. 
+
+ Attributes 
+
+ run_time 
+
+ _original__init__ ( decimal_mob , number_update_func , suspend_mobject_updating = False , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ decimal_mob ( DecimalNumber ) 
+ number_update_func ( Callable [ [ float ] , float ] ) 
+ suspend_mobject_updating ( bool ) 
+ kwargs ( Any ) 
+
+ Return type : 
+ None 
+
+ interpolate_mobject ( alpha ) [source] ¶ 
+ Interpolates the mobject of the Animation based on alpha value. 
+
+ Parameters : 
+ alpha ( float ) – A float between 0 and 1 expressing the ratio to which the animation
+is completed. For example, alpha-values of 0, 0.5, and 1 corres
+
+## Examples
+
+### Example 1
+```python
+class ChangingDecimalExample ( Scene ): 
+ def construct ( self ): 
+ number = DecimalNumber ( 0 ) 
+ self . add ( number ) 
+ self . play ( 
+ ChangingDecimal ( 
+ number , 
+ lambda a : 5 * a , 
+ run_time = 3 
+ ) 
+ ) 
+ self . wait ()
+```
+
+### Example 2
+```python
+class ChangingDecimalExample(Scene):
+ def construct(self):
+ number = DecimalNumber(0)
+ self.add(number)
+ self.play(
+ ChangingDecimal(
+ number,
+ lambda a: 5 * a,
+ run_time=3
+ )
+ )
+ self.wait()
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.numbers.ChangingDecimal.html

@@ -1,0 +1,115 @@
+# manim.mobject.table.DecimalTable
+
+## Signature
+class DecimalTable ( table , element_to_mobject = <class 'manim.mobject.text.numbers.DecimalNumber'> , element_to_mobject_config = {'num_decimal_places': 1} , **kwargs )
+
+## Summary
+class DecimalTable ( table , element_to_mobject = <class 'manim.mobject.text.numbers.DecimalNumber'> , element_to_mobject_config = {'num_decimal_places': 1} , **kwargs ) [source] ¶ 
+ Bases: Table 
+ A specialized Table mobject for use with DecimalNumber to display decimal entries. 
+ Examples
+
+## Description
+DecimalTable ¶ 
+ Qualified name: manim.mobject.table.DecimalTable 
+
+ class DecimalTable ( table , element_to_mobject = <class 'manim.mobject.text.numbers.DecimalNumber'> , element_to_mobject_config = {'num_decimal_places': 1} , **kwargs ) [source] ¶ 
+ Bases: Table 
+ A specialized Table mobject for use with DecimalNumber to display decimal entries. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for DecimalTableExample . 
+
+```
+ class DecimalTableExample ( Scene ): 
+ def construct ( self ): 
+ x_vals = [ - 2 , - 1 , 0 , 1 , 2 ] 
+ y_vals = np . exp ( x_vals ) 
+ t0 = DecimalTable ( 
+ [ x_vals , y_vals ], 
+ row_labels = [ MathTex ( "x" ), MathTex ( "f(x)=e^ {x} " )], 
+ h_buff = 1 , 
+ element_to_mobject_config = { "num_decimal_places" : 2 }) 
+ self . add ( t0 ) 
+
+```
+
+```
+
+class DecimalTableExample(Scene):
+ def construct(self):
+ x_vals = [-2,-1,0,1,2]
+ y_vals = np.exp(x_vals)
+ t0 = DecimalTable(
+ [x_vals, y_vals],
+ row_labels=[MathTex("x"), MathTex("f(x)=e^{x}")],
+ h_buff=1,
+ element_to_mobject_config={"num_decimal_places": 2})
+ self.add(t0)
+
+```
+
+ Special case of Table with element_to_mobject set to DecimalNumber .
+By default, num_decimal_places is set to 1.
+Will round/truncate the decimal places based on the provided element_to_mobject_config . 
+
+ Parameters : 
+
+ table ( Iterable [ Iterable [ float | str ] ] ) – A non-empty, finite iterable of equally sized iterables. The content
+has to be valid input for DecimalNumber . 
+ element_to_mobject ( Callable [ [ float | str ] , VMobject ] | type [ VMobject ] ) – The Mobject class applied to the table entries. Set as DecimalNumber . 
+ element_to_mobject_config ( dict ) – Element to mobject config, here set as {“num_decimal_places”: 1}. 
+ kwargs ( Any ) – Additional arguments to be passed to Table . 
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_colo
+
+## Examples
+
+### Example 1
+```python
+class DecimalTableExample ( Scene ): 
+ def construct ( self ): 
+ x_vals = [ - 2 , - 1 , 0 , 1 , 2 ] 
+ y_vals = np . exp ( x_vals ) 
+ t0 = DecimalTable ( 
+ [ x_vals , y_vals ], 
+ row_labels = [ MathTex ( "x" ), MathTex ( "f(x)=e^ {x} " )], 
+ h_buff = 1 , 
+ element_to_mobject_config = { "num_decimal_places" : 2 }) 
+ self . add ( t0 )
+```
+
+### Example 2
+```python
+class DecimalTableExample(Scene):
+ def construct(self):
+ x_vals = [-2,-1,0,1,2]
+ y_vals = np.exp(x_vals)
+ t0 = DecimalTable(
+ [x_vals, y_vals],
+ row_labels=[MathTex("x"), MathTex("f(x)=e^{x}")],
+ h_buff=1,
+ element_to_mobject_config={"num_decimal_places": 2})
+ self.add(t0)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.table.DecimalTable.html

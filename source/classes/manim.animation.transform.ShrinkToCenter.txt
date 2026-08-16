@@ -1,0 +1,76 @@
+# manim.animation.transform.ShrinkToCenter
+
+## Signature
+class ShrinkToCenter ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+Parameters : 
+ mobject ( Mobject )
+
+## Description
+ShrinkToCenter ¶ 
+ Qualified name: manim.animation.transform.ShrinkToCenter 
+
+ class ShrinkToCenter ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: ScaleInPlace 
+ Animation that makes a mobject shrink to center. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ShrinkToCenterExample . 
+
+```
+ class ShrinkToCenterExample ( Scene ): 
+ def construct ( self ): 
+ self . play ( ShrinkToCenter ( Text ( "Hello World!" ))) 
+
+```
+
+```
+
+class ShrinkToCenterExample(Scene):
+ def construct(self):
+ self.play(ShrinkToCenter(Text("Hello World!")))
+
+```
+
+ Methods 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+ mobject ( Mobject ) 
+
+ _original__init__ ( mobject , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+ mobject ( Mobject ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class ShrinkToCenterExample ( Scene ): 
+ def construct ( self ): 
+ self . play ( ShrinkToCenter ( Text ( "Hello World!" )))
+```
+
+### Example 2
+```python
+class ShrinkToCenterExample(Scene):
+ def construct(self):
+ self.play(ShrinkToCenter(Text("Hello World!")))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.ShrinkToCenter.html

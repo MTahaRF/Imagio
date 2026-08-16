@@ -1,0 +1,109 @@
+# manim.mobject.text.tex_mobject.SingleStringMathTex
+
+## Signature
+class SingleStringMathTex ( tex_string , stroke_width = 0 , should_center = True , height = None , organize_left_to_right = False , tex_environment = 'align*' , tex_template = None , font_size = 48 , color = None , ** kwargs )
+
+## Summary
+class SingleStringMathTex ( tex_string , stroke_width = 0 , should_center = True , height = None , organize_left_to_right = False , tex_environment = 'align*' , tex_template = None , font_size = 48 , color = None , ** kwargs ) [source] ¶ 
+ Bases: SVGMobject 
+ Elementary building block for rendering 
+
+## Description
+SingleStringMathTex ¶ 
+ Qualified name: manim.mobject.text.tex\_mobject.SingleStringMathTex 
+
+ class SingleStringMathTex ( tex_string , stroke_width = 0 , should_center = True , height = None , organize_left_to_right = False , tex_environment = 'align*' , tex_template = None , font_size = 48 , color = None , ** kwargs ) [source] ¶ 
+ Bases: SVGMobject 
+ Elementary building block for rendering text with LaTeX. 
+ Tests 
+ Check that creating a SingleStringMathTex object works: 
+
+```
+ >>> SingleStringMathTex ( 'Test' ) 
+ SingleStringMathTex('Test') 
+
+```
+
+ Methods 
+
+ get_tex_string 
+
+ init_colors 
+ Initializes the colors. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ font_size 
+ The font size of the tex mobject. 
+
+ hash_seed 
+ A unique hash representing the result of the generated mobject points. 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+
+ tex_string ( str ) 
+ stroke_width ( float ) 
+ should_center ( bool ) 
+ height ( float | None ) 
+ organize_left_to_right ( bool ) 
+ tex_environment ( str | None ) 
+ tex_template ( TexTemplate | None ) 
+ font_size ( float ) 
+ color ( ParsableManimColor | None ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( tex_string , stroke_width = 0 , should_center = True , height = None , organize_left_to_right = False , tex_environment = 'align*' , tex_template = None , font_size = 48 , color = None , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ tex_string ( str ) 
+ stroke_width ( float ) 
+ should_center ( bool ) 
+ height ( float | None ) 
+ organize_left_to_right ( bool ) 
+ tex_environment ( str | None ) 
+ tex_template ( TexTemplate 
+
+## Examples
+
+### Example 1
+```python
+>>> SingleStringMathTex ( 'Test' ) 
+ SingleStringMathTex('Test')
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.text.tex_mobject.SingleStringMathTex.html

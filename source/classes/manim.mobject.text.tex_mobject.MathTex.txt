@@ -1,0 +1,142 @@
+# manim.mobject.text.tex_mobject.MathTex
+
+## Signature
+class MathTex ( * tex_strings , arg_separator = ' ' , substrings_to_isolate = None , tex_to_color_map = None , tex_environment = 'align*' , ** kwargs )
+
+## Summary
+class MathTex ( * tex_strings , arg_separator = ' ' , substrings_to_isolate = None , tex_to_color_map = None , tex_environment = 'align*' , ** kwargs ) [source] ¶ 
+ Bases: SingleStringMathTex 
+ A string compiled with LaTeX in math mode. 
+ Examples
+
+## Description
+MathTex ¶ 
+ Qualified name: manim.mobject.text.tex\_mobject.MathTex 
+
+ class MathTex ( * tex_strings , arg_separator = ' ' , substrings_to_isolate = None , tex_to_color_map = None , tex_environment = 'align*' , ** kwargs ) [source] ¶ 
+ Bases: SingleStringMathTex 
+ A string compiled with LaTeX in math mode. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for Formula . 
+
+```
+ class Formula ( Scene ): 
+ def construct ( self ): 
+ t = MathTex ( r "\int_a^b f'(x) dx = f(b)- f(a)" ) 
+ self . add ( t ) 
+
+```
+
+```
+
+class Formula(Scene):
+ def construct(self):
+ t = MathTex(r"\int_a^b f'(x) dx = f(b)- f(a)")
+ self.add(t)
+
+```
+
+ Notes 
+ Double-brace notation {{ ... }} can be used to split a single
+string argument into multiple submobjects without having to pass
+separate strings: 
+
+```
+ MathTex ( r "{{ a^2 }} + {{ b^2 }} = {{ c^2 }}" ) 
+
+```
+
+ Each {{ ... }} group and every piece of text between groups
+becomes its own submobject, which is useful for
+ TransformMatchingTex animations. 
+ For {{ to be recognised as a group opener it must appear either
+at the very start of the string or be immediately preceded by a
+whitespace character. {{ that follows non-whitespace — such as
+in \frac{{{n}}}{k} or a^{{2}} — is left untouched, so
+ordinary nested-brace LaTeX is not accidentally split. To prevent
+an unintentional split, insert a space between the two braces:
+ {{ ... }} → { { ... } } . 
+ Tests 
+ Check that creating a MathTex works: 
+
+```
+ >>> MathTex ( 'a^2 + b^2 = c^2' ) 
+ MathTex('a^2 + b^2 = c^2') 
+
+```
+
+ Check that double brace group splitting works correctly: 
+
+```
+ >>> t1 = MathTex ( '{{ a }} + {{ b }} = {{ c }}' ) 
+ >>> len ( t1 . submobjects ) 
+ 5 
+ >>> t2 = MathTex ( r "\frac {1} {a+b\sqrt {2} }" ) 
+ >>> len ( t2 . submobjects ) 
+ 1 
+
+```
+
+ Methods 
+
+ get_part_by_tex 
+
+ index_of_part 
+
+ set_color_by_tex 
+
+ set_color_by_tex_to_color_map 
+
+ set_opacity_by_tex 
+ Sets the opacity of the tex specified. 
+
+ sort_alphabetically 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject 
+
+## Examples
+
+### Example 1
+```python
+class Formula ( Scene ): 
+ def construct ( self ): 
+ t = MathTex ( r "\int_a^b f'(x) dx = f(b)- f(a)" ) 
+ self . add ( t )
+```
+
+### Example 2
+```python
+class Formula(Scene):
+ def construct(self):
+ t = MathTex(r"\int_a^b f'(x) dx = f(b)- f(a)")
+ self.add(t)
+```
+
+### Example 3
+```python
+MathTex ( r "{{ a^2 }} + {{ b^2 }} = {{ c^2 }}" )
+```
+
+### Example 4
+```python
+>>> MathTex ( 'a^2 + b^2 = c^2' ) 
+ MathTex('a^2 + b^2 = c^2')
+```
+
+### Example 5
+```python
+>>> t1 = MathTex ( '{{ a }} + {{ b }} = {{ c }}' ) 
+ >>> len ( t1 . submobjects ) 
+ 5 
+ >>> t2 = MathTex ( r "\frac {1} {a+b\sqrt {2} }" ) 
+ >>> len ( t2 . submobjects ) 
+ 1
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.text.tex_mobject.MathTex.html

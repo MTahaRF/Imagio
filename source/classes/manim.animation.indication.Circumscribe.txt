@@ -1,0 +1,104 @@
+# manim.animation.indication.Circumscribe
+
+## Signature
+class Circumscribe ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+mobject ( Mobject ) – The mobject to be circumscribed. 
+ shape ( type [ Rectangle ] | type [ Circle ] ) – The shape with which to surround the given mobject. Should be either
+ Rectangle or Circle 
+ fade_in ( bool ) – Whether to make the surrounding shape to fade in. It will be drawn otherwise. 
+ fad
+
+## Description
+Circumscribe ¶ 
+ Qualified name: manim.animation.indication.Circumscribe 
+
+ class Circumscribe ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Succession 
+ Draw a temporary line surrounding the mobject. 
+
+ Parameters : 
+
+ mobject ( Mobject ) – The mobject to be circumscribed. 
+ shape ( type [ Rectangle ] | type [ Circle ] ) – The shape with which to surround the given mobject. Should be either
+ Rectangle or Circle 
+ fade_in ( bool ) – Whether to make the surrounding shape to fade in. It will be drawn otherwise. 
+ fade_out ( bool ) – Whether to make the surrounding shape to fade out. It will be undrawn otherwise. 
+ time_width ( float ) – The time_width of the drawing and undrawing. Gets ignored if either fade_in or fade_out is True . 
+ buff ( float ) – The distance between the surrounding shape and the given mobject. 
+ color ( ParsableManimColor ) – The color of the surrounding shape. 
+ run_time ( float ) – The duration of the entire animation. 
+ kwargs ( Any ) – Additional arguments to be passed to the Succession constructor 
+ stroke_width ( float ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for UsingCircumscribe . 
+
+```
+ class UsingCircumscribe ( Scene ): 
+ def construct ( self ): 
+ lbl = Tex ( r "Circum- \\ scribe" ) . scale ( 2 ) 
+ self . add ( lbl ) 
+ self . play ( Circumscribe ( lbl )) 
+ self . play ( Circumscribe ( lbl , Circle )) 
+ self . play ( Circumscribe ( lbl , fade_out = True )) 
+ self . play ( Circumscribe ( lbl , time_width = 2 )) 
+ self . play ( Circumscribe ( lbl , Circle , True )) 
+
+```
+
+```
+
+class UsingCircumscribe(Scene):
+ def construct(self):
+ lbl = Tex(r"Circum-\\scribe").scale(2)
+ self.add(lbl)
+ self.play(Circumscribe(lbl))
+ self.play(Circumscribe(lbl, Circle))
+ self.play(Circumscribe(lbl, fade_out=True))
+ self.play(Circumscribe(lbl, time_width=2))
+ self.play(Circumscribe(lbl, Circle, True))
+
+```
+
+ Methods 
+
+ Attributes 
+
+ run_time 
+
+ _original__init__ ( mobject , shape = <class 'manim.mobject.geom
+
+## Examples
+
+### Example 1
+```python
+class UsingCircumscribe ( Scene ): 
+ def construct ( self ): 
+ lbl = Tex ( r "Circum- \\ scribe" ) . scale ( 2 ) 
+ self . add ( lbl ) 
+ self . play ( Circumscribe ( lbl )) 
+ self . play ( Circumscribe ( lbl , Circle )) 
+ self . play ( Circumscribe ( lbl , fade_out = True )) 
+ self . play ( Circumscribe ( lbl , time_width = 2 )) 
+ self . play ( Circumscribe ( lbl , Circle , True ))
+```
+
+### Example 2
+```python
+class UsingCircumscribe(Scene):
+ def construct(self):
+ lbl = Tex(r"Circum-\\scribe").scale(2)
+ self.add(lbl)
+ self.play(Circumscribe(lbl))
+ self.play(Circumscribe(lbl, Circle))
+ self.play(Circumscribe(lbl, fade_out=True))
+ self.play(Circumscribe(lbl, time_width=2))
+ self.play(Circumscribe(lbl, Circle, True))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.indication.Circumscribe.html

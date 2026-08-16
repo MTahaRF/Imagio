@@ -1,0 +1,119 @@
+# manim.mobject.geometry.shape_matchers.Cross
+
+## Signature
+class Cross ( mobject = None , stroke_color = ManimColor('#FC6255')
+
+## Summary
+mobject ( Mobject | None ) – The mobject linked to this instance. It fits the mobject when specified. Defaults to None. 
+ stroke_color ( ParsableManimColor ) – Specifies the color of the cross lines. Defaults to RED. 
+ stroke_width ( float ) – Specifies the width of the cross lines. Defaults to 6. 
+
+
+## Description
+Cross ¶ 
+ Qualified name: manim.mobject.geometry.shape\_matchers.Cross 
+
+ class Cross ( mobject = None , stroke_color = ManimColor('#FC6255') , stroke_width = 6.0 , scale_factor = 1.0 , ** kwargs ) [source] ¶ 
+ Bases: VGroup 
+ Creates a cross. 
+
+ Parameters : 
+
+ mobject ( Mobject | None ) – The mobject linked to this instance. It fits the mobject when specified. Defaults to None. 
+ stroke_color ( ParsableManimColor ) – Specifies the color of the cross lines. Defaults to RED. 
+ stroke_width ( float ) – Specifies the width of the cross lines. Defaults to 6. 
+ scale_factor ( float ) – Scales the cross to the provided units. Defaults to 1. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ExampleCross . 
+
+```
+ class ExampleCross ( Scene ): 
+ def construct ( self ): 
+ cross = Cross () 
+ self . add ( cross ) 
+
+```
+
+```
+
+class ExampleCross(Scene):
+ def construct(self):
+ cross = Cross()
+ self.add(cross)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( mobject = None , stroke_color = ManimColor('#FC6255') , stroke_width = 6.0 , scale_factor = 1.0 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ mobject ( Mobject | None ) 
+ stroke_color ( ParsableManimColor ) 
+ stroke_width ( float ) 
+ scale_factor ( float ) 
+ kwargs ( Any ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class ExampleCross ( Scene ): 
+ def construct ( self ): 
+ cross = Cross () 
+ self . add ( cross )
+```
+
+### Example 2
+```python
+class ExampleCross(Scene):
+ def construct(self):
+ cross = Cross()
+ self.add(cross)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.shape_matchers.Cross.html

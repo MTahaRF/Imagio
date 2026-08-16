@@ -83,8 +83,8 @@ def render_scene(
 
         else:
             # ── Log the FULL error — no truncation ────────────────
-            stderr    = attempt_result["stderr"].strip()
-            stdout    = attempt_result["stdout"].strip()
+            stderr    = (attempt_result["stderr"] or "").strip()
+            stdout    = (attempt_result["stdout"] or "").strip()
             if stderr and stdout and stdout not in stderr:
                 error_log = f"{stderr}\n--- stdout ---\n{stdout}"
             else:

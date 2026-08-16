@@ -1,0 +1,78 @@
+# manim.camera.three_d_camera.ThreeDCamera
+
+## Signature
+class ThreeDCamera ( focal_distance = 20.0 , shading_factor = 0.2 , default_distance = 5.0 , light_source_start_point = array([-7., -9., 10.])
+
+## Summary
+class ThreeDCamera ( focal_distance = 20.0 , shading_factor = 0.2 , default_distance = 5.0 , light_source_start_point = array([-7., -9., 10.]) , should_apply_shading = True , exponential_projection = False , phi = 0 , theta = -1.5707963267948966 , gamma = 0 , zoom = 1 , ** kwargs ) [source] ¶ 
+ Base
+
+## Description
+ThreeDCamera ¶ 
+ Qualified name: manim.camera.three\_d\_camera.ThreeDCamera 
+
+ class ThreeDCamera ( focal_distance = 20.0 , shading_factor = 0.2 , default_distance = 5.0 , light_source_start_point = array([-7., -9., 10.]) , should_apply_shading = True , exponential_projection = False , phi = 0 , theta = -1.5707963267948966 , gamma = 0 , zoom = 1 , ** kwargs ) [source] ¶ 
+ Bases: Camera 
+ Initializes the ThreeDCamera 
+
+ Parameters : 
+
+ *kwargs ( Any ) – Any keyword argument of Camera. 
+ focal_distance ( float ) 
+ shading_factor ( float ) 
+ default_distance ( float ) 
+ light_source_start_point ( Point3DLike ) 
+ should_apply_shading ( bool ) 
+ exponential_projection ( bool ) 
+ phi ( float ) 
+ theta ( float ) 
+ gamma ( float ) 
+ zoom ( float ) 
+ *kwargs 
+
+ Methods 
+
+ add_fixed_in_frame_mobjects 
+ This method allows the mobject to have a fixed position, even when the camera moves around. 
+
+ add_fixed_orientation_mobjects 
+ This method allows the mobject to have a fixed orientation, even when the camera moves around. 
+
+ capture_mobjects 
+ Capture mobjects by printing them on pixel_array . 
+
+ generate_rotation_matrix 
+ Generates a rotation matrix based off the current position of the camera. 
+
+ get_fill_rgbas 
+ Returns the RGBA array of the fill of the passed VMobject 
+
+ get_focal_distance 
+ Returns focal_distance of the Camera. 
+
+ get_gamma 
+ Returns the rotation of the camera about the vector from the ORIGIN to the Camera. 
+
+ get_mobjects_to_display 
+ Used to get the list of mobjects to display with the camera. 
+
+ get_phi 
+ Returns the Polar angle (the angle off Z_AXIS) phi. 
+
+ get_rotation_matrix 
+ Returns the matrix corresponding to the current position of the camera. 
+
+ get_stroke_rgbas 
+ Gets the RGBA array for the stroke of the passed VMobject. 
+
+ get_theta 
+ Returns the Azimuthal i.e the angle that spins the camera around the Z_AXIS. 
+
+ get_value_trackers 
+ A list of ValueTrackers of phi, theta, focal_distance, gamma and zoom. 
+
+ get_zoom 
+ Returns the zoom amount 
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.camera.three_d_camera.ThreeDCamera.html

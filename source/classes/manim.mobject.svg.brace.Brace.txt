@@ -1,0 +1,126 @@
+# manim.mobject.svg.brace.Brace
+
+## Signature
+class Brace ( mobject , direction = array([0., -1., 0.])
+
+## Summary
+class Brace ( mobject , direction = array([0., -1., 0.]) , buff = 0.2 , sharpness = 2 , stroke_width = 0 , fill_opacity = 1.0 , background_stroke_width = 0 , background_stroke_color = ManimColor('#000000') , ** kwargs ) [source] ¶ 
+ Bases: VMobjectFromSVGPath 
+ Takes a mobject and draws a brace adja
+
+## Description
+Brace ¶ 
+ Qualified name: manim.mobject.svg.brace.Brace 
+
+ class Brace ( mobject , direction = array([0., -1., 0.]) , buff = 0.2 , sharpness = 2 , stroke_width = 0 , fill_opacity = 1.0 , background_stroke_width = 0 , background_stroke_color = ManimColor('#000000') , ** kwargs ) [source] ¶ 
+ Bases: VMobjectFromSVGPath 
+ Takes a mobject and draws a brace adjacent to it. 
+ Passing a direction vector determines the direction from which the
+brace is drawn. By default it is drawn from below. 
+
+ Parameters : 
+
+ mobject ( Mobject ) – The mobject adjacent to which the brace is placed. 
+ direction ( Vector3DLike ) – The direction from which the brace faces the mobject. 
+ buff ( float ) 
+ sharpness ( float ) 
+ stroke_width ( float ) 
+ fill_opacity ( float ) 
+ background_stroke_width ( float ) 
+ background_stroke_color ( ParsableManimColor ) 
+ kwargs ( Any ) 
+
+ See also 
+ BraceBetweenPoints 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for BraceExample . 
+
+```
+ class BraceExample ( Scene ): 
+ def construct ( self ): 
+ s = Square () 
+ self . add ( s ) 
+ for i in np . linspace ( 0.1 , 1.0 , 4 ): 
+ br = Brace ( s , sharpness = i ) 
+ t = Text ( f "sharpness= { i } " ) . next_to ( br , RIGHT ) 
+ self . add ( t ) 
+ self . add ( br ) 
+ VGroup ( * self . mobjects ) . arrange ( DOWN , buff = 0.2 ) 
+
+```
+
+```
+
+class BraceExample(Scene):
+ def construct(self):
+ s = Square()
+ self.add(s)
+ for i in np.linspace(0.1,1.0,4):
+ br = Brace(s, sharpness=i)
+ t = Text(f"sharpness= {i}").next_to(br, RIGHT)
+ self.add(t)
+ self.add(br)
+ VGroup(*self.mobjects).arrange(DOWN, buff=0.2)
+
+```
+
+ Methods 
+
+ get_direction 
+ Returns the direction from the center to the brace tip. 
+
+ get_tex 
+ Places the tex at the brace tip. 
+
+ get_text 
+ Places the text at the brace tip. 
+
+ get_tip 
+ Returns the point at the brace tip. 
+
+ put_at_tip 
+ Puts the given mobject at the brace tip. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of se
+
+## Examples
+
+### Example 1
+```python
+class BraceExample ( Scene ): 
+ def construct ( self ): 
+ s = Square () 
+ self . add ( s ) 
+ for i in np . linspace ( 0.1 , 1.0 , 4 ): 
+ br = Brace ( s , sharpness = i ) 
+ t = Text ( f "sharpness= { i } " ) . next_to ( br , RIGHT ) 
+ self . add ( t ) 
+ self . add ( br ) 
+ VGroup ( * self . mobjects ) . arrange ( DOWN , buff = 0.2 )
+```
+
+### Example 2
+```python
+class BraceExample(Scene):
+ def construct(self):
+ s = Square()
+ self.add(s)
+ for i in np.linspace(0.1,1.0,4):
+ br = Brace(s, sharpness=i)
+ t = Text(f"sharpness= {i}").next_to(br, RIGHT)
+ self.add(t)
+ self.add(br)
+ VGroup(*self.mobjects).arrange(DOWN, buff=0.2)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.svg.brace.Brace.html

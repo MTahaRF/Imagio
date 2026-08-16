@@ -1,0 +1,43 @@
+# manim.animation.creation.AddTextWordByWord
+
+## Signature
+class AddTextWordByWord ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+text_mobject ( Text ) 
+ run_time ( float ) 
+ time_per_char ( float )
+
+## Description
+AddTextWordByWord ¶ 
+ Qualified name: manim.animation.creation.AddTextWordByWord 
+
+ class AddTextWordByWord ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Succession 
+ Show a Text word by word on the scene. Note: currently broken. 
+ Methods 
+
+ Attributes 
+
+ run_time 
+
+ Parameters : 
+
+ text_mobject ( Text ) 
+ run_time ( float ) 
+ time_per_char ( float ) 
+
+ _original__init__ ( text_mobject , run_time = None , time_per_char = 0.06 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ text_mobject ( Text ) 
+ run_time ( float ) 
+ time_per_char ( float ) 
+
+ Return type : 
+ None
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.creation.AddTextWordByWord.html

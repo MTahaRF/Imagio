@@ -1,0 +1,142 @@
+# manim.mobject.geometry.shape_matchers.SurroundingRectangle
+
+## Signature
+class SurroundingRectangle ( * mobjects , color = ManimColor('#FFFF00')
+
+## Summary
+class SurroundingRectangle ( * mobjects , color = ManimColor('#FFFF00') , buff = 0.1 , corner_radius = 0.0 , ** kwargs ) [source] ¶ 
+ Bases: RoundedRectangle 
+ A rectangle surrounding a Mobject 
+ Examples
+
+## Description
+SurroundingRectangle ¶ 
+ Qualified name: manim.mobject.geometry.shape\_matchers.SurroundingRectangle 
+
+ class SurroundingRectangle ( * mobjects , color = ManimColor('#FFFF00') , buff = 0.1 , corner_radius = 0.0 , ** kwargs ) [source] ¶ 
+ Bases: RoundedRectangle 
+ A rectangle surrounding a Mobject 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for SurroundingRectExample . 
+
+```
+ class SurroundingRectExample ( Scene ): 
+ def construct ( self ): 
+ title = Title ( "A Quote from Newton" ) 
+ quote = Text ( 
+ "If I have seen further than others, \n " 
+ "it is by standing upon the shoulders of giants." , 
+ color = BLUE , 
+ ) . scale ( 0.75 ) 
+ box = SurroundingRectangle ( quote , color = YELLOW , buff = MED_LARGE_BUFF ) 
+
+ t2 = Tex ( r "Hello World" ) . scale ( 1.5 ) 
+ box2 = SurroundingRectangle ( t2 , corner_radius = 0.2 ) 
+ mobjects = VGroup ( VGroup ( box , quote ), VGroup ( t2 , box2 )) . arrange ( DOWN ) 
+ self . add ( title , mobjects ) 
+
+```
+
+```
+
+class SurroundingRectExample(Scene):
+ def construct(self):
+ title = Title("A Quote from Newton")
+ quote = Text(
+ "If I have seen further than others, \n"
+ "it is by standing upon the shoulders of giants.",
+ color=BLUE,
+ ).scale(0.75)
+ box = SurroundingRectangle(quote, color=YELLOW, buff=MED_LARGE_BUFF)
+
+ t2 = Tex(r"Hello World").scale(1.5)
+ box2 = SurroundingRectangle(t2, corner_radius=0.2)
+ mobjects = VGroup(VGroup(box, quote), VGroup(t2, box2)).arrange(DOWN)
+ self.add(title, mobjects)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+
+ mobjects ( Mobject ) 
+ color ( ParsableManimColor ) 
+ buff 
+
+## Examples
+
+### Example 1
+```python
+class SurroundingRectExample ( Scene ): 
+ def construct ( self ): 
+ title = Title ( "A Quote from Newton" ) 
+ quote = Text ( 
+ "If I have seen further than others, \n " 
+ "it is by standing upon the shoulders of giants." , 
+ color = BLUE , 
+ ) . scale ( 0.75 ) 
+ box = SurroundingRectangle ( quote , color = YELLOW , buff = MED_LARGE_BUFF ) 
+
+ t2 = Tex ( r "Hello World" ) . scale ( 1.5 ) 
+ box2 = SurroundingRectangle ( t2 , corner_radius = 0.2 ) 
+ mobjects = VGroup ( VGroup ( box , quote ), VGroup ( t2 , box2 )) . arrange ( DOWN ) 
+ self . add ( title , mobjects )
+```
+
+### Example 2
+```python
+class SurroundingRectExample(Scene):
+ def construct(self):
+ title = Title("A Quote from Newton")
+ quote = Text(
+ "If I have seen further than others, \n"
+ "it is by standing upon the shoulders of giants.",
+ color=BLUE,
+ ).scale(0.75)
+ box = SurroundingRectangle(quote, color=YELLOW, buff=MED_LARGE_BUFF)
+
+ t2 = Tex(r"Hello World").scale(1.5)
+ box2 = SurroundingRectangle(t2, corner_radius=0.2)
+ mobjects = VGroup(VGroup(box, quote), VGroup(t2, box2)).arrange(DOWN)
+ self.add(title, mobjects)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.shape_matchers.SurroundingRectangle.html

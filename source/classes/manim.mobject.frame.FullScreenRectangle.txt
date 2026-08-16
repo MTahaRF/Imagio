@@ -1,0 +1,68 @@
+# manim.mobject.frame.FullScreenRectangle
+
+## Signature
+class FullScreenRectangle ( ** kwargs )
+
+## Summary
+always 
+ Call a method on a mobject every frame.
+
+## Description
+FullScreenRectangle ¶ 
+ Qualified name: manim.mobject.frame.FullScreenRectangle 
+
+ class FullScreenRectangle ( ** kwargs ) [source] ¶ 
+ Bases: ScreenRectangle 
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ aspect_ratio 
+ The aspect ratio. 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+ kwargs ( Any ) 
+
+ _original__init__ ( ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+ kwargs ( Any ) 
+
+ Return type : 
+ None
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.frame.FullScreenRectangle.html

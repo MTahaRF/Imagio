@@ -3,10 +3,9 @@ manim-voiceover
 kokoro-manim-voiceover
 openai
 numpy
-python-dotenv
+python-dotenv>=1.0.0
 kokoro
 fastapi
 pydantic
-litellm
+litellm>=1.97.0
 mistralai
-sentence-transformers

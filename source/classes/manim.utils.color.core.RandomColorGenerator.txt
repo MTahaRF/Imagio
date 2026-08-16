@@ -1,0 +1,150 @@
+# manim.utils.color.core.RandomColorGenerator
+
+## Signature
+class RandomColorGenerator ( seed = None , sample_colors = None )
+
+## Summary
+class RandomColorGenerator ( seed = None , sample_colors = None ) [source] ¶ 
+ Bases: object 
+ A generator for producing random colors from a given list of Manim colors,
+optionally in a reproducible sequence using a seed value. 
+ When initialized with a specific seed, this class produces a determini
+
+## Description
+RandomColorGenerator ¶ 
+ Qualified name: manim.utils.color.core.RandomColorGenerator 
+
+ class RandomColorGenerator ( seed = None , sample_colors = None ) [source] ¶ 
+ Bases: object 
+ A generator for producing random colors from a given list of Manim colors,
+optionally in a reproducible sequence using a seed value. 
+ When initialized with a specific seed, this class produces a deterministic
+sequence of ManimColor instances. If no seed is provided, the selection is
+non-deterministic using Python’s global random state. 
+
+ Parameters : 
+
+ seed ( int | None ) – A seed value to initialize the internal random number generator.
+If None (the default), colors are chosen using the global random state. 
+ sample_colors ( list [ ManimColor ] | None ) – A custom list of Manim colors to sample from. Defaults to the full Manim
+color palette. 
+
+ Examples 
+ Without a seed (non-deterministic): 
+
+```
+ >>> from manim import RandomColorGenerator , ManimColor , RED , GREEN , BLUE 
+ >>> rnd = RandomColorGenerator () 
+ >>> isinstance ( rnd . next (), ManimColor ) 
+ True 
+
+```
+
+ With a seed (deterministic sequence): 
+
+```
+ >>> rnd = RandomColorGenerator ( 42 ) 
+ >>> rnd . next () 
+ ManimColor('#8B4513') 
+ >>> rnd . next () 
+ ManimColor('#BBBBBB') 
+ >>> rnd . next () 
+ ManimColor('#BBBBBB') 
+
+```
+
+ Re-initializing with the same seed gives the same sequence: 
+
+```
+ >>> rnd2 = RandomColorGenerator ( 42 ) 
+ >>> rnd2 . next () 
+ ManimColor('#8B4513') 
+ >>> rnd2 . next () 
+ ManimColor('#BBBBBB') 
+ >>> rnd2 . next () 
+ ManimColor('#BBBBBB') 
+
+```
+
+ Using a custom color list: 
+
+```
+ >>> custom_palette = [ RED , GREEN , BLUE ] 
+ >>> rnd_custom = RandomColorGenerator ( 1 , sample_colors = custom_palette ) 
+ >>> rnd_custom . next () in custom_palette 
+ True 
+ >>> rnd_custom . next () in custom_palette 
+ True 
+
+```
+
+ Without a seed and custom palette (non-deterministic): 
+
+```
+ >>> rnd_nodet = RandomColorGenerator ( sample_colors = [ RED ]) 
+ >>> rnd_nodet . next () 
+ ManimColor('#FC6255') 
+
+```
+
+ Method
+
+## Examples
+
+### Example 1
+```python
+>>> from manim import RandomColorGenerator , ManimColor , RED , GREEN , BLUE 
+ >>> rnd = RandomColorGenerator () 
+ >>> isinstance ( rnd . next (), ManimColor ) 
+ True
+```
+
+### Example 2
+```python
+>>> rnd = RandomColorGenerator ( 42 ) 
+ >>> rnd . next () 
+ ManimColor('#8B4513') 
+ >>> rnd . next () 
+ ManimColor('#BBBBBB') 
+ >>> rnd . next () 
+ ManimColor('#BBBBBB')
+```
+
+### Example 3
+```python
+>>> rnd2 = RandomColorGenerator ( 42 ) 
+ >>> rnd2 . next () 
+ ManimColor('#8B4513') 
+ >>> rnd2 . next () 
+ ManimColor('#BBBBBB') 
+ >>> rnd2 . next () 
+ ManimColor('#BBBBBB')
+```
+
+### Example 4
+```python
+>>> custom_palette = [ RED , GREEN , BLUE ] 
+ >>> rnd_custom = RandomColorGenerator ( 1 , sample_colors = custom_palette ) 
+ >>> rnd_custom . next () in custom_palette 
+ True 
+ >>> rnd_custom . next () in custom_palette 
+ True
+```
+
+### Example 5
+```python
+>>> rnd_nodet = RandomColorGenerator ( sample_colors = [ RED ]) 
+ >>> rnd_nodet . next () 
+ ManimColor('#FC6255')
+```
+
+### Example 6
+```python
+>>> from manim import RandomColorGenerator , RED 
+ >>> rnd = RandomColorGenerator ( sample_colors = [ RED ]) 
+ >>> rnd . next () 
+ ManimColor('#FC6255')
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.utils.color.core.RandomColorGenerator.html

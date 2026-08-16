@@ -1,0 +1,79 @@
+# manim.mobject.frame.ScreenRectangle
+
+## Signature
+class ScreenRectangle ( aspect_ratio = 1.7777777777777777 , height = 4 , ** kwargs )
+
+## Summary
+always 
+ Call a method on a mobject every frame.
+
+## Description
+ScreenRectangle ¶ 
+ Qualified name: manim.mobject.frame.ScreenRectangle 
+
+ class ScreenRectangle ( aspect_ratio = 1.7777777777777777 , height = 4 , ** kwargs ) [source] ¶ 
+ Bases: Rectangle 
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ aspect_ratio 
+ The aspect ratio. 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+
+ aspect_ratio ( float ) 
+ height ( float ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( aspect_ratio = 1.7777777777777777 , height = 4 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ aspect_ratio ( float ) 
+ height ( float ) 
+ kwargs ( Any ) 
+
+ Return type : 
+ None 
+
+ property aspect_ratio : float ¶ 
+ The aspect ratio. 
+ When set, the width is stretched to accommodate
+the new aspect ratio.
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.frame.ScreenRectangle.html

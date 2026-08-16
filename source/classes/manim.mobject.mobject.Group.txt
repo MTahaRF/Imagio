@@ -1,0 +1,67 @@
+# manim.mobject.mobject.Group
+
+## Signature
+class Group ( * mobjects , ** kwargs )
+
+## Summary
+class Group ( * mobjects , ** kwargs ) [source] ¶ 
+ Bases: Mobject 
+ Groups together multiple Mobjects . 
+ Notes 
+ When adding the same mobject more than once, repetitions are ignored.
+Use Mobject.copy() to create a separate copy which can then
+be added to the group. 
+ Methods
+
+## Description
+Group ¶ 
+ Qualified name: manim.mobject.mobject.Group 
+
+ class Group ( * mobjects , ** kwargs ) [source] ¶ 
+ Bases: Mobject 
+ Groups together multiple Mobjects . 
+ Notes 
+ When adding the same mobject more than once, repetitions are ignored.
+Use Mobject.copy() to create a separate copy which can then
+be added to the group. 
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ depth 
+ The depth of the mobject. 
+
+ height 
+ The height of the mobject. 
+
+ width 
+ The width of the mobject. 
+
+ original_id 
+
+ Parameters : 
+
+ mobjects ( Any ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( * mobjects , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ mobjects ( Any ) 
+ kwargs ( Any ) 
+
+ Return type : 
+ None
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.mobject.Group.html

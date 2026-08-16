@@ -1,0 +1,60 @@
+# manim.animation.transform.TransformFromCopy
+
+## Signature
+class TransformFromCopy ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+class TransformFromCopy ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ Preserves a copy of the original VMobject and transforms only it’s copy to the target VMobject 
+ Methods
+
+## Description
+TransformFromCopy ¶ 
+ Qualified name: manim.animation.transform.TransformFromCopy 
+
+ class TransformFromCopy ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Transform 
+ Preserves a copy of the original VMobject and transforms only it’s copy to the target VMobject 
+ Methods 
+
+ interpolate 
+ Set the animation progress. 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+
+ mobject ( Mobject ) 
+ target_mobject ( Mobject ) 
+
+ _original__init__ ( mobject , target_mobject , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ mobject ( Mobject ) 
+ target_mobject ( Mobject ) 
+
+ Return type : 
+ None 
+
+ interpolate ( alpha ) [source] ¶ 
+ Set the animation progress. 
+ This method gets called for every frame during an animation. 
+
+ Parameters : 
+ alpha ( float ) – The relative time to set the animation to, 0 meaning the start, 1 meaning
+the end. 
+
+ Return type : 
+ None
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.TransformFromCopy.html

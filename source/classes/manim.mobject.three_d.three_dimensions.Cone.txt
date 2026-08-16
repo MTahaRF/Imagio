@@ -1,0 +1,102 @@
+# manim.mobject.three_d.three_dimensions.Cone
+
+## Signature
+class Cone ( base_radius = 1 , height = 1 , direction = array([0., 0., 1.])
+
+## Summary
+class Cone ( base_radius = 1 , height = 1 , direction = array([0., 0., 1.]) , show_base = False , v_range = (0, 6.283185307179586) , u_min = 0 , checkerboard_colors = False , ** kwargs ) [source] ¶ 
+ Bases: Surface 
+ A circular cone.
+Can be defined using 2 parameters: its height, and its base radius
+
+## Description
+Cone ¶ 
+ Qualified name: manim.mobject.three\_d.three\_dimensions.Cone 
+
+ class Cone ( base_radius = 1 , height = 1 , direction = array([0., 0., 1.]) , show_base = False , v_range = (0, 6.283185307179586) , u_min = 0 , checkerboard_colors = False , ** kwargs ) [source] ¶ 
+ Bases: Surface 
+ A circular cone.
+Can be defined using 2 parameters: its height, and its base radius.
+The polar angle, theta, can be calculated using arctan(base_radius /
+height) The spherical radius, r, is calculated using the pythagorean
+theorem. 
+
+ Parameters : 
+
+ base_radius ( float ) – The base radius from which the cone tapers. 
+ height ( float ) – The height measured from the plane formed by the base_radius to
+the apex of the cone. 
+ direction ( Vector3DLike ) – The direction of the apex. 
+ show_base ( bool ) – Whether to show the base plane or not. 
+ v_range ( tuple [ float , float ] ) – The azimuthal angle to start and end at. 
+ u_min ( float ) – The radius at the apex. 
+ checkerboard_colors ( list [ ManimColor ] | Literal [ False ] ) – Show checkerboard grid texture on the cone. 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ExampleCone . 
+
+```
+ class ExampleCone ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ cone = Cone ( direction = X_AXIS + Y_AXIS + 2 * Z_AXIS , resolution = 8 ) 
+ self . set_camera_orientation ( phi = 5 * PI / 11 , theta = PI / 9 ) 
+ self . add ( axes , cone ) 
+
+```
+
+```
+
+class ExampleCone(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ cone = Cone(direction=X_AXIS+Y_AXIS+2*Z_AXIS, resolution=8)
+ self.set_camera_orientation(phi=5*PI/11, theta=PI/9)
+ self.add(axes, cone)
+
+```
+
+ Methods 
+
+ func 
+ Converts from spherical coordinates to cartesian. 
+
+ get_direction 
+ Returns the current direction of the apex of the Cone . 
+
+ get_end 
+ Returns the point, where the stroke that surrounds the Mobject ends. 
+
+ get_start 
+ Returns the point, where the stroke that surrounds the Mobject starts. 
+
+ set_direction 
+ Changes 
+
+## Examples
+
+### Example 1
+```python
+class ExampleCone ( ThreeDScene ): 
+ def construct ( self ): 
+ axes = ThreeDAxes () 
+ cone = Cone ( direction = X_AXIS + Y_AXIS + 2 * Z_AXIS , resolution = 8 ) 
+ self . set_camera_orientation ( phi = 5 * PI / 11 , theta = PI / 9 ) 
+ self . add ( axes , cone )
+```
+
+### Example 2
+```python
+class ExampleCone(ThreeDScene):
+ def construct(self):
+ axes = ThreeDAxes()
+ cone = Cone(direction=X_AXIS+Y_AXIS+2*Z_AXIS, resolution=8)
+ self.set_camera_orientation(phi=5*PI/11, theta=PI/9)
+ self.add(axes, cone)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.three_dimensions.Cone.html

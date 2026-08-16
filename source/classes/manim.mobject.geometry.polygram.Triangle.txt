@@ -1,0 +1,115 @@
+# manim.mobject.geometry.polygram.Triangle
+
+## Signature
+class Triangle ( ** kwargs )
+
+## Summary
+Parameters : 
+ kwargs ( Any ) – Additional arguments to be passed to RegularPolygon
+
+## Description
+Triangle ¶ 
+ Qualified name: manim.mobject.geometry.polygram.Triangle 
+
+ class Triangle ( ** kwargs ) [source] ¶ 
+ Bases: RegularPolygon 
+ An equilateral triangle. 
+
+ Parameters : 
+ kwargs ( Any ) – Additional arguments to be passed to RegularPolygon 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for TriangleExample . 
+
+```
+ class TriangleExample ( Scene ): 
+ def construct ( self ): 
+ triangle_1 = Triangle () 
+ triangle_2 = Triangle () . scale ( 2 ) . rotate ( 60 * DEGREES ) 
+ tri_group = Group ( triangle_1 , triangle_2 ) . arrange ( buff = 1 ) 
+ self . add ( tri_group ) 
+
+```
+
+```
+
+class TriangleExample(Scene):
+ def construct(self):
+ triangle_1 = Triangle()
+ triangle_2 = Triangle().scale(2).rotate(60*DEGREES)
+ tri_group = Group(triangle_1, triangle_2).arrange(buff=1)
+ self.add(tri_group)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ _original__init__ ( ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+ kwargs ( Any ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class TriangleExample ( Scene ): 
+ def construct ( self ): 
+ triangle_1 = Triangle () 
+ triangle_2 = Triangle () . scale ( 2 ) . rotate ( 60 * DEGREES ) 
+ tri_group = Group ( triangle_1 , triangle_2 ) . arrange ( buff = 1 ) 
+ self . add ( tri_group )
+```
+
+### Example 2
+```python
+class TriangleExample(Scene):
+ def construct(self):
+ triangle_1 = Triangle()
+ triangle_2 = Triangle().scale(2).rotate(60*DEGREES)
+ tri_group = Group(triangle_1, triangle_2).arrange(buff=1)
+ self.add(tri_group)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.polygram.Triangle.html

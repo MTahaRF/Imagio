@@ -1,0 +1,138 @@
+# manim.mobject.text.typst_mobject.MathTypst
+
+## Signature
+class MathTypst ( math_expression , ** kwargs )
+
+## Summary
+class MathTypst ( math_expression , ** kwargs ) [source] ¶ 
+ Bases: Typst 
+ Convenience wrapper: wraps the input in Typst math delimiters. 
+ The expression is rendered as a display-level equation
+( $ ... $ with surrounding spaces). 
+ Supports the {{ ... }} double-brace notation for grouping
+sub-expr
+
+## Description
+MathTypst ¶ 
+ Qualified name: manim.mobject.text.typst\_mobject.MathTypst 
+
+ class MathTypst ( math_expression , ** kwargs ) [source] ¶ 
+ Bases: Typst 
+ Convenience wrapper: wraps the input in Typst math delimiters. 
+ The expression is rendered as a display-level equation
+( $ ... $ with surrounding spaces). 
+ Supports the {{ ... }} double-brace notation for grouping
+sub-expressions. Each {{ content }} is wrapped in a labeled
+ manimgrp call so that the resulting SVG contains identifiable
+groups accessible via select() . 
+ Groups can optionally be given explicit labels:
+ {{ content : label }} . Without a label, groups are
+auto-numbered ( _grp-0 , _grp-1 , …). 
+
+ Parameters : 
+
+ math_expression ( str ) – Typst math-mode content without the $ ... $ delimiters.
+May contain {{ ... }} groups. 
+ **kwargs ( Any ) – Forwarded to Typst . 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for DisplayMath . 
+
+```
+ class DisplayMath ( Scene ): 
+ def construct ( self ): 
+ eq = MathTypst ( r "sum_(k=0)^n k = (n(n+1)) / 2" ) 
+ self . add ( eq ) 
+
+```
+
+```
+
+class DisplayMath(Scene):
+ def construct(self):
+ eq = MathTypst(r"sum_(k=0)^n k = (n(n+1)) / 2")
+ self.add(eq)
+
+```
+
+ Example Placeholder 
+ Placeholder block for GroupedMath . 
+
+```
+ class GroupedMath ( Scene ): 
+ def construct ( self ): 
+ eq = MathTypst ( "{{ a^2 + b^2 : lhs }} = {{ c^2 }}" ) 
+ eq . select ( "lhs" ) . set_color ( RED ) # "a^2 + b^2" 
+ eq . select ( 0 ) . set_color ( BLUE ) # "c^2" (auto-numbered: "grp-0") 
+ self . add ( eq ) 
+
+```
+
+```
+
+class GroupedMath(Scene):
+ def construct(self):
+ eq = MathTypst("{{ a^2 + b^2 : lhs }} = {{ c^2 }}")
+ eq.select("lhs").set_color(RED) # "a^2 + b^2"
+ eq.select(0).set_color(BLUE) # "c^2" (auto-numbered: "grp-0")
+ self.add(eq)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ baseline_frames 
+ Current Typst baseline frames for all tracked leaf submobjects
+
+## Examples
+
+### Example 1
+```python
+class DisplayMath ( Scene ): 
+ def construct ( self ): 
+ eq = MathTypst ( r "sum_(k=0)^n k = (n(n+1)) / 2" ) 
+ self . add ( eq )
+```
+
+### Example 2
+```python
+class DisplayMath(Scene):
+ def construct(self):
+ eq = MathTypst(r"sum_(k=0)^n k = (n(n+1)) / 2")
+ self.add(eq)
+```
+
+### Example 3
+```python
+class GroupedMath ( Scene ): 
+ def construct ( self ): 
+ eq = MathTypst ( "{{ a^2 + b^2 : lhs }} = {{ c^2 }}" ) 
+ eq . select ( "lhs" ) . set_color ( RED ) # "a^2 + b^2" 
+ eq . select ( 0 ) . set_color ( BLUE ) # "c^2" (auto-numbered: "grp-0") 
+ self . add ( eq )
+```
+
+### Example 4
+```python
+class GroupedMath(Scene):
+ def construct(self):
+ eq = MathTypst("{{ a^2 + b^2 : lhs }} = {{ c^2 }}")
+ eq.select("lhs").set_color(RED) # "a^2 + b^2"
+ eq.select(0).set_color(BLUE) # "c^2" (auto-numbered: "grp-0")
+ self.add(eq)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.text.typst_mobject.MathTypst.html

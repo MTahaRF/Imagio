@@ -1,0 +1,155 @@
+# manim.mobject.text.typst_mobject.Typst
+
+## Signature
+class Typst ( typst_code , * , font_size = 48 , typst_preamble = '' , color = None , stroke_width = None , font_paths = None , track_baselines = False , should_center = True , height = None , ** kwargs )
+
+## Summary
+class Typst ( typst_code , * , font_size = 48 , typst_preamble = '' , color = None , stroke_width = None , font_paths = None , track_baselines = False , should_center = True , height = None , ** kwargs ) [source] ¶ 
+ Bases: SVGMobject 
+ A mobject rendered from a Typst markup string. 
+ The Typst sour
+
+## Description
+Typst ¶ 
+ Qualified name: manim.mobject.text.typst\_mobject.Typst 
+
+ class Typst ( typst_code , * , font_size = 48 , typst_preamble = '' , color = None , stroke_width = None , font_paths = None , track_baselines = False , should_center = True , height = None , ** kwargs ) [source] ¶ 
+ Bases: SVGMobject 
+ A mobject rendered from a Typst markup string. 
+ The Typst source is compiled to SVG via the typst Python package
+(a self-contained Rust binary extension — no system-level install
+required) and then imported through SVGMobject . 
+
+ Parameters : 
+
+ typst_code ( str ) – Raw Typst markup to be compiled. This string is placed verbatim
+into the body of a minimal Typst document. 
+ font_size ( float ) – Font size in Manim font-size units (default: DEFAULT_FONT_SIZE ,
+i.e. 48). The actual scaling is applied after SVG import, matching
+the approach used by SingleStringMathTex . 
+ typst_preamble ( str ) – Extra Typst code inserted before the body. Useful for #import ,
+ #set , or #show rules. Default: "" . 
+ color ( ManimColor ) – The color of the mobject. By default the standard VMobject color
+(white in dark mode). Overrides the Typst text fill color. 
+ stroke_width ( float | None ) – SVG stroke width override. If None (default), the stroke widths
+from Typst’s SVG output are preserved. 
+ font_paths ( list [ str | Path ] | None ) – Optional list of additional font directories passed to the Typst
+compiler (e.g. for custom fonts not installed system-wide). 
+ track_baselines ( bool ) – Whether to keep enough per-element reference data to recover the
+current Typst baseline frame for each imported submobject.
+When enabled, baseline_frames and
+ get_baseline_frame() can be used to retrieve the current
+ (orig, right, up) positions for the imported SVG elements. 
+ should_center ( bool ) – Whether to center the mobject after import (default True ). 
+ height ( float | None ) – Target height of the mobject. If None (default), the height is
+determined by font_size . 
+ **kwargs ( Any ) – For
+
+## Examples
+
+### Example 1
+```python
+class TypstExample ( Scene ): 
+ def construct ( self ): 
+ formula = Typst ( r "$ integral_a^b f(x) dif x $" ) 
+ self . play ( Write ( formula ))
+```
+
+### Example 2
+```python
+class TypstExample(Scene):
+ def construct(self):
+ formula = Typst(r"$ integral_a^b f(x) dif x $")
+ self.play(Write(formula))
+```
+
+### Example 3
+```python
+class TypstTextExample ( Scene ): 
+ def construct ( self ): 
+ text = Typst ( 
+ r "*Hello* from _Typst!_" , 
+ font_size = 72 , 
+ ) 
+ self . add ( text )
+```
+
+### Example 4
+```python
+class TypstTextExample(Scene):
+ def construct(self):
+ text = Typst(
+ r"*Hello* from _Typst!_",
+ font_size=72,
+ )
+ self.add(text)
+```
+
+### Example 5
+```python
+class MobjectScaleExample ( Scene ): 
+ def construct ( self ): 
+ c1 = Circle ( 1 , RED ) . set_x ( - 1 ) 
+ c2 = Circle ( 1 , GREEN ) . set_x ( 1 ) 
+
+ vg = VGroup ( c1 , c2 ) 
+ vg . set_stroke ( width = 50 ) 
+ self . add ( vg ) 
+
+ self . play ( 
+ c1 . animate . scale ( .25 ), 
+ c2 . animate . scale ( .25 , 
+ scale_stroke = True ) 
+ )
+```
+
+### Example 6
+```python
+class MobjectScaleExample(Scene):
+ def construct(self):
+ c1 = Circle(1, RED).set_x(-1)
+ c2 = Circle(1, GREEN).set_x(1)
+
+ vg = VGroup(c1, c2)
+ vg.set_stroke(width=50)
+ self.add(vg)
+
+ self.play(
+ c1.animate.scale(.25),
+ c2.animate.scale(.25,
+ scale_stroke=True)
+ )
+```
+
+### Example 7
+```python
+class TypstSelectExample ( Scene ): 
+ def construct ( self ): 
+ eq = MathTypst ( 
+ "{{ a + b : num }} / {{ c : den }} = {{ lambda }} {{ x }}" 
+ ) 
+ eq . select ( "num" ) . set_color ( RED ) # "a + b" 
+ eq . select ( "den" ) . set_color ( BLUE ) # "c" 
+ eq . select ( 0 ) . set_color ( YELLOW ) # "lambda" (auto-numbered: "grp-0") 
+ eq . select ( 1 ) . set_color ( GREEN ) # "x" (auto-numbered: "grp-1") 
+
+ self . add ( eq )
+```
+
+### Example 8
+```python
+class TypstSelectExample(Scene):
+ def construct(self):
+ eq = MathTypst(
+ "{{ a + b : num }} / {{ c : den }} = {{ lambda }} {{ x }}"
+ )
+ eq.select("num").set_color(RED) # "a + b"
+ eq.select("den").set_color(BLUE) # "c"
+ eq.select(0).set_color(YELLOW) # "lambda" (auto-numbered: "grp-0")
+ eq.select(1).set_color(GREEN) # "x" (auto-numbered: "grp-1")
+
+ self.add(eq)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.text.typst_mobject.Typst.html

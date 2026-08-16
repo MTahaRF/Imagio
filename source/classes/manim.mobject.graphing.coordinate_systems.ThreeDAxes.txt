@@ -1,0 +1,145 @@
+# manim.mobject.graphing.coordinate_systems.ThreeDAxes
+
+## Signature
+class ThreeDAxes ( x_range = (-6, 6, 1)
+
+## Summary
+class ThreeDAxes ( x_range = (-6, 6, 1) , y_range = (-5, 5, 1) , z_range = (-4, 4, 1) , x_length = 10.5 , y_length = 10.5 , z_length = 6.5 , z_axis_config = None , z_normal = array([0., -1., 0.]) , num_axis_pieces = 20 , light_source = array([-7., -9., 10.]) , depth = None , gloss = 0.5 , ** kwargs 
+
+## Description
+ThreeDAxes ¶ 
+ Qualified name: manim.mobject.graphing.coordinate\_systems.ThreeDAxes 
+
+ class ThreeDAxes ( x_range = (-6, 6, 1) , y_range = (-5, 5, 1) , z_range = (-4, 4, 1) , x_length = 10.5 , y_length = 10.5 , z_length = 6.5 , z_axis_config = None , z_normal = array([0., -1., 0.]) , num_axis_pieces = 20 , light_source = array([-7., -9., 10.]) , depth = None , gloss = 0.5 , ** kwargs ) [source] ¶ 
+ Bases: Axes 
+ A 3-dimensional set of axes. 
+
+ Parameters : 
+
+ x_range ( Sequence [ float ] | None ) – The [x_min, x_max, x_step] values of the x-axis. 
+ y_range ( Sequence [ float ] | None ) – The [y_min, y_max, y_step] values of the y-axis. 
+ z_range ( Sequence [ float ] | None ) – The [z_min, z_max, z_step] values of the z-axis. 
+ x_length ( float | None ) – The length of the x-axis. 
+ y_length ( float | None ) – The length of the y-axis. 
+ z_length ( float | None ) – The length of the z-axis. 
+ z_axis_config ( dict [ str , Any ] ) – Arguments to be passed to NumberLine that influence the z-axis. 
+ z_normal ( Vector3DLike ) – The direction of the normal. 
+ num_axis_pieces ( int ) – The number of pieces used to construct the axes. 
+ light_source ( Point3DLike ) – The direction of the light source. 
+ depth ( Any ) – Currently non-functional. 
+ gloss ( float ) – Currently non-functional. 
+ kwargs ( dict [ str , Any ] ) – Additional arguments to be passed to Axes . 
+
+ Methods 
+
+ get_axis_labels 
+ Defines labels for the x_axis and y_axis of the graph. 
+
+ get_y_axis_label 
+ Generate a y-axis label. 
+
+ get_z_axis_label 
+ Generate a z-axis label. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ orig
+
+## Examples
+
+### Example 1
+```python
+class GetAxisLabelsExample ( ThreeDScene ): 
+ def construct ( self ): 
+ self . set_camera_orientation ( phi = 2 * PI / 5 , theta = PI / 5 ) 
+ axes = ThreeDAxes () 
+ labels = axes . get_axis_labels ( 
+ Text ( "x-axis" ) . scale ( 0.7 ), Text ( "y-axis" ) . scale ( 0.45 ), Text ( "z-axis" ) . scale ( 0.45 ) 
+ ) 
+ self . add ( axes , labels )
+```
+
+### Example 2
+```python
+class GetAxisLabelsExample(ThreeDScene):
+ def construct(self):
+ self.set_camera_orientation(phi=2*PI/5, theta=PI/5)
+ axes = ThreeDAxes()
+ labels = axes.get_axis_labels(
+ Text("x-axis").scale(0.7), Text("y-axis").scale(0.45), Text("z-axis").scale(0.45)
+ )
+ self.add(axes, labels)
+```
+
+### Example 3
+```python
+class GetYAxisLabelExample ( ThreeDScene ): 
+ def construct ( self ): 
+ ax = ThreeDAxes () 
+ lab = ax . get_y_axis_label ( Tex ( "$y$-label" )) 
+ self . set_camera_orientation ( phi = 2 * PI / 5 , theta = PI / 5 ) 
+ self . add ( ax , lab )
+```
+
+### Example 4
+```python
+class GetYAxisLabelExample(ThreeDScene):
+ def construct(self):
+ ax = ThreeDAxes()
+ lab = ax.get_y_axis_label(Tex("$y$-label"))
+ self.set_camera_orientation(phi=2*PI/5, theta=PI/5)
+ self.add(ax, lab)
+```
+
+### Example 5
+```python
+class GetZAxisLabelExample ( ThreeDScene ): 
+ def construct ( self ): 
+ ax = ThreeDAxes () 
+ lab = ax . get_z_axis_label ( Tex ( "$z$-label" )) 
+ self . set_camera_orientation ( phi = 2 * PI / 5 , theta = PI / 5 ) 
+ self . add ( ax , lab )
+```
+
+### Example 6
+```python
+class GetZAxisLabelExample(ThreeDScene):
+ def construct(self):
+ ax = ThreeDAxes()
+ lab = ax.get_z_axis_label(Tex("$z$-label"))
+ self.set_camera_orientation(phi=2*PI/5, theta=PI/5)
+ self.add(ax, lab)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.graphing.coordinate_systems.ThreeDAxes.html

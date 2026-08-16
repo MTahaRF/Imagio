@@ -1,0 +1,134 @@
+# manim.mobject.table.IntegerTable
+
+## Signature
+class IntegerTable ( table , element_to_mobject = <class 'manim.mobject.text.numbers.Integer'> , **kwargs )
+
+## Summary
+```
+ class IntegerTableExample ( Scene ): 
+ def construct ( self ): 
+ t0 = IntegerTable ( 
+ [[ 0 , 30 , 45 , 60 , 90 ], 
+ [ 90 , 60 , 45 , 30 , 0 ]], 
+ col_labels = [ 
+ MathTex ( r "\frac{ \sqrt {0} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {1} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {2} } {2} " ), 
+ Ma
+
+## Description
+IntegerTable ¶ 
+ Qualified name: manim.mobject.table.IntegerTable 
+
+ class IntegerTable ( table , element_to_mobject = <class 'manim.mobject.text.numbers.Integer'> , **kwargs ) [source] ¶ 
+ Bases: Table 
+ A specialized Table mobject for use with Integer . 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for IntegerTableExample . 
+
+```
+ class IntegerTableExample ( Scene ): 
+ def construct ( self ): 
+ t0 = IntegerTable ( 
+ [[ 0 , 30 , 45 , 60 , 90 ], 
+ [ 90 , 60 , 45 , 30 , 0 ]], 
+ col_labels = [ 
+ MathTex ( r "\frac{ \sqrt {0} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {1} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {2} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {3} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {4} } {2} " )], 
+ row_labels = [ MathTex ( r "\sin" ), MathTex ( r "\cos" )], 
+ h_buff = 1 , 
+ element_to_mobject_config = { "unit" : r "^{\circ}" }) 
+ self . add ( t0 ) 
+
+```
+
+```
+
+class IntegerTableExample(Scene):
+ def construct(self):
+ t0 = IntegerTable(
+ [[0,30,45,60,90],
+ [90,60,45,30,0]],
+ col_labels=[
+ MathTex(r"\frac{ \sqrt{0} }{2}"),
+ MathTex(r"\frac{ \sqrt{1} }{2}"),
+ MathTex(r"\frac{ \sqrt{2} }{2}"),
+ MathTex(r"\frac{ \sqrt{3} }{2}"),
+ MathTex(r"\frac{ \sqrt{4} }{2}")],
+ row_labels=[MathTex(r"\sin"), MathTex(r"\cos")],
+ h_buff=1,
+ element_to_mobject_config={"unit": r"^{\circ}"})
+ self.add(t0)
+
+```
+
+ Special case of Table with element_to_mobject set to Integer .
+Will round if there are decimal entries in the table. 
+
+ Parameters : 
+
+ table ( Iterable [ Iterable [ float | str ] ] ) – A non-empty, finite iterable of equally sized iterables. The content
+has to be valid input for Integer . 
+ element_to_mobject ( Callable [ [ float | str ] , VMobject ] | type [ VMobject ] ) – The Mobject class applied to the table entries. Set as Integer . 
+ kwargs ( Any ) – Additional arguments to be passed to Table . 
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+
+## Examples
+
+### Example 1
+```python
+class IntegerTableExample ( Scene ): 
+ def construct ( self ): 
+ t0 = IntegerTable ( 
+ [[ 0 , 30 , 45 , 60 , 90 ], 
+ [ 90 , 60 , 45 , 30 , 0 ]], 
+ col_labels = [ 
+ MathTex ( r "\frac{ \sqrt {0} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {1} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {2} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {3} } {2} " ), 
+ MathTex ( r "\frac{ \sqrt {4} } {2} " )], 
+ row_labels = [ MathTex ( r "\sin" ), MathTex ( r "\cos" )], 
+ h_buff = 1 , 
+ element_to_mobject_config = { "unit" : r "^{\circ}" }) 
+ self . add ( t0 )
+```
+
+### Example 2
+```python
+class IntegerTableExample(Scene):
+ def construct(self):
+ t0 = IntegerTable(
+ [[0,30,45,60,90],
+ [90,60,45,30,0]],
+ col_labels=[
+ MathTex(r"\frac{ \sqrt{0} }{2}"),
+ MathTex(r"\frac{ \sqrt{1} }{2}"),
+ MathTex(r"\frac{ \sqrt{2} }{2}"),
+ MathTex(r"\frac{ \sqrt{3} }{2}"),
+ MathTex(r"\frac{ \sqrt{4} }{2}")],
+ row_labels=[MathTex(r"\sin"), MathTex(r"\cos")],
+ h_buff=1,
+ element_to_mobject_config={"unit": r"^{\circ}"})
+ self.add(t0)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.table.IntegerTable.html

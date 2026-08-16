@@ -1,0 +1,133 @@
+# manim.mobject.three_d.three_dimensions.Surface
+
+## Signature
+class Surface ( func , u_range = (0, 1)
+
+## Summary
+class Surface ( func , u_range = (0, 1) , v_range = (0, 1) , resolution = 32 , surface_piece_config = {} , fill_color = ManimColor('#29ABCA') , fill_opacity = 1.0 , checkerboard_colors = [ManimColor('#29ABCA'), ManimColor('#236B8E')] , stroke_color = ManimColor('#BBBBBB') , stroke_width = 0.5 , shou
+
+## Description
+Surface ¶ 
+ Qualified name: manim.mobject.three\_d.three\_dimensions.Surface 
+
+ class Surface ( func , u_range = (0, 1) , v_range = (0, 1) , resolution = 32 , surface_piece_config = {} , fill_color = ManimColor('#29ABCA') , fill_opacity = 1.0 , checkerboard_colors = [ManimColor('#29ABCA'), ManimColor('#236B8E')] , stroke_color = ManimColor('#BBBBBB') , stroke_width = 0.5 , should_make_jagged = False , pre_function_handle_to_anchor_scale_factor = 1e-05 , ** kwargs ) [source] ¶ 
+ Bases: VGroup 
+ Creates a Parametric Surface using a checkerboard pattern. 
+
+ Parameters : 
+
+ func ( Callable [ [ float , float ] , np.ndarray ] ) – The function defining the Surface . 
+ u_range ( tuple [ float , float ] ) – The range of the u variable: (u_min, u_max) . 
+ v_range ( tuple [ float , float ] ) – The range of the v variable: (v_min, v_max) . 
+ resolution ( int | Sequence [ int ] ) – The number of samples taken of the Surface . A tuple can be
+used to define different resolutions for u and v respectively. 
+ fill_color ( ParsableManimColor ) – The color of the Surface . Ignored if checkerboard_colors 
+is set. 
+ fill_opacity ( float ) – The opacity of the Surface , from 0 being fully transparent
+to 1 being fully opaque. Defaults to 1. 
+ checkerboard_colors ( list [ ManimColor ] | Literal [ False ] ) – ng individual faces alternating colors. Overrides fill_color . 
+ stroke_color ( ParsableManimColor ) – Color of the stroke surrounding each face of Surface . 
+ stroke_width ( float ) – Width of the stroke surrounding each face of Surface .
+Defaults to 0.5. 
+ should_make_jagged ( bool ) – Changes the anchor mode of the Bézier curves from smooth to jagged.
+Defaults to False . 
+ surface_piece_config ( dict ) 
+ pre_function_handle_to_anchor_scale_factor ( float ) 
+ kwargs ( Any ) 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ParaSurface . 
+
+```
+ class ParaSurface ( ThreeDScene ): 
+ def func ( self , u , v ): 
+ return np . array ([ np . cos ( u ) * np . cos ( v ), np . cos ( u )
+
+## Examples
+
+### Example 1
+```python
+class ParaSurface ( ThreeDScene ): 
+ def func ( self , u , v ): 
+ return np . array ([ np . cos ( u ) * np . cos ( v ), np . cos ( u ) * np . sin ( v ), u ]) 
+
+ def construct ( self ): 
+ axes = ThreeDAxes ( x_range = [ - 4 , 4 ], x_length = 8 ) 
+ surface = Surface ( 
+ lambda u , v : axes . c2p ( * self . func ( u , v )), 
+ u_range = [ - PI , PI ], 
+ v_range = [ 0 , TAU ], 
+ resolution = 8 , 
+ ) 
+ self . set_camera_orientation ( theta = 70 * DEGREES , phi = 75 * DEGREES ) 
+ self . add ( axes , surface )
+```
+
+### Example 2
+```python
+class ParaSurface(ThreeDScene):
+ def func(self, u, v):
+ return np.array([np.cos(u) * np.cos(v), np.cos(u) * np.sin(v), u])
+
+ def construct(self):
+ axes = ThreeDAxes(x_range=[-4,4], x_length=8)
+ surface = Surface(
+ lambda u, v: axes.c2p(*self.func(u, v)),
+ u_range=[-PI, PI],
+ v_range=[0, TAU],
+ resolution=8,
+ )
+ self.set_camera_orientation(theta=70 * DEGREES, phi=75 * DEGREES)
+ self.add(axes, surface)
+```
+
+### Example 3
+```python
+class FillByValueExample ( ThreeDScene ): 
+ def construct ( self ): 
+ resolution_fa = 8 
+ self . set_camera_orientation ( phi = 75 * DEGREES , theta =- 160 * DEGREES ) 
+ axes = ThreeDAxes ( x_range = ( 0 , 5 , 1 ), y_range = ( 0 , 5 , 1 ), z_range = ( - 1 , 1 , 0.5 )) 
+ def param_surface ( u , v ): 
+ x = u 
+ y = v 
+ z = np . sin ( x ) * np . cos ( y ) 
+ return z 
+ surface_plane = Surface ( 
+ lambda u , v : axes . c2p ( u , v , param_surface ( u , v )), 
+ resolution = ( resolution_fa , resolution_fa ), 
+ v_range = [ 0 , 5 ], 
+ u_range = [ 0 , 5 ], 
+ ) 
+ surface_plane . set_style ( fill_opacity = 1 ) 
+ surface_plane . set_fill_by_value ( axes = axes , colorscale = [( RED , - 0.5 ), ( YELLOW , 0 ), ( GREEN , 0.5 )], axis = 2 ) 
+ self . add ( axes , surface_plane )
+```
+
+### Example 4
+```python
+class FillByValueExample(ThreeDScene):
+ def construct(self):
+ resolution_fa = 8
+ self.set_camera_orientation(phi=75 * DEGREES, theta=-160 * DEGREES)
+ axes = ThreeDAxes(x_range=(0, 5, 1), y_range=(0, 5, 1), z_range=(-1, 1, 0.5))
+ def param_surface(u, v):
+ x = u
+ y = v
+ z = np.sin(x) * np.cos(y)
+ return z
+ surface_plane = Surface(
+ lambda u, v: axes.c2p(u, v, param_surface(u, v)),
+ resolution=(resolution_fa, resolution_fa),
+ v_range=[0, 5],
+ u_range=[0, 5],
+ )
+ surface_plane.set_style(fill_opacity=1)
+ surface_plane.set_fill_by_value(axes=axes, colorscale=[(RED, -0.5), (YELLOW, 0), (GREEN, 0.5)], axis=2)
+ self.add(axes, surface_plane)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.three_d.three_dimensions.Surface.html

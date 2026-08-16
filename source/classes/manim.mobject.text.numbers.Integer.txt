@@ -1,0 +1,124 @@
+# manim.mobject.text.numbers.Integer
+
+## Signature
+class Integer ( number = 0 , num_decimal_places = 0 , ** kwargs )
+
+## Summary
+```
+ class IntegerExample ( Scene ): 
+ def construct ( self ): 
+ self . add ( Integer ( number = 2.5 ) . set_color ( ORANGE ) . scale ( 2.5 ) . set_x ( - 0.5 ) . set_y ( 0.8 )) 
+ self . add ( Integer ( number = 3.14159 , show_ellipsis = True ) . set_x ( 3 ) . set_y ( 3.3 ) . scale ( 3.14159 )) 
+ sel
+
+## Description
+Integer ¶ 
+ Qualified name: manim.mobject.text.numbers.Integer 
+
+ class Integer ( number = 0 , num_decimal_places = 0 , ** kwargs ) [source] ¶ 
+ Bases: DecimalNumber 
+ A class for displaying Integers. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for IntegerExample . 
+
+```
+ class IntegerExample ( Scene ): 
+ def construct ( self ): 
+ self . add ( Integer ( number = 2.5 ) . set_color ( ORANGE ) . scale ( 2.5 ) . set_x ( - 0.5 ) . set_y ( 0.8 )) 
+ self . add ( Integer ( number = 3.14159 , show_ellipsis = True ) . set_x ( 3 ) . set_y ( 3.3 ) . scale ( 3.14159 )) 
+ self . add ( Integer ( number = 42 ) . set_x ( 2.5 ) . set_y ( - 2.3 ) . set_color_by_gradient ( BLUE , TEAL ) . scale ( 1.7 )) 
+ self . add ( Integer ( number = 6.28 ) . set_x ( - 1.5 ) . set_y ( - 2 ) . set_color ( YELLOW ) . scale ( 1.4 )) 
+
+```
+
+```
+
+class IntegerExample(Scene):
+ def construct(self):
+ self.add(Integer(number=2.5).set_color(ORANGE).scale(2.5).set_x(-0.5).set_y(0.8))
+ self.add(Integer(number=3.14159, show_ellipsis=True).set_x(3).set_y(3.3).scale(3.14159))
+ self.add(Integer(number=42).set_x(2.5).set_y(-2.3).set_color_by_gradient(BLUE, TEAL).scale(1.7))
+ self.add(Integer(number=6.28).set_x(-1.5).set_y(-2).set_color(YELLOW).scale(1.4))
+
+```
+
+ Methods 
+
+ get_value 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ font_size 
+ The font size of the tex mobject. 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+
+ number ( float ) 
+ num_decimal_places ( int ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( number = 0 , num_decimal_places = 0 , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ nu
+
+## Examples
+
+### Example 1
+```python
+class IntegerExample ( Scene ): 
+ def construct ( self ): 
+ self . add ( Integer ( number = 2.5 ) . set_color ( ORANGE ) . scale ( 2.5 ) . set_x ( - 0.5 ) . set_y ( 0.8 )) 
+ self . add ( Integer ( number = 3.14159 , show_ellipsis = True ) . set_x ( 3 ) . set_y ( 3.3 ) . scale ( 3.14159 )) 
+ self . add ( Integer ( number = 42 ) . set_x ( 2.5 ) . set_y ( - 2.3 ) . set_color_by_gradient ( BLUE , TEAL ) . scale ( 1.7 )) 
+ self . add ( Integer ( number = 6.28 ) . set_x ( - 1.5 ) . set_y ( - 2 ) . set_color ( YELLOW ) . scale ( 1.4 ))
+```
+
+### Example 2
+```python
+class IntegerExample(Scene):
+ def construct(self):
+ self.add(Integer(number=2.5).set_color(ORANGE).scale(2.5).set_x(-0.5).set_y(0.8))
+ self.add(Integer(number=3.14159, show_ellipsis=True).set_x(3).set_y(3.3).scale(3.14159))
+ self.add(Integer(number=42).set_x(2.5).set_y(-2.3).set_color_by_gradient(BLUE, TEAL).scale(1.7))
+ self.add(Integer(number=6.28).set_x(-1.5).set_y(-2).set_color(YELLOW).scale(1.4))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.text.numbers.Integer.html

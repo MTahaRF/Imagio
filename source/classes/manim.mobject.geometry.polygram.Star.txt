@@ -1,0 +1,129 @@
+# manim.mobject.geometry.polygram.Star
+
+## Signature
+class Star ( n = 5 , * , outer_radius = 1 , inner_radius = None , density = 2 , start_angle = 1.5707963267948966 , ** kwargs )
+
+## Summary
+class Star ( n = 5 , * , outer_radius = 1 , inner_radius = None , density = 2 , start_angle = 1.5707963267948966 , ** kwargs ) [source] ¶ 
+ Bases: Polygon 
+ A regular polygram without the intersecting lines.
+
+## Description
+Star ¶ 
+ Qualified name: manim.mobject.geometry.polygram.Star 
+
+ class Star ( n = 5 , * , outer_radius = 1 , inner_radius = None , density = 2 , start_angle = 1.5707963267948966 , ** kwargs ) [source] ¶ 
+ Bases: Polygon 
+ A regular polygram without the intersecting lines. 
+
+ Parameters : 
+
+ n ( int ) – How many points on the Star . 
+ outer_radius ( float ) – The radius of the circle that the outer vertices are placed on. 
+ inner_radius ( float | None ) – The radius of the circle that the inner vertices are placed on. 
+ If unspecified, the inner radius will be
+calculated such that the edges of the Star 
+perfectly follow the edges of its RegularPolygram 
+counterpart. 
+
+ density ( int ) – The density of the Star . Only used if
+ inner_radius is unspecified. 
+ See RegularPolygram for more information. 
+
+ start_angle ( float | None ) – The angle the vertices start at; the rotation of
+the Star . 
+ kwargs ( Any ) – Forwardeds to the parent constructor. 
+
+ Raises : 
+ ValueError – If inner_radius is unspecified and density 
+ is not in the range [1, n/2) . 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for StarExample . 
+
+```
+ class StarExample ( Scene ): 
+ def construct ( self ): 
+ pentagram = RegularPolygram ( 5 , radius = 2 ) 
+ star = Star ( outer_radius = 2 , color = RED ) 
+
+ self . add ( pentagram ) 
+ self . play ( Create ( star ), run_time = 3 ) 
+ self . play ( FadeOut ( star ), run_time = 2 ) 
+
+```
+
+```
+
+class StarExample(Scene):
+ def construct(self):
+ pentagram = RegularPolygram(5, radius=2)
+ star = Star(outer_radius=2, color=RED)
+
+ self.add(pentagram)
+ self.play(Create(star), run_time=3)
+ self.play(FadeOut(star), run_time=2)
+
+```
+
+ Example Placeholder 
+ Placeholder block for DifferentDensitiesExample . 
+
+```
+ class DifferentDensitiesExample ( Scene ): 
+ def construct ( self ): 
+ density_2 = Star ( 7 , outer_radius = 2 , density = 2 , color = RED ) 
+ density_3 = Star ( 7 , outer_radius = 2 , density = 3 , color = PURPLE ) 
+
+ self . add ( VGroup ( density_2 , de
+
+## Examples
+
+### Example 1
+```python
+class StarExample ( Scene ): 
+ def construct ( self ): 
+ pentagram = RegularPolygram ( 5 , radius = 2 ) 
+ star = Star ( outer_radius = 2 , color = RED ) 
+
+ self . add ( pentagram ) 
+ self . play ( Create ( star ), run_time = 3 ) 
+ self . play ( FadeOut ( star ), run_time = 2 )
+```
+
+### Example 2
+```python
+class StarExample(Scene):
+ def construct(self):
+ pentagram = RegularPolygram(5, radius=2)
+ star = Star(outer_radius=2, color=RED)
+
+ self.add(pentagram)
+ self.play(Create(star), run_time=3)
+ self.play(FadeOut(star), run_time=2)
+```
+
+### Example 3
+```python
+class DifferentDensitiesExample ( Scene ): 
+ def construct ( self ): 
+ density_2 = Star ( 7 , outer_radius = 2 , density = 2 , color = RED ) 
+ density_3 = Star ( 7 , outer_radius = 2 , density = 3 , color = PURPLE ) 
+
+ self . add ( VGroup ( density_2 , density_3 ) . arrange ( RIGHT ))
+```
+
+### Example 4
+```python
+class DifferentDensitiesExample(Scene):
+ def construct(self):
+ density_2 = Star(7, outer_radius=2, density=2, color=RED)
+ density_3 = Star(7, outer_radius=2, density=3, color=PURPLE)
+
+ self.add(VGroup(density_2, density_3).arrange(RIGHT))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.polygram.Star.html

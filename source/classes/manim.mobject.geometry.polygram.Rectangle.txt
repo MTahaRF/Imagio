@@ -1,0 +1,113 @@
+# manim.mobject.geometry.polygram.Rectangle
+
+## Signature
+class Rectangle ( color = ManimColor('#FFFFFF')
+
+## Summary
+class Rectangle ( color = ManimColor('#FFFFFF') , height = 2.0 , width = 4.0 , grid_xstep = None , grid_ystep = None , mark_paths_closed = True , close_new_points = True , ** kwargs ) [source] ¶ 
+ Bases: Polygon 
+ A quadrilateral with two sets of parallel sides.
+
+## Description
+Rectangle ¶ 
+ Qualified name: manim.mobject.geometry.polygram.Rectangle 
+
+ class Rectangle ( color = ManimColor('#FFFFFF') , height = 2.0 , width = 4.0 , grid_xstep = None , grid_ystep = None , mark_paths_closed = True , close_new_points = True , ** kwargs ) [source] ¶ 
+ Bases: Polygon 
+ A quadrilateral with two sets of parallel sides. 
+
+ Parameters : 
+
+ color ( ManimColor ) – The color of the rectangle. 
+ height ( float ) – The vertical height of the rectangle. 
+ width ( float ) – The horizontal width of the rectangle. 
+ grid_xstep ( float | None ) – Space between vertical grid lines. 
+ grid_ystep ( float | None ) – Space between horizontal grid lines. 
+ mark_paths_closed ( bool ) – No purpose. 
+ close_new_points ( bool ) – No purpose. 
+ kwargs ( Any ) – Additional arguments to be passed to Polygon 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for RectangleExample . 
+
+```
+ class RectangleExample ( Scene ): 
+ def construct ( self ): 
+ rect1 = Rectangle ( width = 4.0 , height = 2.0 , grid_xstep = 1.0 , grid_ystep = 0.5 ) 
+ rect2 = Rectangle ( width = 1.0 , height = 4.0 ) 
+ rect3 = Rectangle ( width = 2.0 , height = 2.0 , grid_xstep = 1.0 , grid_ystep = 1.0 ) 
+ rect3 . grid_lines . set_stroke ( width = 1 ) 
+
+ rects = Group ( rect1 , rect2 , rect3 ) . arrange ( buff = 1 ) 
+ self . add ( rects ) 
+
+```
+
+```
+
+class RectangleExample(Scene):
+ def construct(self):
+ rect1 = Rectangle(width=4.0, height=2.0, grid_xstep=1.0, grid_ystep=0.5)
+ rect2 = Rectangle(width=1.0, height=4.0)
+ rect3 = Rectangle(width=2.0, height=2.0, grid_xstep=1.0, grid_ystep=1.0)
+ rect3.grid_lines.set_stroke(width=1)
+
+ rects = Group(rect1, rect2, rect3).arrange(buff=1)
+ self.add(rects)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height
+
+## Examples
+
+### Example 1
+```python
+class RectangleExample ( Scene ): 
+ def construct ( self ): 
+ rect1 = Rectangle ( width = 4.0 , height = 2.0 , grid_xstep = 1.0 , grid_ystep = 0.5 ) 
+ rect2 = Rectangle ( width = 1.0 , height = 4.0 ) 
+ rect3 = Rectangle ( width = 2.0 , height = 2.0 , grid_xstep = 1.0 , grid_ystep = 1.0 ) 
+ rect3 . grid_lines . set_stroke ( width = 1 ) 
+
+ rects = Group ( rect1 , rect2 , rect3 ) . arrange ( buff = 1 ) 
+ self . add ( rects )
+```
+
+### Example 2
+```python
+class RectangleExample(Scene):
+ def construct(self):
+ rect1 = Rectangle(width=4.0, height=2.0, grid_xstep=1.0, grid_ystep=0.5)
+ rect2 = Rectangle(width=1.0, height=4.0)
+ rect3 = Rectangle(width=2.0, height=2.0, grid_xstep=1.0, grid_ystep=1.0)
+ rect3.grid_lines.set_stroke(width=1)
+
+ rects = Group(rect1, rect2, rect3).arrange(buff=1)
+ self.add(rects)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.polygram.Rectangle.html

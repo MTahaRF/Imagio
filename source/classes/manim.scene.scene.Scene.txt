@@ -1,0 +1,137 @@
+# manim.scene.scene.Scene
+
+## Signature
+class Scene ( renderer = None , camera_class = <class 'manim.camera.camera.Camera'> , always_update_mobjects = False , random_seed = None , skip_animations = False )
+
+## Summary
+class Scene ( renderer = None , camera_class = <class 'manim.camera.camera.Camera'> , always_update_mobjects = False , random_seed = None , skip_animations = False ) [source] ¶ 
+ Bases: object 
+ A Scene is the canvas of your animation. 
+ The primary role of Scene is to provide the user with tools to
+
+## Description
+Scene ¶ 
+ Qualified name: manim.scene.scene.Scene 
+
+ class Scene ( renderer = None , camera_class = <class 'manim.camera.camera.Camera'> , always_update_mobjects = False , random_seed = None , skip_animations = False ) [source] ¶ 
+ Bases: object 
+ A Scene is the canvas of your animation. 
+ The primary role of Scene is to provide the user with tools to manage
+mobjects and animations. Generally speaking, a manim script consists of a class
+that derives from Scene whose Scene.construct() method is overridden
+by the user’s code. 
+ Mobjects are displayed on screen by calling Scene.add() and removed from
+screen by calling Scene.remove() . All mobjects currently on screen are kept
+in Scene.mobjects . Animations are played by calling Scene.play() . 
+ A Scene is rendered internally by calling Scene.render() . This in
+turn calls Scene.setup() , Scene.construct() , and
+ Scene.tear_down() , in that order. 
+ It is not recommended to override the __init__ method in user Scenes. For code
+that should be ran before a Scene is rendered, use Scene.setup() instead. 
+ Examples 
+ Override the Scene.construct() method with your code. 
+
+```
+ class MyScene ( Scene ): 
+ def construct ( self ): 
+ self . play ( Write ( Text ( "Hello World!" ))) 
+
+```
+
+ Methods 
+
+ add 
+ Mobjects will be displayed, from background to foreground in the order with which they are added. 
+
+ add_foreground_mobject 
+ Adds a single mobject to the foreground, and internally to the list foreground_mobjects, and mobjects. 
+
+ add_foreground_mobjects 
+ Adds mobjects to the foreground, and internally to the list foreground_mobjects, and mobjects. 
+
+ add_mobjects_from_animations 
+
+ add_sound 
+ This method is used to add a sound to the animation. 
+
+ add_subcaption 
+ Adds an entry in the corresponding subcaption file at the current time stamp. 
+
+ add_updater 
+ Add an update function to the scene. 
+
+ begin_animations 
+ Start the animations of the scene. 
+
+ bring_to_back 
+ Removes the mobject from the scene and adds them to the ba
+
+## Examples
+
+### Example 1
+```python
+class MyScene ( Scene ): 
+ def construct ( self ): 
+ self . play ( Write ( Text ( "Hello World!" )))
+```
+
+### Example 2
+```python
+class SoundExample ( Scene ): 
+ # Source of sound under Creative Commons 0 License. https://freesound.org/people/Druminfected/sounds/250551/ 
+ def construct ( self ): 
+ dot = Dot () . set_color ( GREEN ) 
+ self . add_sound ( "click.wav" ) 
+ self . add ( dot ) 
+ self . wait () 
+ self . add_sound ( "click.wav" ) 
+ dot . set_color ( BLUE ) 
+ self . wait () 
+ self . add_sound ( "click.wav" ) 
+ dot . set_color ( RED ) 
+ self . wait ()
+```
+
+### Example 3
+```python
+class SoundExample(Scene):
+ # Source of sound under Creative Commons 0 License. https://freesound.org/people/Druminfected/sounds/250551/
+ def construct(self):
+ dot = Dot().set_color(GREEN)
+ self.add_sound("click.wav")
+ self.add(dot)
+ self.wait()
+ self.add_sound("click.wav")
+ dot.set_color(BLUE)
+ self.wait()
+ self.add_sound("click.wav")
+ dot.set_color(RED)
+ self.wait()
+```
+
+### Example 4
+```python
+class SubcaptionExample ( Scene ): 
+ def construct ( self ): 
+ square = Square () 
+ circle = Circle () 
+
+ # first option: via the add_subcaption method 
+ self . add_subcaption ( "Hello square!" , duration = 1 ) 
+ self . play ( Create ( square )) 
+
+ # second option: within the call to Scene.play 
+ self . play ( 
+ Transform ( square , circle ), subcaption = "The square transforms." 
+ )
+```
+
+### Example 5
+```python
+class MyScene ( Scene ): 
+ def construct ( self ): 
+ self . play ( Write ( Text ( "Hello World!" )))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.scene.scene.Scene.html

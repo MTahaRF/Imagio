@@ -19,7 +19,7 @@ from src.llm_client import ClientFactory, LiteLLMClient
 #   Provider: "litellm-groq",    Model: "groq/llama-3.3-70b-versatile"
 
 PROVIDER = "litellm-gemini"
-MODEL = "gemini/gemini-3-flash-preview"
+MODEL = "gemini/gemini-3.1-flash-lite-preview"
 
 # Paste your API key below or set LITELLM_KEY in your .env / environment
 API_KEY = os.getenv("LITELLM_KEY", "")

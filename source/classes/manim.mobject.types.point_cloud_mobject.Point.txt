@@ -1,0 +1,129 @@
+# manim.mobject.types.point_cloud_mobject.Point
+
+## Signature
+class Point ( location = array([0., 0., 0.])
+
+## Summary
+```
+ class ExamplePoint ( Scene ): 
+ def construct ( self ): 
+ colorList = [ RED , GREEN , BLUE , YELLOW ] 
+ for i in range ( 200 ): 
+ point = Point ( location = [ 0.63 * np . random . randint ( - 4 , 4 ), 0.37 * np . random . randint ( - 4 , 4 ), 0 ], color = np . random . choice ( colorList )) 
+ s
+
+## Description
+Point ¶ 
+ Qualified name: manim.mobject.types.point\_cloud\_mobject.Point 
+
+ class Point ( location = array([0., 0., 0.]) , color = ManimColor('#000000') , ** kwargs ) [source] ¶ 
+ Bases: PMobject 
+ A mobject representing a point. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ExamplePoint . 
+
+```
+ class ExamplePoint ( Scene ): 
+ def construct ( self ): 
+ colorList = [ RED , GREEN , BLUE , YELLOW ] 
+ for i in range ( 200 ): 
+ point = Point ( location = [ 0.63 * np . random . randint ( - 4 , 4 ), 0.37 * np . random . randint ( - 4 , 4 ), 0 ], color = np . random . choice ( colorList )) 
+ self . add ( point ) 
+ for i in range ( 200 ): 
+ point = Point ( location = [ 0.37 * np . random . randint ( - 4 , 4 ), 0.63 * np . random . randint ( - 4 , 4 ), 0 ], color = np . random . choice ( colorList )) 
+ self . add ( point ) 
+ self . add ( point ) 
+
+```
+
+```
+
+class ExamplePoint(Scene):
+ def construct(self):
+ colorList = [RED, GREEN, BLUE, YELLOW]
+ for i in range(200):
+ point = Point(location=[0.63 * np.random.randint(-4, 4), 0.37 * np.random.randint(-4, 4), 0], color=np.random.choice(colorList))
+ self.add(point)
+ for i in range(200):
+ point = Point(location=[0.37 * np.random.randint(-4, 4), 0.63 * np.random.randint(-4, 4), 0], color=np.random.choice(colorList))
+ self.add(point)
+ self.add(point)
+
+```
+
+ Methods 
+
+ generate_points 
+ Initializes points and therefore the shape. 
+
+ init_points 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ depth 
+ The depth of the mobject. 
+
+ height 
+ The height of the mobject. 
+
+ width 
+ The width of the mobject. 
+
+ original_id 
+
+ Parameters : 
+
+ location ( Point3DLike ) 
+ color ( ManimColor ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( location = array([0., 0., 0.]) , color = ManimColor('#000000') , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ location ( Point3DLike ) 
+ color
+
+## Examples
+
+### Example 1
+```python
+class ExamplePoint ( Scene ): 
+ def construct ( self ): 
+ colorList = [ RED , GREEN , BLUE , YELLOW ] 
+ for i in range ( 200 ): 
+ point = Point ( location = [ 0.63 * np . random . randint ( - 4 , 4 ), 0.37 * np . random . randint ( - 4 , 4 ), 0 ], color = np . random . choice ( colorList )) 
+ self . add ( point ) 
+ for i in range ( 200 ): 
+ point = Point ( location = [ 0.37 * np . random . randint ( - 4 , 4 ), 0.63 * np . random . randint ( - 4 , 4 ), 0 ], color = np . random . choice ( colorList )) 
+ self . add ( point ) 
+ self . add ( point )
+```
+
+### Example 2
+```python
+class ExamplePoint(Scene):
+ def construct(self):
+ colorList = [RED, GREEN, BLUE, YELLOW]
+ for i in range(200):
+ point = Point(location=[0.63 * np.random.randint(-4, 4), 0.37 * np.random.randint(-4, 4), 0], color=np.random.choice(colorList))
+ self.add(point)
+ for i in range(200):
+ point = Point(location=[0.37 * np.random.randint(-4, 4), 0.63 * np.random.randint(-4, 4), 0], color=np.random.choice(colorList))
+ self.add(point)
+ self.add(point)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.types.point_cloud_mobject.Point.html

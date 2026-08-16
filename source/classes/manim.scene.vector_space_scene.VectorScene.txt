@@ -1,0 +1,82 @@
+# manim.scene.vector_space_scene.VectorScene
+
+## Signature
+class VectorScene ( basis_vector_stroke_width = 6.0 , ** kwargs )
+
+## Summary
+add_axes 
+ Adds a pair of Axes to the Scene.
+
+## Description
+VectorScene ¶ 
+ Qualified name: manim.scene.vector\_space\_scene.VectorScene 
+
+ class VectorScene ( basis_vector_stroke_width = 6.0 , ** kwargs ) [source] ¶ 
+ Bases: Scene 
+ Methods 
+
+ add_axes 
+ Adds a pair of Axes to the Scene. 
+
+ add_plane 
+ Adds a NumberPlane object to the background. 
+
+ add_vector 
+ Returns the Vector after adding it to the Plane. 
+
+ coords_to_vector 
+ This method writes the vector as a column matrix (henceforth called the label), takes the values in it one by one, and form the corresponding lines that make up the x and y components of the vector. 
+
+ get_basis_vector_labels 
+ Returns naming labels for the basis vectors. 
+
+ get_basis_vectors 
+ Returns a VGroup of the Basis Vectors (1,0) and (0,1) 
+
+ get_vector 
+ Returns an arrow on the Plane given an input numerical vector. 
+
+ get_vector_label 
+ Returns naming labels for the passed vector. 
+
+ label_vector 
+ Shortcut method for creating, and animating the addition of a label for the vector. 
+
+ lock_in_faded_grid 
+ This method freezes the NumberPlane and Axes that were already in the background, and adds new, manipulatable ones to the foreground. 
+
+ position_x_coordinate 
+
+ position_y_coordinate 
+
+ show_ghost_movement 
+ This method plays an animation that partially shows the entire plane moving in the direction of a particular vector. 
+
+ vector_to_coords 
+ This method displays vector as a Vector() based vector, and then shows the corresponding lines that make up the x and y components of the vector. 
+
+ write_vector_coordinates 
+ Returns a column matrix indicating the vector coordinates, after writing them to the screen. 
+
+ Attributes 
+
+ camera 
+
+ time 
+ The time since the start of the scene. 
+
+ Parameters : 
+
+ basis_vector_stroke_width ( float ) 
+ kwargs ( Any ) 
+
+ add_axes ( animate = False , color = ManimColor('#FFFFFF') ) [source] ¶ 
+ Adds a pair of Axes to the Scene. 
+
+ Parameters : 
+
+ animate ( bool ) – Whether or not to animate the addition of the axes through Create. 
+ color ( TypeAliasForw
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.scene.vector_space_scene.VectorScene.html

@@ -1,0 +1,68 @@
+# manim.scene.three_d_scene.ThreeDScene
+
+## Signature
+class ThreeDScene ( camera_class = <class 'manim.camera.three_d_camera.ThreeDCamera'> , ambient_camera_rotation = None , default_angled_camera_orientation_kwargs = None , **kwargs )
+
+## Summary
+class ThreeDScene ( camera_class = <class 'manim.camera.three_d_camera.ThreeDCamera'> , ambient_camera_rotation = None , default_angled_camera_orientation_kwargs = None , **kwargs ) [source] ¶ 
+ Bases: Scene 
+ This is a Scene, with special configurations and properties that
+make it suitable for Thre
+
+## Description
+ThreeDScene ¶ 
+ Qualified name: manim.scene.three\_d\_scene.ThreeDScene 
+
+ class ThreeDScene ( camera_class = <class 'manim.camera.three_d_camera.ThreeDCamera'> , ambient_camera_rotation = None , default_angled_camera_orientation_kwargs = None , **kwargs ) [source] ¶ 
+ Bases: Scene 
+ This is a Scene, with special configurations and properties that
+make it suitable for Three Dimensional Scenes. 
+ Methods 
+
+ add_fixed_in_frame_mobjects 
+ This method is used to prevent the rotation and movement of mobjects as the camera moves around. 
+
+ add_fixed_orientation_mobjects 
+ This method is used to prevent the rotation and tilting of mobjects as the camera moves around. 
+
+ begin_3dillusion_camera_rotation 
+ This method creates a 3D camera rotation illusion around the current camera orientation. 
+
+ begin_ambient_camera_rotation 
+ This method begins an ambient rotation of the camera about the Z_AXIS, in the anticlockwise direction 
+
+ get_moving_mobjects 
+ This method returns a list of all of the Mobjects in the Scene that are moving, that are also in the animations passed. 
+
+ move_camera 
+ This method animates the movement of the camera to the given spherical coordinates. 
+
+ remove_fixed_in_frame_mobjects 
+ This method undoes what add_fixed_in_frame_mobjects does. 
+
+ remove_fixed_orientation_mobjects 
+ This method "unfixes" the orientation of the mobjects passed, meaning they will no longer be at the same angle relative to the camera. 
+
+ set_camera_orientation 
+ This method sets the orientation of the camera in the scene. 
+
+ set_to_default_angled_camera_orientation 
+ This method sets the default_angled_camera_orientation to the keyword arguments passed, and sets the camera to that orientation. 
+
+ stop_3dillusion_camera_rotation 
+ This method stops all illusion camera rotations. 
+
+ stop_ambient_camera_rotation 
+ This method stops all ambient camera rotation. 
+
+ Attributes 
+
+ camera 
+
+ time 
+ The time since the start of the scene. 
+
+ add_fixed_in_frame_mobjects ( * mobjects ) [so
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.scene.three_d_scene.ThreeDScene.html

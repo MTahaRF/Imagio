@@ -1,0 +1,115 @@
+# manim.animation.creation.DrawBorderThenFill
+
+## Signature
+class DrawBorderThenFill ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+begin 
+ Begin the animation.
+
+## Description
+DrawBorderThenFill ¶ 
+ Qualified name: manim.animation.creation.DrawBorderThenFill 
+
+ class DrawBorderThenFill ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: Animation 
+ Draw the border first and then show the fill. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ShowDrawBorderThenFill . 
+
+```
+ class ShowDrawBorderThenFill ( Scene ): 
+ def construct ( self ): 
+ self . play ( DrawBorderThenFill ( Square ( fill_opacity = 1 , fill_color = ORANGE ))) 
+
+```
+
+```
+
+class ShowDrawBorderThenFill(Scene):
+ def construct(self):
+ self.play(DrawBorderThenFill(Square(fill_opacity=1, fill_color=ORANGE)))
+
+```
+
+ Methods 
+
+ begin 
+ Begin the animation. 
+
+ get_all_mobjects 
+ Get all mobjects involved in the animation. 
+
+ get_outline 
+
+ get_stroke_color 
+
+ interpolate_submobject 
+
+ Attributes 
+
+ run_time 
+
+ Parameters : 
+
+ vmobject ( VMobject | OpenGLVMobject ) 
+ run_time ( float ) 
+ rate_func ( Callable [ [ float ] , float ] ) 
+ stroke_width ( float ) 
+ stroke_color ( str ) 
+ introducer ( bool ) 
+
+ _original__init__ ( vmobject , run_time = 2 , rate_func = <function double_smooth> , stroke_width = 2 , stroke_color = None , introducer = True , **kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ vmobject ( VMobject | OpenGLVMobject ) 
+ run_time ( float ) 
+ rate_func ( Callable [ [ float ] , float ] ) 
+ stroke_width ( float ) 
+ stroke_color ( str ) 
+ introducer ( bool ) 
+
+ Return type : 
+ None 
+
+ begin ( ) [source] ¶ 
+ Begin the animation. 
+ This method is called right as an animation is being played. As much
+initialization as possible, especially any mobject copying, should live in this
+method. 
+
+ Return type : 
+ None 
+
+ get_all_mobjects ( ) [source] ¶ 
+ Get all mobjects involved in the animation. 
+ Ordering must match the ordering of arguments to interpolate_submobject 
+
+ Returns : 
+ The sequence of mobjects. 
+
+ Return type : 
+ Sequence[ Mobject ]
+
+## Examples
+
+### Example 1
+```python
+class ShowDrawBorderThenFill ( Scene ): 
+ def construct ( self ): 
+ self . play ( DrawBorderThenFill ( Square ( fill_opacity = 1 , fill_color = ORANGE )))
+```
+
+### Example 2
+```python
+class ShowDrawBorderThenFill(Scene):
+ def construct(self):
+ self.play(DrawBorderThenFill(Square(fill_opacity=1, fill_color=ORANGE)))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.creation.DrawBorderThenFill.html

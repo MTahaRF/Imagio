@@ -1,0 +1,80 @@
+# manim.animation.transform.ScaleInPlace
+
+## Signature
+class ScaleInPlace ( mobject = None , * args , use_override = True , ** kwargs )
+
+## Summary
+mobject ( Mobject ) 
+ scale_factor ( float )
+
+## Description
+ScaleInPlace ¶ 
+ Qualified name: manim.animation.transform.ScaleInPlace 
+
+ class ScaleInPlace ( mobject = None , * args , use_override = True , ** kwargs ) [source] ¶ 
+ Bases: ApplyMethod 
+ Animation that scales a mobject by a certain factor. 
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for ScaleInPlaceExample . 
+
+```
+ class ScaleInPlaceExample ( Scene ): 
+ def construct ( self ): 
+ self . play ( ScaleInPlace ( Text ( "Hello World!" ), 2 )) 
+
+```
+
+```
+
+class ScaleInPlaceExample(Scene):
+ def construct(self):
+ self.play(ScaleInPlace(Text("Hello World!"), 2))
+
+```
+
+ Methods 
+
+ Attributes 
+
+ path_arc 
+
+ path_func 
+
+ run_time 
+
+ Parameters : 
+
+ mobject ( Mobject ) 
+ scale_factor ( float ) 
+
+ _original__init__ ( mobject , scale_factor , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ mobject ( Mobject ) 
+ scale_factor ( float ) 
+
+ Return type : 
+ None
+
+## Examples
+
+### Example 1
+```python
+class ScaleInPlaceExample ( Scene ): 
+ def construct ( self ): 
+ self . play ( ScaleInPlace ( Text ( "Hello World!" ), 2 ))
+```
+
+### Example 2
+```python
+class ScaleInPlaceExample(Scene):
+ def construct(self):
+ self.play(ScaleInPlace(Text("Hello World!"), 2))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.animation.transform.ScaleInPlace.html

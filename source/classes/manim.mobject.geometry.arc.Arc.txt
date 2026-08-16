@@ -1,0 +1,138 @@
+# manim.mobject.geometry.arc.Arc
+
+## Signature
+class Arc ( radius = 1.0 , start_angle = 0 , angle = 1.5707963267948966 , num_components = 9 , arc_center = array([0., 0., 0.])
+
+## Summary
+class Arc ( radius = 1.0 , start_angle = 0 , angle = 1.5707963267948966 , num_components = 9 , arc_center = array([0., 0., 0.]) , ** kwargs ) [source] ¶ 
+ Bases: TipableVMobject 
+ A circular arc. 
+ Examples 
+ A simple arc of angle Pi.
+
+## Description
+Arc ¶ 
+ Qualified name: manim.mobject.geometry.arc.Arc 
+
+ class Arc ( radius = 1.0 , start_angle = 0 , angle = 1.5707963267948966 , num_components = 9 , arc_center = array([0., 0., 0.]) , ** kwargs ) [source] ¶ 
+ Bases: TipableVMobject 
+ A circular arc. 
+ Examples 
+ A simple arc of angle Pi. 
+
+ Example Placeholder 
+ Placeholder block for ArcExample . 
+
+```
+ class ArcExample ( Scene ): 
+ def construct ( self ): 
+ self . add ( Arc ( angle = PI )) 
+
+```
+
+```
+
+class ArcExample(Scene):
+ def construct(self):
+ self.add(Arc(angle=PI))
+
+```
+
+ Methods 
+
+ generate_points 
+ Initializes points and therefore the shape. 
+
+ get_arc_center 
+ Looks at the normals to the first two anchors, and finds their intersection points 
+
+ init_points 
+
+ move_arc_center_to 
+
+ stop_angle 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+
+ radius ( float | None ) 
+ start_angle ( float ) 
+ angle ( float ) 
+ num_components ( int ) 
+ arc_center ( Point3DLike ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( radius = 1.0 , start_angle = 0 , angle = 1.5707963267948966 , num_components = 9 , arc_center = array([0., 0., 0.]) , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ radius ( float | None ) 
+ start_angle ( float ) 
+ angle ( float ) 
+ num_components ( int ) 
+ arc_center ( Point3DLike ) 
+ kwargs ( Any ) 
+
+ generate_points ( ) [source] ¶ 
+ Initializes points and therefore the shape. 
+ Gets called upon creation. This is an empty method that can be implemented by
+subclasses. 
+
+ Return type : 
+ Self 
+
+ get_arc_center ( warning = True ) [source] ¶ 
+ Looks at t
+
+## Examples
+
+### Example 1
+```python
+class ArcExample ( Scene ): 
+ def construct ( self ): 
+ self . add ( Arc ( angle = PI ))
+```
+
+### Example 2
+```python
+class ArcExample(Scene):
+ def construct(self):
+ self.add(Arc(angle=PI))
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.arc.Arc.html

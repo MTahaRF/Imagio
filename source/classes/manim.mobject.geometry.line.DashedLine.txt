@@ -1,0 +1,156 @@
+# manim.mobject.geometry.line.DashedLine
+
+## Signature
+class DashedLine ( * args , dash_length = 0.05 , dashed_ratio = 0.5 , ** kwargs )
+
+## Summary
+args ( Any ) – Arguments to be passed to Line 
+ dash_length ( float ) – The length of each individual dash of the line. 
+ dashed_ratio ( float ) – The ratio of dash space to empty space. Range of 0-1. 
+ kwargs ( Any ) – Additional arguments to be passed to Line
+
+## Description
+DashedLine ¶ 
+ Qualified name: manim.mobject.geometry.line.DashedLine 
+
+ class DashedLine ( * args , dash_length = 0.05 , dashed_ratio = 0.5 , ** kwargs ) [source] ¶ 
+ Bases: Line 
+ A dashed Line . 
+
+ Parameters : 
+
+ args ( Any ) – Arguments to be passed to Line 
+ dash_length ( float ) – The length of each individual dash of the line. 
+ dashed_ratio ( float ) – The ratio of dash space to empty space. Range of 0-1. 
+ kwargs ( Any ) – Additional arguments to be passed to Line 
+
+ See also 
+ DashedVMobject 
+
+ Examples 
+
+ Example Placeholder 
+ Placeholder block for DashedLineExample . 
+
+```
+ class DashedLineExample ( Scene ): 
+ def construct ( self ): 
+ # dash_length increased 
+ dashed_1 = DashedLine ( config . left_side , config . right_side , dash_length = 2.0 ) . shift ( UP * 2 ) 
+ # normal 
+ dashed_2 = DashedLine ( config . left_side , config . right_side ) 
+ # dashed_ratio decreased 
+ dashed_3 = DashedLine ( config . left_side , config . right_side , dashed_ratio = 0.1 ) . shift ( DOWN * 2 ) 
+ self . add ( dashed_1 , dashed_2 , dashed_3 ) 
+
+```
+
+```
+
+class DashedLineExample(Scene):
+ def construct(self):
+ # dash_length increased
+ dashed_1 = DashedLine(config.left_side, config.right_side, dash_length=2.0).shift(UP*2)
+ # normal
+ dashed_2 = DashedLine(config.left_side, config.right_side)
+ # dashed_ratio decreased
+ dashed_3 = DashedLine(config.left_side, config.right_side, dashed_ratio=0.1).shift(DOWN*2)
+ self.add(dashed_1, dashed_2, dashed_3)
+
+```
+
+ Methods 
+
+ get_end 
+ Returns the end point of the line. 
+
+ get_first_handle 
+ Returns the point of the first handle. 
+
+ get_last_handle 
+ Returns the point of the last handle. 
+
+ get_start 
+ Returns the start point of the line. 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+
+
+## Examples
+
+### Example 1
+```python
+class DashedLineExample ( Scene ): 
+ def construct ( self ): 
+ # dash_length increased 
+ dashed_1 = DashedLine ( config . left_side , config . right_side , dash_length = 2.0 ) . shift ( UP * 2 ) 
+ # normal 
+ dashed_2 = DashedLine ( config . left_side , config . right_side ) 
+ # dashed_ratio decreased 
+ dashed_3 = DashedLine ( config . left_side , config . right_side , dashed_ratio = 0.1 ) . shift ( DOWN * 2 ) 
+ self . add ( dashed_1 , dashed_2 , dashed_3 )
+```
+
+### Example 2
+```python
+class DashedLineExample(Scene):
+ def construct(self):
+ # dash_length increased
+ dashed_1 = DashedLine(config.left_side, config.right_side, dash_length=2.0).shift(UP*2)
+ # normal
+ dashed_2 = DashedLine(config.left_side, config.right_side)
+ # dashed_ratio decreased
+ dashed_3 = DashedLine(config.left_side, config.right_side, dashed_ratio=0.1).shift(DOWN*2)
+ self.add(dashed_1, dashed_2, dashed_3)
+```
+
+### Example 3
+```python
+>>> DashedLine () . _calculate_num_dashes () 
+ 20
+```
+
+### Example 4
+```python
+>>> DashedLine () . get_end () 
+ array([1., 0., 0.])
+```
+
+### Example 5
+```python
+>>> DashedLine () . get_first_handle () 
+ array([-0.98333333, 0. , 0. ])
+```
+
+### Example 6
+```python
+>>> DashedLine () . get_last_handle () 
+ array([0.98333333, 0. , 0. ])
+```
+
+### Example 7
+```python
+>>> DashedLine () . get_start () 
+ array([-1., 0., 0.])
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.line.DashedLine.html

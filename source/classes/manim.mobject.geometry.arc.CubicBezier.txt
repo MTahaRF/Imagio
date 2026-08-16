@@ -1,0 +1,143 @@
+# manim.mobject.geometry.arc.CubicBezier
+
+## Signature
+class CubicBezier ( start_anchor , start_handle , end_handle , end_anchor , ** kwargs )
+
+## Summary
+Example Placeholder 
+ Placeholder block for BezierSplineExample .
+
+## Description
+CubicBezier ¶ 
+ Qualified name: manim.mobject.geometry.arc.CubicBezier 
+
+ class CubicBezier ( start_anchor , start_handle , end_handle , end_anchor , ** kwargs ) [source] ¶ 
+ Bases: VMobject 
+ A cubic Bézier curve. 
+ Example 
+
+ Example Placeholder 
+ Placeholder block for BezierSplineExample . 
+
+```
+ class BezierSplineExample ( Scene ): 
+ def construct ( self ): 
+ p1 = np . array ([ - 3 , 1 , 0 ]) 
+ p1b = p1 + [ 1 , 0 , 0 ] 
+ d1 = Dot ( point = p1 ) . set_color ( BLUE ) 
+ l1 = Line ( p1 , p1b ) 
+ p2 = np . array ([ 3 , - 1 , 0 ]) 
+ p2b = p2 - [ 1 , 0 , 0 ] 
+ d2 = Dot ( point = p2 ) . set_color ( RED ) 
+ l2 = Line ( p2 , p2b ) 
+ bezier = CubicBezier ( p1b , p1b + 3 * RIGHT , p2b - 3 * RIGHT , p2b ) 
+ self . add ( l1 , d1 , l2 , d2 , bezier ) 
+
+```
+
+```
+
+class BezierSplineExample(Scene):
+ def construct(self):
+ p1 = np.array([-3, 1, 0])
+ p1b = p1 + [1, 0, 0]
+ d1 = Dot(point=p1).set_color(BLUE)
+ l1 = Line(p1, p1b)
+ p2 = np.array([3, -1, 0])
+ p2b = p2 - [1, 0, 0]
+ d2 = Dot(point=p2).set_color(RED)
+ l2 = Line(p2, p2b)
+ bezier = CubicBezier(p1b, p1b + 3 * RIGHT, p2b - 3 * RIGHT, p2b)
+ self.add(l1, d1, l2, d2, bezier)
+
+```
+
+ Methods 
+
+ Attributes 
+
+ always 
+ Call a method on a mobject every frame. 
+
+ animate 
+ Used to animate the application of any method of self . 
+
+ animation_overrides 
+
+ color 
+
+ depth 
+ The depth of the mobject. 
+
+ fill_color 
+ If there are multiple colors (for gradient) this returns the first one 
+
+ height 
+ The height of the mobject. 
+
+ n_points_per_curve 
+
+ sheen_factor 
+
+ stroke_color 
+
+ width 
+ The width of the mobject. 
+
+ target 
+
+ original_id 
+
+ Parameters : 
+
+ start_anchor ( Point3DLike ) 
+ start_handle ( Point3DLike ) 
+ end_handle ( Point3DLike ) 
+ end_anchor ( Point3DLike ) 
+ kwargs ( Any ) 
+
+ _original__init__ ( start_anchor , start_handle , end_handle , end_anchor , ** kwargs ) ¶ 
+ Initialize self. See help(type(self)) for accurate signature. 
+
+ Parameters : 
+
+ start_anchor ( Point3DLike ) 
+ start_handle ( Point3DLike ) 
+ end_handle ( Point3D
+
+## Examples
+
+### Example 1
+```python
+class BezierSplineExample ( Scene ): 
+ def construct ( self ): 
+ p1 = np . array ([ - 3 , 1 , 0 ]) 
+ p1b = p1 + [ 1 , 0 , 0 ] 
+ d1 = Dot ( point = p1 ) . set_color ( BLUE ) 
+ l1 = Line ( p1 , p1b ) 
+ p2 = np . array ([ 3 , - 1 , 0 ]) 
+ p2b = p2 - [ 1 , 0 , 0 ] 
+ d2 = Dot ( point = p2 ) . set_color ( RED ) 
+ l2 = Line ( p2 , p2b ) 
+ bezier = CubicBezier ( p1b , p1b + 3 * RIGHT , p2b - 3 * RIGHT , p2b ) 
+ self . add ( l1 , d1 , l2 , d2 , bezier )
+```
+
+### Example 2
+```python
+class BezierSplineExample(Scene):
+ def construct(self):
+ p1 = np.array([-3, 1, 0])
+ p1b = p1 + [1, 0, 0]
+ d1 = Dot(point=p1).set_color(BLUE)
+ l1 = Line(p1, p1b)
+ p2 = np.array([3, -1, 0])
+ p2b = p2 - [1, 0, 0]
+ d2 = Dot(point=p2).set_color(RED)
+ l2 = Line(p2, p2b)
+ bezier = CubicBezier(p1b, p1b + 3 * RIGHT, p2b - 3 * RIGHT, p2b)
+ self.add(l1, d1, l2, d2, bezier)
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.geometry.arc.CubicBezier.html

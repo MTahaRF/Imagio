@@ -1,0 +1,116 @@
+# manim.mobject.graph.GenericGraph
+
+## Signature
+class GenericGraph ( vertices , edges , labels = False , label_fill_color = ManimColor('#000000')
+
+## Summary
+class GenericGraph ( vertices , edges , labels = False , label_fill_color = ManimColor('#000000') , layout = 'spring' , layout_scale = 2 , layout_config = None , vertex_type = <class 'manim.mobject.geometry.arc.Dot'> , vertex_config = None , vertex_mobjects = None , edge_type = <class 'manim.mobject
+
+## Description
+GenericGraph ¶ 
+ Qualified name: manim.mobject.graph.GenericGraph 
+
+ class GenericGraph ( vertices , edges , labels = False , label_fill_color = ManimColor('#000000') , layout = 'spring' , layout_scale = 2 , layout_config = None , vertex_type = <class 'manim.mobject.geometry.arc.Dot'> , vertex_config = None , vertex_mobjects = None , edge_type = <class 'manim.mobject.geometry.line.Line'> , partitions = None , root_vertex = None , edge_config = None ) [source] ¶ 
+ Bases: VMobject 
+ Abstract base class for graphs (that is, a collection of vertices
+connected with edges). 
+ Graphs can be instantiated by passing both a list of (distinct, hashable)
+vertex names, together with list of edges (as tuples of vertex names). See
+the examples for concrete implementations of this class for details. 
+
+ Note 
+ This implementation uses updaters to make the edges move with
+the vertices. 
+
+ See also 
+ Graph , DiGraph 
+
+ Parameters : 
+
+ vertices ( Sequence [ Hashable ] ) – A list of vertices. Must be hashable elements. 
+ edges ( Sequence [ tuple [ Hashable , Hashable ] ] ) – A list of edges, specified as tuples (u, v) where both u 
+and v are vertices. 
+ labels ( bool | dict ) – Controls whether or not vertices are labeled. If False (the default),
+the vertices are not labeled; if True they are labeled using their
+names (as specified in vertices ) via MathTex . Alternatively,
+custom labels can be specified by passing a dictionary whose keys are
+the vertices, and whose values are the corresponding vertex labels
+(rendered via, e.g., Text or Tex ). 
+ label_fill_color ( str ) – Sets the fill color of the default labels generated when labels 
+is set to True . Has no effect for other values of labels . 
+ layout ( LayoutName | dict [ Hashable , Point3DLike ] | LayoutFunction ) – Either one of "spring" (the default), "circular" , "kamada_kawai" ,
+ "planar" , "random" , "shell" , "spectral" , "spiral" , "tree" , and "partite" 
+for automatic vertex positioning primarily using networkx 
+(see their d
+
+## Examples
+
+### Example 1
+```python
+class ChangeGraphLayout ( Scene ): 
+ def construct ( self ): 
+ G = Graph ([ 1 , 2 , 3 , 4 , 5 ], [( 1 , 2 ), ( 2 , 3 ), ( 3 , 4 ), ( 4 , 5 )], 
+ layout = { 1 : [ - 2 , 0 , 0 ], 2 : [ - 1 , 0 , 0 ], 3 : [ 0 , 0 , 0 ], 
+ 4 : [ 1 , 0 , 0 ], 5 : [ 2 , 0 , 0 ]} 
+ ) 
+ self . play ( Create ( G )) 
+ self . play ( G . animate . change_layout ( "circular" )) 
+ self . wait ()
+```
+
+### Example 2
+```python
+class ChangeGraphLayout(Scene):
+ def construct(self):
+ G = Graph([1, 2, 3, 4, 5], [(1, 2), (2, 3), (3, 4), (4, 5)],
+ layout={1: [-2, 0, 0], 2: [-1, 0, 0], 3: [0, 0, 0],
+ 4: [1, 0, 0], 5: [2, 0, 0]}
+ )
+ self.play(Create(G))
+ self.play(G.animate.change_layout("circular"))
+ self.wait()
+```
+
+### Example 3
+```python
+import networkx as nx 
+
+ nxgraph = nx . erdos_renyi_graph ( 14 , 0.5 ) 
+
+ class ImportNetworkxGraph ( Scene ): 
+ def construct ( self ): 
+ G = Graph . from_networkx ( nxgraph , layout = "spring" , layout_scale = 3.5 ) 
+ self . play ( Create ( G )) 
+ self . play ( * [ G [ v ] . animate . move_to ( 5 * RIGHT * np . cos ( ind / 7 * PI ) + 
+ 3 * UP * np . sin ( ind / 7 * PI )) 
+ for ind , v in enumerate ( G . vertices )]) 
+ self . play ( Uncreate ( G ))
+```
+
+### Example 4
+```python
+import networkx as nx
+
+nxgraph = nx.erdos_renyi_graph(14, 0.5)
+
+class ImportNetworkxGraph(Scene):
+ def construct(self):
+ G = Graph.from_networkx(nxgraph, layout="spring", layout_scale=3.5)
+ self.play(Create(G))
+ self.play(*[G[v].animate.move_to(5*RIGHT*np.cos(ind/7 * PI) +
+ 3*UP*np.sin(ind/7 * PI))
+ for ind, v in enumerate(G.vertices)])
+ self.play(Uncreate(G))
+```
+
+### Example 5
+```python
+>>> G = Graph ([ 1 , 2 , 3 ], [( 1 , 2 ), ( 2 , 3 )]) 
+ >>> removed = G . remove_vertices ( 2 , 3 ); removed 
+ VGroup(Line, Line, Dot, Dot) 
+ >>> G 
+ Undirected graph on 1 vertices and 0 edges
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.graph.GenericGraph.html

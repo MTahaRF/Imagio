@@ -1,0 +1,79 @@
+# manim.utils.tex.TexTemplate
+
+## Signature
+class TexTemplate ( tex_compiler = 'latex' , description = '' , output_format = '.dvi' , documentclass = '\\documentclass[preview]{standalone}' , preamble = '\\usepackage[english]{babel}\n\\usepackage{amsmath}\n\\usepackage{amssymb}' , placeholder_text = 'YourTextHere' , post_doc_commands = '' )
+
+## Summary
+class TexTemplate ( tex_compiler = 'latex' , description = '' , output_format = '.dvi' , documentclass = '\\documentclass[preview]{standalone}' , preamble = '\\usepackage[english]{babel}\n\\usepackage{amsmath}\n\\usepackage{amssymb}' , placeholder_text = 'YourTextHere' , post_doc_commands = '' ) [so
+
+## Description
+TexTemplate ¶ 
+ Qualified name: manim.utils.tex.TexTemplate 
+
+ class TexTemplate ( tex_compiler = 'latex' , description = '' , output_format = '.dvi' , documentclass = '\\documentclass[preview]{standalone}' , preamble = '\\usepackage[english]{babel}\n\\usepackage{amsmath}\n\\usepackage{amssymb}' , placeholder_text = 'YourTextHere' , post_doc_commands = '' ) [source] ¶ 
+ Bases: object 
+ TeX templates are used to create Tex and MathTex objects. 
+ Methods 
+
+ add_to_document 
+ Adds text to the TeX template just after begin{document}, e.g. \boldmath . 
+
+ add_to_preamble 
+ Adds text to the TeX template's preamble (e.g. definitions, packages). 
+
+ copy 
+ Create a deep copy of the TeX template instance. 
+
+ from_file 
+ Create an instance by reading the content of a file. 
+
+ get_texcode_for_expression 
+ Inserts expression verbatim into TeX template. 
+
+ get_texcode_for_expression_in_env 
+ Inserts expression into TeX template wrapped in \begin{environment} and \end{environment} . 
+
+ Attributes 
+
+ body 
+ The entire TeX template. 
+
+ description 
+ A description of the template 
+
+ documentclass 
+ The command defining the documentclass, e.g. \documentclass[preview]{standalone} . 
+
+ output_format 
+ The output format resulting from compilation, e.g. .dvi or .pdf . 
+
+ placeholder_text 
+ Text in the document that will be replaced by the expression to be rendered. 
+
+ post_doc_commands 
+ Text (definitions, commands) to be inserted at right after \begin{document} , e.g. \boldmath . 
+
+ preamble 
+ The document's preamble, i.e. the part between \documentclass and \begin{document} . 
+
+ tex_compiler 
+ The TeX compiler(s) to be used. 
+
+ Parameters : 
+
+ tex_compiler ( str | list [ str ] ) 
+ description ( str ) 
+ output_format ( str ) 
+ documentclass ( str ) 
+ preamble ( str ) 
+ placeholder_text ( str ) 
+ post_doc_commands ( str ) 
+
+ _body : str = '' ¶ 
+ A custom body, can be set from a file. 
+
+ add_to_document ( txt ) [source] ¶ 
+ Adds text to the TeX template just after begin{document}, e.g. \bol
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.utils.tex.TexTemplate.html

@@ -1,0 +1,300 @@
+# manim.mobject.types.vectorized_mobject.VMobject
+
+## Signature
+class VMobject ( fill_color = None , fill_opacity = 0.0 , stroke_color = None , stroke_opacity = 1.0 , stroke_width = 4 , background_stroke_color = ManimColor('#000000')
+
+## Summary
+class VMobject ( fill_color = None , fill_opacity = 0.0 , stroke_color = None , stroke_opacity = 1.0 , stroke_width = 4 , background_stroke_color = ManimColor('#000000') , background_stroke_opacity = 1.0 , background_stroke_width = 0 , sheen_factor = 0.0 , joint_type = None , sheen_direction = array
+
+## Description
+VMobject ¶ 
+ Qualified name: manim.mobject.types.vectorized\_mobject.VMobject 
+
+ class VMobject ( fill_color = None , fill_opacity = 0.0 , stroke_color = None , stroke_opacity = 1.0 , stroke_width = 4 , background_stroke_color = ManimColor('#000000') , background_stroke_opacity = 1.0 , background_stroke_width = 0 , sheen_factor = 0.0 , joint_type = None , sheen_direction = array([-1., 1., 0.]) , close_new_points = False , pre_function_handle_to_anchor_scale_factor = 0.01 , make_smooth_after_applying_functions = False , background_image = None , shade_in_3d = False , tolerance_for_point_equality = 1e-06 , n_points_per_cubic_curve = 4 , cap_style = CapStyleType.AUTO , ** kwargs ) [source] ¶ 
+ Bases: Mobject 
+ A vectorized mobject. 
+
+ Parameters : 
+
+ background_stroke_color ( ManimColor ) – The purpose of background stroke is to have something
+that won’t overlap fill, e.g. For text against some
+textured background. 
+ sheen_factor ( float ) – When a color c is set, there will be a second color
+computed based on interpolating c to WHITE by with
+sheen_factor, and the display will gradient to this
+secondary color in the direction of sheen_direction. 
+ close_new_points ( bool ) – Indicates that it will not be displayed, but
+that it should count in parent mobject’s path 
+ tolerance_for_point_equality ( float ) – This is within a pixel 
+ joint_type ( LineJointType ) – The line joint type used to connect the curve segments
+of this vectorized mobject. See LineJointType 
+for options. 
+ fill_color ( ParsableManimColor | None ) 
+ fill_opacity ( float ) 
+ stroke_color ( ParsableManimColor | None ) 
+ stroke_opacity ( float ) 
+ stroke_width ( float ) 
+ background_stroke_opacity ( float ) 
+ background_stroke_width ( float ) 
+ sheen_direction ( Vector3DLike ) 
+ pre_function_handle_to_anchor_scale_factor ( float ) 
+ make_smooth_after_applying_functions ( bool ) 
+ background_image ( Image | str | None ) 
+ shade_in_3d ( bool ) 
+ n_points_per_cubic_curve ( int ) 
+ cap_style ( CapStyleType 
+
+## Examples
+
+### Example 1
+```python
+>>> from manim import Square , RED 
+ >>> Square ( color = RED ) . get_color () == RED 
+ True
+```
+
+### Example 2
+```python
+>>> from manim import Circle 
+ >>> Circle () . get_direction () 
+ 'CCW'
+```
+
+### Example 3
+```python
+class PointFromProportion ( Scene ): 
+ def construct ( self ): 
+ line = Line ( 2 * DL , 2 * UR ) 
+ self . add ( line ) 
+ colors = ( RED , BLUE , YELLOW ) 
+ proportions = ( 1 / 4 , 1 / 2 , 3 / 4 ) 
+ for color , proportion in zip ( colors , proportions ): 
+ self . add ( Dot ( color = color ) . move_to ( 
+ line . point_from_proportion ( proportion ) 
+ ))
+```
+
+### Example 4
+```python
+class PointFromProportion(Scene):
+ def construct(self):
+ line = Line(2*DL, 2*UR)
+ self.add(line)
+ colors = (RED, BLUE, YELLOW)
+ proportions = (1/4, 1/2, 3/4)
+ for color, proportion in zip(colors, proportions):
+ self.add(Dot(color=color).move_to(
+ line.point_from_proportion(proportion)
+ ))
+```
+
+### Example 5
+```python
+class ChangeOfDirection ( Scene ): 
+ def construct ( self ): 
+ ccw = RegularPolygon ( 5 ) 
+ ccw . shift ( LEFT ) 
+ cw = RegularPolygon ( 5 ) 
+ cw . shift ( RIGHT ) . reverse_direction () 
+
+ self . play ( Create ( ccw ), Create ( cw ), 
+ run_time = 4 )
+```
+
+### Example 6
+```python
+class ChangeOfDirection(Scene):
+ def construct(self):
+ ccw = RegularPolygon(5)
+ ccw.shift(LEFT)
+ cw = RegularPolygon(5)
+ cw.shift(RIGHT).reverse_direction()
+
+ self.play(Create(ccw), Create(cw),
+ run_time=4)
+```
+
+### Example 7
+```python
+class RotateMethodExample ( Scene ): 
+ def construct ( self ): 
+ circle = Circle ( radius = 1 , color = BLUE ) 
+ line = Line ( start = ORIGIN , end = RIGHT ) 
+ arrow1 = Arrow ( start = ORIGIN , end = RIGHT , buff = 0 , color = GOLD ) 
+ group1 = VGroup ( circle , line , arrow1 ) 
+
+ group2 = group1 . copy () 
+ arrow2 = group2 [ 2 ] 
+ arrow2 . rotate ( angle = PI / 4 , about_point = arrow2 . get_start ()) 
+
+ group3 = group1 . copy () 
+ arrow3 = group3 [ 2 ] 
+ arrow3 . rotate ( angle = 120 * DEGREES , about_point = arrow3 . get_start ()) 
+
+ self . add ( VGroup ( group1 , group2 , group3 ) . arrange ( RIGHT , buff = 1 ))
+```
+
+### Example 8
+```python
+class RotateMethodExample(Scene):
+ def construct(self):
+ circle = Circle(radius=1, color=BLUE)
+ line = Line(start=ORIGIN, end=RIGHT)
+ arrow1 = Arrow(start=ORIGIN, end=RIGHT, buff=0, color=GOLD)
+ group1 = VGroup(circle, line, arrow1)
+
+ group2 = group1.copy()
+ arrow2 = group2[2]
+ arrow2.rotate(angle=PI / 4, about_point=arrow2.get_start())
+
+ group3 = group1.copy()
+ arrow3 = group3[2]
+ arrow3.rotate(angle=120 * DEGREES, about_point=arrow3.get_start())
+
+ self.add(VGroup(group1, group2, group3).arrange(RIGHT, buff=1))
+```
+
+### Example 9
+```python
+Circle () . set_sheen_direction ( UP ) . rotate_sheen_direction ( PI )
+```
+
+### Example 10
+```python
+class MobjectScaleExample ( Scene ): 
+ def construct ( self ): 
+ c1 = Circle ( 1 , RED ) . set_x ( - 1 ) 
+ c2 = Circle ( 1 , GREEN ) . set_x ( 1 ) 
+
+ vg = VGroup ( c1 , c2 ) 
+ vg . set_stroke ( width = 50 ) 
+ self . add ( vg ) 
+
+ self . play ( 
+ c1 . animate . scale ( .25 ), 
+ c2 . animate . scale ( .25 , 
+ scale_stroke = True ) 
+ )
+```
+
+### Example 11
+```python
+class MobjectScaleExample(Scene):
+ def construct(self):
+ c1 = Circle(1, RED).set_x(-1)
+ c2 = Circle(1, GREEN).set_x(1)
+
+ vg = VGroup(c1, c2)
+ vg.set_stroke(width=50)
+ self.add(vg)
+
+ self.play(
+ c1.animate.scale(.25),
+ c2.animate.scale(.25,
+ scale_stroke=True)
+ )
+```
+
+### Example 12
+```python
+class CapStyleExample ( Scene ): 
+ def construct ( self ): 
+ line = Line ( LEFT , RIGHT , color = YELLOW , stroke_width = 20 ) 
+ line . set_cap_style ( CapStyleType . ROUND ) 
+ self . add ( line )
+```
+
+### Example 13
+```python
+class CapStyleExample(Scene):
+ def construct(self):
+ line = Line(LEFT, RIGHT, color=YELLOW, stroke_width=20)
+ line.set_cap_style(CapStyleType.ROUND)
+ self.add(line)
+```
+
+### Example 14
+```python
+class SetFill ( Scene ): 
+ def construct ( self ): 
+ square = Square () . scale ( 2 ) . set_fill ( WHITE , 1 ) 
+ circle1 = Circle () . set_fill ( GREEN , 0.8 ) 
+ circle2 = Circle () . set_fill ( YELLOW ) # No fill_opacity 
+ circle3 = Circle () . set_fill ( color = '#FF2135' , opacity = 0.2 ) 
+ group = Group ( circle1 , circle2 , circle3 ) . arrange () 
+ self . add ( square ) 
+ self . add ( group )
+```
+
+### Example 15
+```python
+class SetFill(Scene):
+ def construct(self):
+ square = Square().scale(2).set_fill(WHITE,1)
+ circle1 = Circle().set_fill(GREEN,0.8)
+ circle2 = Circle().set_fill(YELLOW) # No fill_opacity
+ circle3 = Circle().set_fill(color = '#FF2135', opacity = 0.2)
+ group = Group(circle1,circle2,circle3).arrange()
+ self.add(square)
+ self.add(group)
+```
+
+### Example 16
+```python
+class PointsAsCornersExample ( Scene ): 
+ def construct ( self ): 
+ corners = ( 
+ # create square 
+ UR , UL , 
+ DL , DR , 
+ UR , 
+ # create crosses 
+ DL , UL , 
+ DR 
+ ) 
+ vmob = VMobject ( stroke_color = RED ) 
+ vmob . set_points_as_corners ( corners ) . scale ( 2 ) 
+ self . add ( vmob )
+```
+
+### Example 17
+```python
+class PointsAsCornersExample(Scene):
+ def construct(self):
+ corners = (
+ # create square
+ UR, UL,
+ DL, DR,
+ UR,
+ # create crosses
+ DL, UL,
+ DR
+ )
+ vmob = VMobject(stroke_color=RED)
+ vmob.set_points_as_corners(corners).scale(2)
+ self.add(vmob)
+```
+
+### Example 18
+```python
+class SetSheen ( Scene ): 
+ def construct ( self ): 
+ circle = Circle ( fill_opacity = 1 ) . set_sheen ( - 0.3 , DR ) 
+ self . add ( circle )
+```
+
+### Example 19
+```python
+class SetSheen(Scene):
+ def construct(self):
+ circle = Circle(fill_opacity=1).set_sheen(-0.3, DR)
+ self.add(circle)
+```
+
+### Example 20
+```python
+Circle () . set_sheen_direction ( UP )
+```
+
+## Source
+https://docs.manim.community/en/v0.21.0/reference/manim.mobject.types.vectorized_mobject.VMobject.html
