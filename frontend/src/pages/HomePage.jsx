@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Code, Cpu, Zap } from 'lucide-react';
+import { Sparkles, Code, Cpu, Zap, Sun, Moon, Play, Pause } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Starfield from '../components/Starfield';
-import architectureImg from '../assets/diagram.png'; // Update with your actual filename
-import sampleVid from '../assets/imagio_video.mp4'; // Update with your filename
-import { useRef, useState } from 'react';
-import { Play, Pause } from 'lucide-react';
+import architectureImg from '../assets/diagram.png';
+import sampleVid from '../assets/imagio_video.mp4';
+import { useTheme } from '../context/ThemeContext';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
+  const starColor = theme === 'light' ? '30,64,175' : '255,255,255'; // blue-800 in light, white in dark
 
   const videoRef = useRef(null);
 const [isPlaying, setIsPlaying] = useState(false);
@@ -26,7 +27,7 @@ const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <div className="app-container">
-      <Starfield />
+      <Starfield color={starColor} />
 
       <nav className="navbar">
         <div className="max-w-7xl nav-content">
@@ -36,12 +37,22 @@ const [isPlaying, setIsPlaying] = useState(false);
             <a href="#features" className="nav-link">Features</a>
             <a href="#how-it-works" className="nav-link">How it Works</a>
           </div>
-          <button
-            onClick={() => navigate('/chat')}
-            className="btn-primary"
-          >
-            Get Started
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle-btn"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
+              onClick={() => navigate('/chat')}
+              className="btn-primary"
+            >
+              Get Started
+            </button>
+          </div>
         </div>
       </nav>
 

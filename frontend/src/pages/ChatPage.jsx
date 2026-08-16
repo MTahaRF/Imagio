@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, ArrowLeft, AlertCircle, Download, Globe } from 'lucide-react';
+import { Send, ArrowLeft, AlertCircle, Download, Globe, Eye, EyeOff, ChevronDown, Cpu, Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Starfield from '../components/Starfield';
+import { useTheme } from '../context/ThemeContext';
 
 const API_BASE = 'http://localhost:8000';
 
@@ -24,9 +25,49 @@ const ChatPage = () => {
   const [videoUrl, setVideoUrl]         = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const navigate    = useNavigate();
-  const inputRef    = useRef(null);
-  const abortRef    = useRef(null); // holds the AbortController for in-flight requests
+  // ── Model / Provider state ────────────────────────────────────────────────
+  const [modelsData, setModelsData]             = useState(null);  // { providers: [...] }
+  const [selectedProvider, setSelectedProvider] = useState('');
+  const [selectedModel, setSelectedModel]       = useState('');
+  const [apiKey, setApiKey]                     = useState('');
+  const [showApiKey, setShowApiKey]             = useState(false);
+  const [modelsLoading, setModelsLoading]       = useState(true);
+
+  const navigate  = useNavigate();
+  const inputRef  = useRef(null);
+  const abortRef  = useRef(null); // holds the AbortController for in-flight requests
+  const { theme, toggleTheme } = useTheme();
+  const starColor = theme === 'light' ? '30,64,175' : '255,255,255';
+
+  // ── Fetch providers + models on mount ─────────────────────────────────────
+  useEffect(() => {
+    let cancelled = false;
+    setModelsLoading(true);
+    fetch(`${API_BASE}/models`)
+      .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
+      .then(data => {
+        if (cancelled) return;
+        setModelsData(data);
+        const firstProvider = data?.providers?.[0];
+        if (firstProvider) {
+          setSelectedProvider(firstProvider.provider_id);
+          const firstModel = firstProvider.models?.[0]?.model ?? '';
+          setSelectedModel(firstModel);
+        }
+      })
+      .catch(err => { if (!cancelled) console.warn('[ChatPage] Could not load models:', err); })
+      .finally(() => { if (!cancelled) setModelsLoading(false); });
+    return () => { cancelled = true; };
+  }, []);
+
+  // When provider changes, default to the first model in that provider
+  useEffect(() => {
+    if (!modelsData || !selectedProvider) return;
+    const prov = modelsData.providers.find(p => p.provider_id === selectedProvider);
+    const firstModel = prov?.models?.[0]?.model ?? '';
+    setSelectedModel(firstModel);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedProvider]);
 
   useEffect(() => {
     if (appState === 'idle' && inputRef.current) inputRef.current.focus();
@@ -80,10 +121,15 @@ const ChatPage = () => {
       console.log('[ChatPage] fetch() → starting request...');
       const startTime = Date.now();
 
+      const body = { topic: submittedPrompt, lang_code: language };
+      if (selectedProvider) body.provider = selectedProvider;
+      if (selectedModel)    body.model    = selectedModel;
+      if (apiKey.trim())    body.api_key  = apiKey.trim();
+
       const res = await fetch(`${API_BASE}/generate`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ topic: submittedPrompt, lang_code: language }),
+        body:    JSON.stringify(body),
         signal:  controller.signal,
       });
 
@@ -174,6 +220,73 @@ const ChatPage = () => {
     </div>
   );
 
+  // ── Model / API Key bar ────────────────────────────────────────────────────
+  const modelBar = (
+    <div className="model-config-bar">
+      {/* Provider + Model grouped select */}
+      <div className="model-select-wrapper">
+        <Cpu size={14} className="model-select-icon" />
+        <select
+          id="model-selector"
+          value={selectedModel}
+          onChange={e => {
+            const val = e.target.value;
+            // figure out which provider owns this model
+            if (modelsData) {
+              for (const prov of modelsData.providers) {
+                if (prov.models.some(m => m.model === val)) {
+                  setSelectedProvider(prov.provider_id);
+                  break;
+                }
+              }
+            }
+            setSelectedModel(val);
+          }}
+          disabled={appState === 'generating' || modelsLoading}
+          className="model-select"
+          title="Select LLM provider / model"
+        >
+          {modelsLoading && <option value="">Loading models…</option>}
+          {!modelsLoading && !modelsData && <option value="">No models available</option>}
+          {modelsData?.providers.map(prov => (
+            <optgroup key={prov.provider_id} label={prov.provider_name.toUpperCase()}>
+              {prov.models.map(m => (
+                <option key={m.model} value={m.model}>
+                  {m.model.split('/').slice(-1)[0]}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+        <ChevronDown size={13} className="model-select-chevron" />
+      </div>
+
+      {/* API Key input */}
+      <div className="api-key-wrapper">
+        <input
+          id="api-key-input"
+          type={showApiKey ? 'text' : 'password'}
+          value={apiKey}
+          onChange={e => setApiKey(e.target.value)}
+          placeholder="API Key (optional)"
+          disabled={appState === 'generating'}
+          className="api-key-input"
+          autoComplete="off"
+          spellCheck={false}
+        />
+        <button
+          type="button"
+          className="api-key-eye"
+          onClick={() => setShowApiKey(v => !v)}
+          tabIndex={-1}
+          title={showApiKey ? 'Hide key' : 'Show key'}
+        >
+          {showApiKey ? <EyeOff size={14} /> : <Eye size={14} />}
+        </button>
+      </div>
+    </div>
+  );
+
   // ── Input form ─────────────────────────────────────────────────────────────
   const inputForm = (
     <form onSubmit={handleSubmit} className="chat-form">
@@ -199,7 +312,7 @@ const ChatPage = () => {
 
   return (
     <div className="app-container chat-layout">
-      <Starfield />
+      <Starfield color={starColor} />
 
       {/* Header */}
       <div className="chat-header-bar">
@@ -211,6 +324,14 @@ const ChatPage = () => {
           <div className="header-title">
             <span>IMAGIO STUDIO</span>
           </div>
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle-btn"
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         </div>
       </div>
 
@@ -243,7 +364,11 @@ const ChatPage = () => {
                 {inputForm}
               </motion.div>
 
-              {langPicker}
+              {/* Model selector + language row */}
+              <div className="idle-controls-row">
+                {modelBar}
+                {langPicker}
+              </div>
 
               <div className="suggestions-container">
                 {["Fourier Transform", "Black Hole Event Horizon", "Neural Network Backpropagation"].map(suggestion => (
@@ -358,7 +483,10 @@ const ChatPage = () => {
               <div className="input-container-floating glow-border">
                 {inputForm}
               </div>
-              {langPicker}
+              <div className="bottom-controls-row">
+                {modelBar}
+                {langPicker}
+              </div>
             </div>
           </motion.div>
         )}

@@ -9,3 +9,5 @@ fastapi
 pydantic
 litellm>=1.97.0
 mistralai
+uvicorn[standard]
+
