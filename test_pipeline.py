@@ -55,15 +55,30 @@ def warn(msg): print(f"  ⚠️  {msg}")
 
 
 # ── Main test ─────────────────────────────────────────────────────────────────
-def run_test(topic: str, dry_run: bool, no_merge: bool, lang_code: str = "en"):
-
+def run_test(
+    topic: str,
+    dry_run: bool,
+    no_merge: bool,
+    lang_code: str = "en",
+    provider: str = "litellm-gemini",
+    model: str = "gemini/gemini-3-flash-preview",
+    api_key: str | None = None,
+):
     lang_cfg = get_language(lang_code)
+
+    # Set key in Config / env if passed
+    effective_key = api_key or Config.LITELLM_KEY or os.getenv("LITELLM_KEY")
+    if effective_key:
+        Config.LITELLM_KEY = effective_key
+        os.environ["LITELLM_KEY"] = effective_key
 
     print(f"\n{'═' * 62}")
     print(f"  🎬  IMAGIO PIPELINE TEST")
     print(f"  Topic    : {topic}")
     print(f"  Language : {lang_cfg['name']} ({lang_code})")
     print(f"  TTS      : {lang_cfg['piper_model']}")
+    print(f"  Provider : {provider}")
+    print(f"  Model    : {model}")
     print(f"  Dry Run  : {dry_run}")
     print(f"  Merge    : {'disabled' if no_merge else 'enabled'}")
     print(f"{'═' * 62}")
@@ -73,20 +88,24 @@ def run_test(topic: str, dry_run: bool, no_merge: bool, lang_code: str = "en"):
     # ── Step 1: Initialise agents ─────────────────────────────────
     divider("STEP 1: Initialising Agents")
     try:
+        agent_config = {
+            "provider": provider,
+            "model": model,
+            "api_key": effective_key,
+        }
         feasibility_agent = FeasibilityAgent(
-            ClientFactory.get_client(Config.FEASIBILITY_CONFIG)
+            ClientFactory.get_client(agent_config)
         )
         planner_agent     = ScenePlanner(
-            ClientFactory.get_client(Config.PLANNER_CONFIG)
+            ClientFactory.get_client(agent_config)
         )
         director_agent    = SceneDirector(
-            ClientFactory.get_client(Config.DIRECTOR_CONFIG)
+            ClientFactory.get_client(agent_config)
         )
         merger_tool       = VideoMerger()
         ok("All agents initialised")
-        info(f"Feasibility : {Config.FEASIBILITY_CONFIG['model']}")
-        info(f"Planner     : {Config.PLANNER_CONFIG['model']}")
-        info(f"Director    : {Config.DIRECTOR_CONFIG['model']}")
+        info(f"Provider : {agent_config['provider']}")
+        info(f"Model    : {agent_config['model']}")
     except Exception as e:
         err(f"Initialisation failed: {e}")
         traceback.print_exc()
@@ -315,6 +334,18 @@ def parse_args():
         choices=["en", "es", "fr", "hi"],
         help="Output language: en | es | fr | hi (default: en)",
     )
+    parser.add_argument(
+        "--provider", type=str, default="litellm-gemini",
+        help="LLM provider name (e.g. litellm-gemini, litellm-openai, nebius)",
+    )
+    parser.add_argument(
+        "--model", type=str, default="gemini/gemini-3-flash-preview",
+        help="LLM model name (e.g. gemini/gemini-3-flash-preview, gpt-4o)",
+    )
+    parser.add_argument(
+        "--api-key", type=str, default=None,
+        help="Optional API key override for the LLM provider",
+    )
     return parser.parse_args()
 
 
@@ -325,4 +356,7 @@ if __name__ == "__main__":
         dry_run  = args.dry_run,
         no_merge = args.no_merge,
         lang_code= args.language,
+        provider = args.provider,
+        model    = args.model,
+        api_key  = args.api_key,
     )

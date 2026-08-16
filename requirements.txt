@@ -5,3 +5,7 @@ openai
 numpy
 python-dotenv
 kokoro
+fastapi
+pydantic
+litellm
+mistralai

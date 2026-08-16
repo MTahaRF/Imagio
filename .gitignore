@@ -77,6 +77,8 @@ instance/
 
 # IDEs and editors
 .vscode/
+.vscode/*
+settings.json
 .idea/
 *.sublime-project
 *.sublime-workspace

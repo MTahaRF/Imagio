@@ -13,14 +13,29 @@ from src.tools.cleanup      import cleanup
 from src.templates.registry import get_template
 
 
-def run_pipeline(topic: str, lang_code: str = "en", clean_up: bool = True) -> str | None:
+def run_pipeline(
+    topic: str,
+    lang_code: str = "en",
+    provider: str | None = None,
+    model: str | None = None,
+    api_key: str | None = None,
+    clean_up: bool = True
+) -> str | None:
     lang_cfg = get_language(lang_code)
     print(f"🚀 Starting Imagio Pipeline: {topic}")
     print(f"🌐 Language: {lang_cfg['name']}  |  TTS: {lang_cfg['piper_model']}")
 
-    feasibility_agent = FeasibilityAgent(ClientFactory.get_client(Config.FEASIBILITY_CONFIG))
-    planner_agent     = ScenePlanner(ClientFactory.get_client(Config.PLANNER_CONFIG))
-    director_agent    = SceneDirector(ClientFactory.get_client(Config.DIRECTOR_CONFIG))
+    # Build agent configuration (single provider & model for all agents if specified)
+    agent_config = {
+        "provider": provider or Config.DEFAULT_PROVIDER,
+        "model": model or Config.DEFAULT_MODEL,
+        "api_key": api_key,
+    }
+    print(f"🤖 LLM Provider: {agent_config['provider']}  |  Model: {agent_config['model']}")
+
+    feasibility_agent = FeasibilityAgent(ClientFactory.get_client(agent_config))
+    planner_agent     = ScenePlanner(ClientFactory.get_client(agent_config))
+    director_agent    = SceneDirector(ClientFactory.get_client(agent_config))
     merger_tool       = VideoMerger()
 
     # ── Step 1: Feasibility ───────────────────────────────────────

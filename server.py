@@ -34,6 +34,7 @@ sys.path.insert(0, ROOT)
 
 from pipeline import run_pipeline
 from src.languages import list_languages
+from src.litellm_catalog import ModelCatalog
 
 # ── App ────────────────────────────────────────────────────────────────────────
 app = FastAPI(
@@ -59,6 +60,9 @@ _executor = ThreadPoolExecutor(max_workers=2)
 class GenerateRequest(BaseModel):
     topic: str
     lang_code: str = "en"
+    provider: str | None = None
+    model: str | None = None
+    api_key: str | None = None
 
 # ── Endpoints ──────────────────────────────────────────────────────────────────
 @app.get("/")
@@ -72,6 +76,14 @@ def get_languages():
     """Returns the list of supported languages."""
     logger.info("GET /languages")
     return list_languages()
+
+
+@app.get("/models")
+@app.get("/providers")
+def get_models_and_providers():
+    """Returns all supported LiteLLM providers and their models (chat mode & JSON schema supported)."""
+    logger.info("GET /models")
+    return ModelCatalog.get_providers_and_models()
 
 
 @app.post("/generate")
@@ -92,7 +104,7 @@ async def generate_video(req: GenerateRequest):
     if not topic:
         raise HTTPException(status_code=400, detail="Topic cannot be empty.")
 
-    logger.info(f"POST /generate  topic={topic!r}  lang={req.lang_code!r}")
+    logger.info(f"POST /generate  topic={topic!r}  lang={req.lang_code!r}  provider={req.provider!r}  model={req.model!r}")
 
     # ── Run pipeline in thread pool ────────────────────────────────────────────
     loop = asyncio.get_running_loop()   # ← fix: get_event_loop() is deprecated
@@ -103,6 +115,9 @@ async def generate_video(req: GenerateRequest):
             lambda: run_pipeline(
                 topic=topic,
                 lang_code=req.lang_code,
+                provider=req.provider,
+                model=req.model,
+                api_key=req.api_key,
                 clean_up=False,         # ← fix: we manage cleanup ourselves below
             ),
         )

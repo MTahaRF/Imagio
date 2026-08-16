@@ -15,14 +15,14 @@ class ImagioScene(VoiceoverScene):
 
         self.wait(0.5)  # scene entry buffer
 
-        title    = Text('Unveiling the Secrets of the Fourier Transform', font_size=32, color=WHITE, weight=BOLD)
-        subtitle = Text('From Waves to Data – A Visual Journey', font_size=26, color='#a0a8d0')
+        title    = Text('The Fabric of the Universe', font_size=44, color=WHITE, weight=BOLD)
+        subtitle = Text('A Journey into the Geometry of Gravity', font_size=26, color='#a0a8d0')
         line     = Line(LEFT * 3.5, RIGHT * 3.5, color=YELLOW, stroke_width=3)
         title.move_to(ORIGIN + UP * 0.7)
         line.next_to(title, DOWN, buff=0.22)
         subtitle.next_to(line, DOWN, buff=0.3)
 
-        with self.voiceover(text='In this video we’ll explore how the Fourier transform turns complex signals into simple frequencies, revealing hidden patterns in waves and data.'):
+        with self.voiceover(text="Welcome to a deep dive into how gravity isn't just a force, but the very shape of space and time itself."):
             self.play(Write(title), run_time=1.0, rate_func=smooth)
             self.wait(0.2)
             self.play(Create(line), run_time=0.5)

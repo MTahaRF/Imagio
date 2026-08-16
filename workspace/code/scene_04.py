@@ -15,46 +15,69 @@ class ImagioScene(VoiceoverScene):
 
         self.wait(0.5)  # scene entry buffer
 
-        title = Text('From Continuous Fourier Integral to Discrete Fourier Transform', font_size=27, color=YELLOW, weight=BOLD)
+        import textwrap
+
+        title = Text('Two Perspectives on Gravity', font_size=44, color=WHITE, weight=BOLD)
         title.to_edge(UP, buff=0.4)
         self.play(Write(title), run_time=0.8, rate_func=smooth)
         self.wait(0.3)
 
-        steps_latex     = ['f(t)=\\sum_{k=-\\infty}^{\\infty} c_k e^{i 2\\pi k t /T},\\quad c_k=\\frac{1}{T}\\int_{0}^{T} f(t) e^{-i 2\\pi k t /T}\\,dt', 'f(t)=\\int_{-\\infty}^{\\infty} \\hat{f}(\\omega) e^{i\\omega t}\\,d\\omega,\\quad \\hat{f}(\\omega)=\\frac{1}{2\\pi}\\int_{-\\infty}^{\\infty} f(t) e^{-i\\omega t}\\,dt', 'X_k=\\sum_{n=0}^{N-1} x_n e^{-i 2\\pi k n /N},\\quad x_n=\\frac{1}{N}\\sum_{k=0}^{N-1} X_k e^{i 2\\pi k n /N}']
-        annotations     = ['Fourier series expresses a periodic function as a sum of complex exponentials.', 'Letting the period go to infinity replaces the sum with an integral, defining the continuous Fourier transform.', 'Sampling the integral at N points yields the DFT, a finite sum used in digital signal processing.']
-        narrations_data = ['We write a periodic signal as a sum of exponentials with coefficients given by an integral over one period.', 'As the period grows, the frequency spacing shrinks, turning the sum into an integral—the continuous Fourier transform pair.', 'With only N samples, the integral becomes a finite sum, giving the Discrete Fourier Transform and its inverse.']
+        col_h    = 5.6
+        left_bg  = RoundedRectangle(corner_radius=0.15, width=6.5, height=col_h,
+            fill_color='#16213e', fill_opacity=1, stroke_color='#3a5a8a', stroke_width=2)
+        right_bg = RoundedRectangle(corner_radius=0.15, width=6.5, height=col_h,
+            fill_color='#1e1630', fill_opacity=1, stroke_color='#8a3a5a', stroke_width=2)
+        left_bg.next_to(title, DOWN, buff=0.25).to_edge(LEFT, buff=0.2)
+        right_bg.next_to(title, DOWN, buff=0.25).to_edge(RIGHT, buff=0.2)
+        self.play(
+            AnimationGroup(FadeIn(left_bg, shift=RIGHT*0.1), FadeIn(right_bg, shift=LEFT*0.1), lag_ratio=0.1),
+            run_time=0.6, rate_func=smooth,
+        )
 
-        current_eq   = MathTex(steps_latex[0], font_size=54, color=WHITE)
-        current_eq.move_to(ORIGIN + UP * 0.5)
-        current_note = Text(annotations[0], font_size=26, color='#a0a8d0')
-        current_note.next_to(current_eq, DOWN, buff=0.4)
+        l_hdr  = Text('Newtonian Mechanics', font_size=28, color=BLUE, weight=BOLD)
+        r_hdr  = Text('General Relativity', font_size=28, color='#ff6b9d', weight=BOLD)
+        l_hdr.move_to(left_bg.get_top() + DOWN * 0.42)
+        r_hdr.move_to(right_bg.get_top() + DOWN * 0.42)
+        l_line = Line(left_bg.get_left()+RIGHT*0.3, left_bg.get_right()+LEFT*0.3,
+            color=BLUE).next_to(l_hdr, DOWN, buff=0.12)
+        r_line = Line(right_bg.get_left()+RIGHT*0.3, right_bg.get_right()+LEFT*0.3,
+            color='#ff6b9d').next_to(r_hdr, DOWN, buff=0.12)
+        self.play(
+            AnimationGroup(Write(l_hdr), Write(r_hdr), Create(l_line), Create(r_line), lag_ratio=0.15),
+            run_time=0.7,
+        )
+        self.wait(0.25)
 
-        with self.voiceover(text=narrations_data[0]):
-            self.play(Write(current_eq), run_time=1.0, rate_func=smooth)
-            if annotations[0]:
-                self.play(FadeIn(current_note, shift=UP * 0.1), run_time=0.5)
-            self.wait(0.3)
+        left_list       = ['Gravity is an invisible force', 'Space is a fixed, static stage']
+        right_list      = ['Gravity is the curvature of space', 'Space is a dynamic, flexible fabric']
+        narrations_data = ['Newton viewed gravity as an instantaneous pull between objects, while Einstein realized it is the result of space itself bending.', 'In the classical world, space is just an empty container, but relativity reveals it as a participant that reacts to matter.']
+        max_rows = max(len(left_list), len(right_list))
 
-        for i in range(1, len(steps_latex)):
-            next_eq   = MathTex(steps_latex[i], font_size=54, color=WHITE)
-            next_eq.move_to(ORIGIN + UP * 0.5)
-            next_note = Text(annotations[i], font_size=26, color='#a0a8d0')
-            next_note.next_to(next_eq, DOWN, buff=0.4)
-
-            with self.voiceover(text=narrations_data[i]):
+        for idx in range(max_rows):
+            anims    = []
+            narration = narrations_data[idx] if idx < len(narrations_data) else ''
+            if idx < len(left_list):
+                wrapped  = '\n'.join(textwrap.wrap(left_list[idx], width=28))
+                l_bullet = Text('-', font_size=21, color=BLUE)
+                l_label  = Paragraph(wrapped, font_size=21, color=WHITE)
+                l_item   = VGroup(l_bullet, l_label).arrange(RIGHT, buff=0.2, aligned_edge=UP)
+                l_item.next_to(l_line, DOWN, buff=0.3 + idx * 0.8)
+                l_item.align_to(left_bg, LEFT).shift(RIGHT * 0.3)
+                anims.append(FadeIn(l_item, shift=RIGHT * 0.18))
+            if idx < len(right_list):
+                wrapped  = '\n'.join(textwrap.wrap(right_list[idx], width=28))
+                r_bullet = Text('-', font_size=21, color='#ff6b9d')
+                r_label  = Paragraph(wrapped, font_size=21, color=WHITE)
+                r_item   = VGroup(r_bullet, r_label).arrange(RIGHT, buff=0.2, aligned_edge=UP)
+                r_item.next_to(r_line, DOWN, buff=0.3 + idx * 0.8)
+                r_item.align_to(right_bg, LEFT).shift(RIGHT * 0.3)
+                anims.append(FadeIn(r_item, shift=LEFT * 0.18))
+            with self.voiceover(text=narration):
                 self.play(
-                    TransformMatchingShapes(current_eq, next_eq),
-                    run_time=1.1, rate_func=smooth,
+                    AnimationGroup(*anims, lag_ratio=0.2),
+                    run_time=0.55, rate_func=smooth,
                 )
                 self.wait(0.2)
-                if annotations[i - 1]:
-                    self.play(FadeOut(current_note), run_time=0.3)
-                if annotations[i]:
-                    self.play(FadeIn(next_note, shift=UP * 0.1), run_time=0.45)
-                self.wait(0.25)
-
-            current_eq   = next_eq
-            current_note = next_note
 
         self.wait(2)
         self.play(FadeOut(*self.mobjects), run_time=0.8)

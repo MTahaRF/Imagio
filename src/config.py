@@ -9,14 +9,19 @@ load_dotenv(dotenv_path=env_path)
 class Config:
     PROVIDER_NEBIUS  = "nebius"
     PROVIDER_MISTRAL = "mistral"
-
-    # Scripter + Coder merged into SceneDirector
-    FEASIBILITY_CONFIG = {"provider": PROVIDER_NEBIUS, "model": "openai/gpt-oss-120b"}
-    PLANNER_CONFIG     = {"provider": PROVIDER_NEBIUS, "model": "openai/gpt-oss-120b"}
-    DIRECTOR_CONFIG    = {"provider": PROVIDER_NEBIUS, "model": "openai/gpt-oss-120b"}
+    PROVIDER_PREFIX_LITELLM = "litellm"
 
     NEBIUS_API_KEY  = os.getenv("NEBIUS_API_KEY")
     MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
+    LITELLM_KEY     = os.getenv("LITELLM_KEY") or os.getenv("LITELLM_API_KEY")
+
+    DEFAULT_PROVIDER = os.getenv("DEFAULT_PROVIDER", PROVIDER_NEBIUS)
+    DEFAULT_MODEL    = os.getenv("DEFAULT_MODEL", "openai/gpt-oss-120b")
+
+    # Scripter + Coder merged into SceneDirector
+    FEASIBILITY_CONFIG = {"provider": DEFAULT_PROVIDER, "model": DEFAULT_MODEL}
+    PLANNER_CONFIG     = {"provider": DEFAULT_PROVIDER, "model": DEFAULT_MODEL}
+    DIRECTOR_CONFIG    = {"provider": DEFAULT_PROVIDER, "model": DEFAULT_MODEL}
 
     BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     OUTPUT_DIR = os.path.join(BASE_DIR, "workspace")
@@ -30,6 +35,3 @@ class Config:
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         "voices"
     )
-
-if not Config.NEBIUS_API_KEY:
-    print("❌ ERROR: NEBIUS_API_KEY missing from .env!")
