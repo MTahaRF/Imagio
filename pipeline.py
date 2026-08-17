@@ -77,13 +77,33 @@ def run_pipeline(
 
         tmpl.set_language(lang_code)
 
+        # Pre-load Manim class docs the Planner declared for this scene.
+        relevant_classes = plan.get("relevant_classes") or []
+        preloaded_docs   = ""
+        if relevant_classes:
+            blocks = []
+            for class_name in relevant_classes:
+                if not isinstance(class_name, str):
+                    continue  # Planner hallucinated a non-string; skip silently.
+                doc_path = os.path.join("source", "classes", f"{class_name}.txt")
+                if os.path.exists(doc_path):
+                    with open(doc_path, "r", encoding="utf-8") as f:
+                        blocks.append(f"### {class_name}\n{f.read()}")
+                else:
+                    print(f"  ⚠️  Class not found: {class_name}")
+            if blocks:
+                preloaded_docs = "\n\n".join(blocks)
+
         print("  ✍️  Directing scene...")
         direction = director_agent.direct_scene(
             template_name   = template_name,
             schema          = tmpl.schema(),
+            template_hint   = tmpl.prompt(),
             concept         = concept,
             previous_script = prev_script,
             lang_code       = lang_code,
+            choreography    = plan.get("choreography"),
+            preloaded_docs  = preloaded_docs,
         )
 
         script        = direction.get("script", "")

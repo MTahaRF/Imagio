@@ -15,11 +15,20 @@ class BlankTemplate(BaseTemplate):
             "raw_code": (
                 "Complete Manim Python source code as a single string. "
                 "Must define 'class ImagioScene(VoiceoverScene)' with a construct() method. "
-                "Must include all imports including manim_voiceover and PiperTTSService. "
+                "REQUIRED imports (exact lines, in this order, at the top of the file):\n"
+                "    from manim import *\n"
+                "    import sys, os\n"
+                "    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))\n"
+                "    from manim_voiceover import VoiceoverScene\n"
+                "    from services.piper_service import PiperTTSService\n"
+                "DO NOT use 'from manim_voiceover.services.piper import PiperTTSService' — that module "
+                "does not exist. Always use 'from services.piper_service import PiperTTSService'.\n"
                 "Must call self.set_speech_service(PiperTTSService()) inside construct(). "
+                "Set self.camera.background_color = '#0f0f23'. "
                 "Must wrap each animation in: with self.voiceover(text='...'):  "
                 "Must include footer: _footer = Text('Made by Imagio', font_size=15, color=WHITE); "
-                "_footer.to_corner(DR, buff=0.25); self.add(_footer)."
+                "_footer.to_corner(DR, buff=0.25); self.add(_footer). "
+                "End with self.play(FadeOut(*self.mobjects))."
             ),
         }
 

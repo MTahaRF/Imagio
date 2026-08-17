@@ -16,6 +16,7 @@ Public API
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import glob
 import logging
@@ -66,11 +67,21 @@ def render_scene(
         result.attempts = attempt
         logger.info(f"[manim_runner] Attempt {attempt}/{max_retries} → {scene_file}")
 
-        attempt_result = _run_manim(scene_file, output_dir)
+        # Each attempt gets its own media sub-dir so stale partial movie files
+        # from a previous failed run don't poison the next attempt (moviepy
+        # raises on corrupt partials). Without this, retries reliably fail.
+        attempt_media_dir = os.path.join(
+            output_dir, f"_attempt_{attempt}_{Path(scene_file).stem}"
+        )
+        if os.path.exists(attempt_media_dir):
+            shutil.rmtree(attempt_media_dir, ignore_errors=True)
+        os.makedirs(attempt_media_dir, exist_ok=True)
+
+        attempt_result = _run_manim(scene_file, attempt_media_dir)
         result.logs.append(attempt_result["log"])
 
         if attempt_result["returncode"] == 0:
-            mp4 = _find_output_mp4(scene_file, output_dir)
+            mp4 = _find_output_mp4(scene_file, attempt_media_dir)
             if mp4:
                 result.success  = True
                 result.mp4_path = mp4
