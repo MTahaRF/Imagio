@@ -59,6 +59,7 @@ class ComparisonSlideTemplate(BaseTemplate):
         while len(narrations) < max(len(left_items), len(right_items)):
             narrations.append("")
 
+        wrapped_title = self._wrap_text(title, width=40)
         title_fs   = self._title_font_size(title)
         font_size  = self._item_font_size(left_items + right_items)
         row_height = 0.8 if font_size >= 21 else 0.7
@@ -70,7 +71,8 @@ class ComparisonSlideTemplate(BaseTemplate):
         return (
             f"        import textwrap\n"
             f"\n"
-            f"        title = Text({title!r}, font_size={title_fs}, color=WHITE, weight=BOLD)\n"
+            f"        title = Text({wrapped_title!r}, font_size={title_fs}, color=WHITE, weight=BOLD)\n"
+            f"        _safe_fit(title, max_w=11.5, min_scale=0.85)\n"
             f"        title.to_edge(UP, buff=0.4)\n"
             f"        self.play(Write(title), run_time=0.8, rate_func=smooth)\n"
             f"        self.wait(0.3)\n"
@@ -88,7 +90,9 @@ class ComparisonSlideTemplate(BaseTemplate):
             f"        )\n"
             f"\n"
             f"        l_hdr  = Text({left_header!r}, font_size=28, color=BLUE, weight=BOLD)\n"
+            f"        _safe_fit(l_hdr, max_w=5.5, min_scale=0.82)\n"
             f"        r_hdr  = Text({right_header!r}, font_size=28, color='#ff6b9d', weight=BOLD)\n"
+            f"        _safe_fit(r_hdr, max_w=5.5, min_scale=0.82)\n"
             f"        l_hdr.move_to(left_bg.get_top() + DOWN * 0.42)\n"
             f"        r_hdr.move_to(right_bg.get_top() + DOWN * 0.42)\n"
             f"        l_line = Line(left_bg.get_left()+RIGHT*0.3, left_bg.get_right()+LEFT*0.3,\n"

@@ -1,0 +1,238 @@
+{
+  "topic": "The Fourier Transform",
+  "language": "en",
+  "curriculum": {
+    "title": "The Fourier Transform — From Signals to Frequencies",
+    "teaching_angle": "intuitive"
+  },
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "template_type": "title_slide",
+      "concept": "Video introduction and title card",
+      "script": "Welcome to this exploration of the Fourier Transform, one of the most powerful ideas in all of mathematics. It lets us look at any signal and discover the hidden frequencies inside.",
+      "template_data": {
+        "title": "The Fourier Transform",
+        "subtitle": "Decomposing Signals Into Frequencies",
+        "narration": "Welcome to an exploration of the Fourier Transform, one of the most powerful ideas in mathematics."
+      }
+    },
+    {
+      "scene_id": "scene_02",
+      "template_type": "bullet_points",
+      "concept": "Why the Fourier Transform matters",
+      "script": "The Fourier Transform is everywhere. It converts signals from the time domain to the frequency domain, revealing hidden structure. This powers MP3 compression, medical imaging, and even quantum mechanics.",
+      "template_data": {
+        "title": "Why It Matters",
+        "points": [
+          "Converts time-domain to frequency-domain",
+          "Reveals hidden frequencies in signals",
+          "Powers MP3, JPEG, and MRI imaging",
+          "Used in quantum mechanics and PDEs"
+        ],
+        "narrations": [
+          "The Fourier Transform moves a signal from the time domain into the frequency domain.",
+          "It reveals frequencies that are completely invisible in the original waveform.",
+          "This powers everyday technology like audio compression and medical imaging.",
+          "It also appears throughout quantum mechanics and partial differential equations."
+        ]
+      }
+    },
+    {
+      "scene_id": "scene_03",
+      "template_type": "definition_slide",
+      "concept": "Formal definition of the Fourier Transform",
+      "script": "The Fourier Transform takes a time-domain function and maps it to a frequency-domain function. For each frequency omega, it computes how much of that frequency is present in the original signal.",
+      "template_data": {
+        "term": "Fourier Transform",
+        "definition": "A transform mapping time-domain signals to frequency-domain representations",
+        "formula": "\\hat{f}(\\omega) = \\int_{-\\infty}^{\\infty} f(t)\\, e^{-i\\omega t}\\, dt",
+        "example": "Decomposing a chord into individual notes",
+        "narrations": {
+          "term": "Let us formally define the Fourier Transform.",
+          "definition": "It maps a signal from the time domain into the frequency domain.",
+          "formula": "This integral computes the amplitude at each frequency omega.",
+          "example": "A musical chord can be decomposed into individual notes using this transform."
+        }
+      }
+    },
+    {
+      "scene_id": "scene_04",
+      "template_type": "split_slide",
+      "concept": "Breaking down the formula components",
+      "script": "Every part of this formula has a clear meaning. f of t is the original signal. The complex exponential is a rotating probe at frequency omega. The integral accumulates contributions across all time.",
+      "template_data": {
+        "title": "Inside the Formula",
+        "left_header": "Formula",
+        "left_formula": "\\hat{f}(\\omega) = \\int_{-\\infty}^{\\infty} f(t)\\, e^{-i\\omega t}\\, dt",
+        "right_header": "Component Meanings",
+        "right_lines": [
+          "f(t) is the original signal over time",
+          "e^(-iwt) is a rotating frequency probe",
+          "The integral sums all contributions"
+        ],
+        "narrations": {
+          "intro": "Every symbol in the Fourier Transform formula has a clear, intuitive meaning.",
+          "formula": "This integral decomposes a time signal into its frequency components.",
+          "lines": [
+            "f of t represents the original signal measured over time.",
+            "The complex exponential acts as a rotating probe at frequency omega.",
+            "The integral accumulates contributions from all points in time."
+          ]
+        }
+      }
+    },
+    {
+      "scene_id": "scene_05",
+      "template_type": "equation_transform",
+      "concept": "Deriving the Fourier Transform of a Gaussian",
+      "script": "A beautiful property: the Fourier Transform of a Gaussian is another Gaussian. Narrow in time means wide in frequency and vice versa. This is the uncertainty principle in action.",
+      "template_data": {
+        "title": "Fourier Transform of a Gaussian",
+        "steps": [
+          "f(t) = e^{-\\alpha t^{2}}",
+          "\\hat{f}(\\omega) = \\int_{-\\infty}^{\\infty} e^{-\\alpha t^{2}} e^{-i\\omega t}\\, dt",
+          "\\hat{f}(\\omega) = \\sqrt{\\frac{\\pi}{\\alpha}}\\, e^{-\\omega^{2}/(4\\alpha)}",
+          "\\text{Narrow in time} \\Leftrightarrow \\text{Wide in frequency}"
+        ],
+        "annotations": [
+          "Start with a Gaussian pulse",
+          "Apply the Fourier integral",
+          "Complete the square to evaluate",
+          "The uncertainty principle"
+        ],
+        "narrations": [
+          "We start with a Gaussian pulse, the bell curve centered at the origin.",
+          "We apply the Fourier Transform integral to this Gaussian function.",
+          "Completing the square inside the exponent gives us another Gaussian in frequency.",
+          "A signal narrow in time must be wide in frequency. This is the uncertainty principle."
+        ]
+      }
+    },
+    {
+      "scene_id": "scene_06",
+      "template_type": "graph_plot",
+      "concept": "Visualizing a sine wave in the time domain",
+      "script": "Before applying the Fourier Transform, let us see what a simple signal looks like. This sine wave oscillates at two pi radians per second, completing exactly one full cycle every second.",
+      "template_data": {
+        "title": "A Simple Sine Wave",
+        "function": "np.sin(2 * np.pi * x)",
+        "x_min": "-2",
+        "x_max": "2",
+        "y_min": "-1.5",
+        "y_max": "1.5",
+        "x_label": "Time (s)",
+        "y_label": "Amplitude",
+        "color": "BLUE",
+        "caption": "sin(2 pi t) — one cycle per second",
+        "narrations": {
+          "axes": "Let us set up the time and amplitude axes for our signal.",
+          "graph": "Here is a pure sine wave completing one full cycle per second.",
+          "caption": "This is sin of two pi t, oscillating between negative one and positive one."
+        }
+      }
+    },
+    {
+      "scene_id": "scene_07",
+      "template_type": "comparison_slide",
+      "concept": "Time domain vs Frequency domain",
+      "script": "These two perspectives are complementary. The time domain shows how a signal changes moment by moment. The frequency domain shows which frequencies are present and how strong each one is.",
+      "template_data": {
+        "title": "Time Domain vs Frequency Domain",
+        "left_header": "Time Domain",
+        "right_header": "Frequency Domain",
+        "left_items": [
+          "Shows amplitude over time",
+          "Horizontal axis is time",
+          "Familiar waveform view",
+          "Good for transient events"
+        ],
+        "right_items": [
+          "Shows amplitude per frequency",
+          "Horizontal axis is frequency",
+          "Spectral representation",
+          "Good for steady-state analysis"
+        ],
+        "narrations": [
+          "The time domain shows amplitude values changing over time.",
+          "The horizontal axis represents time in one view and frequency in the other.",
+          "One gives us the familiar waveform while the other shows the spectrum.",
+          "Time domain suits transient events; frequency domain suits steady-state analysis."
+        ]
+      }
+    },
+    {
+      "scene_id": "scene_08",
+      "template_type": "code_walkthrough",
+      "concept": "Computing the DFT in Python with NumPy",
+      "script": "In practice, computers use the Discrete Fourier Transform. NumPy's fft module makes this trivial. We generate a signal, compute its DFT, and extract the frequency magnitudes in just a few lines.",
+      "template_data": {
+        "title": "DFT in Python",
+        "language": "Python",
+        "code_lines": [
+          "import numpy as np",
+          "t = np.linspace(0, 1, 256)",
+          "signal = np.sin(2*np.pi*50*t)",
+          "spectrum = np.fft.fft(signal)",
+          "freqs = np.fft.fftfreq(256, 1/256)",
+          "magnitudes = np.abs(spectrum)"
+        ],
+        "explanations": [
+          "Import the NumPy library",
+          "Create 256 time samples from 0 to 1 second",
+          "Generate a 50 Hz sine wave",
+          "Compute the DFT using FFT algorithm",
+          "Get the corresponding frequency bins",
+          "Extract magnitude at each frequency"
+        ],
+        "narrations": [
+          "We start by importing NumPy, which provides the FFT implementation.",
+          "We create 256 evenly spaced time samples spanning one second.",
+          "We generate a pure sine wave oscillating at 50 hertz.",
+          "The FFT function computes the Discrete Fourier Transform efficiently.",
+          "We calculate the frequency values corresponding to each output bin.",
+          "Taking the absolute value gives us the magnitude at each frequency."
+        ]
+      }
+    },
+    {
+      "scene_id": "scene_09",
+      "template_type": "picture_slide",
+      "concept": "Real-world application — audio spectrogram",
+      "script": "Spectrograms are one of the most visible applications. They show how the frequency content of an audio signal evolves over time, used in music production, speech recognition, and acoustic analysis.",
+      "template_data": {
+        "title": "Spectrograms in Audio",
+        "image_prompt": "Scientific illustration of a colorful audio spectrogram showing frequency bands over time, clean digital display style, white background",
+        "caption": "Frequency content evolving over time",
+        "points": [
+          "Used in music production and mixing",
+          "Powers modern speech recognition",
+          "Visualizes frequency changes over time"
+        ]
+      }
+    },
+    {
+      "scene_id": "scene_10",
+      "template_type": "bullet_points",
+      "concept": "Summary and key takeaways",
+      "script": "To recap, the Fourier Transform decomposes any signal into frequencies. A Gaussian transforms into another Gaussian, embodying the uncertainty principle. And modern FFT algorithms make this computation blazingly fast.",
+      "template_data": {
+        "title": "Key Takeaways",
+        "points": [
+          "Fourier Transform decomposes signals into frequencies",
+          "Time and frequency are dual representations",
+          "Gaussian stays Gaussian — uncertainty principle",
+          "FFT makes computation fast: O(n log n)",
+          "Powers audio, imaging, physics, and more"
+        ],
+        "narrations": [
+          "The Fourier Transform decomposes any signal into its constituent frequencies.",
+          "Time domain and frequency domain are two dual ways to look at the same signal.",
+          "A Gaussian in time transforms into a Gaussian in frequency, embodying uncertainty.",
+          "The Fast Fourier Transform algorithm reduced computation from n-squared to n log n.",
+          "These ideas power audio engineering, medical imaging, physics, and much more."
+        ]
+      }
+    }
+  ]
+}

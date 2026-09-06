@@ -33,27 +33,38 @@ class TitleSlideTemplate(BaseTemplate):
         )
 
     def _scene_body(self, data: dict, script: str) -> str:
-        title     = data.get("title", "Title")
-        subtitle  = data.get("subtitle", "")
-        narration = data.get("narration", script or "Welcome to this video.")
-        title_fs  = self._title_font_size(title)
-        sub_fs    = self._auto_font_size(subtitle) if subtitle else 32
+        raw_title    = data.get("title", "Title")
+        raw_subtitle = data.get("subtitle", "")
+        narration    = data.get("narration", script or "Welcome to this video.")
+
+        wrapped_title = self._wrap_text(raw_title, width=36)
+        wrapped_sub   = self._wrap_text(raw_subtitle, width=50)
+
+        title_fs = self._title_font_size(raw_title)
+        sub_fs   = self._auto_font_size(raw_subtitle) if raw_subtitle else 28
 
         return (
-            f"        title    = Text({title!r}, font_size={title_fs}, color=WHITE, weight=BOLD)\n"
-            f"        subtitle = Text({subtitle!r}, font_size={sub_fs}, color='#a0a8d0')\n"
-            f"        line     = Line(LEFT * 3.5, RIGHT * 3.5, color=YELLOW, stroke_width=3)\n"
-            f"        title.move_to(ORIGIN + UP * 0.7)\n"
-            f"        line.next_to(title, DOWN, buff=0.22)\n"
-            f"        subtitle.next_to(line, DOWN, buff=0.3)\n"
+            f"        title = Text({wrapped_title!r}, font_size={title_fs}, color=WHITE, weight=BOLD)\n"
+            f"        _safe_fit(title, max_w=11.5, max_h=3.0, min_scale=0.85)\n"
             f"\n"
-            f"        with self.voiceover(text={narration!r}):\n"
-            f"            self.play(Write(title), run_time=1.0, rate_func=smooth)\n"
-            f"            self.wait(0.2)\n"
-            f"            self.play(Create(line), run_time=0.5)\n"
-            f"            self.play(FadeIn(subtitle, shift=UP * 0.15), run_time=0.7, rate_func=smooth)\n"
-            f"            self.wait(0.4)\n"
+            f"        line_w = max(min(title.width * 0.85, 7.5), 3.0)\n"
+            f"        line   = Line(LEFT * (line_w / 2), RIGHT * (line_w / 2), color=YELLOW, stroke_width=3)\n"
             f"\n"
-            f"        self.wait(2)\n"
-            f"        self.play(FadeOut(*self.mobjects), run_time=0.8)\n"
+            f"        subtitle = Text({wrapped_sub!r}, font_size={sub_fs}, color='#a0a8d0')\n"
+            f"        _safe_fit(subtitle, max_w=11.0, max_h=2.0, min_scale=0.82)\n"
+            f"\n"
+            f"        content = VGroup(title, line, subtitle).arrange(DOWN, buff=0.28).move_to(ORIGIN)\n"
+            f"        _safe_fit(content, max_w=11.5, max_h=5.5, min_scale=0.85)\n"
+            f"\n"
+            f"        with self.voiceover(text={narration!r}) as tracker:\n"
+            f"            t_title = max(min(tracker.duration * 0.35, 1.6), 0.9)\n"
+            f"            t_sub   = max(min(tracker.duration * 0.35, 1.4), 0.7)\n"
+            f"            self.play(Write(title), run_time=t_title, rate_func=smooth)\n"
+            f"            self.wait(0.15)\n"
+            f"            self.play(Create(line), run_time=0.4)\n"
+            f"            self.play(FadeIn(subtitle, shift=UP * 0.15), run_time=t_sub, rate_func=smooth)\n"
+            f"            self.wait(0.3)\n"
+            f"\n"
+            f"        self.wait(1.0)\n"
+            f"        self.play(FadeOut(*self.mobjects), run_time=0.6)\n"
         )

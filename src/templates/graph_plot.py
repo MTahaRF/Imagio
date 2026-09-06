@@ -60,11 +60,13 @@ class GraphPlotTemplate(BaseTemplate):
         n_graph   = narrations.get("graph",   "Here is the function plotted on the graph.")
         n_caption = narrations.get("caption", caption or "")
         title_fs  = self._title_font_size(title)
+        wrapped_caption = self._wrap_text(caption, width=60)
 
         return (
             f"        import numpy as np\n"
             f"\n"
             f"        title = Text({title!r}, font_size={title_fs}, color=WHITE, weight=BOLD)\n"
+            f"        _safe_fit(title, max_w=11.5, min_scale=0.85)\n"
             f"        title.to_edge(UP, buff=0.35)\n"
             f"        self.play(Write(title), run_time=0.8, rate_func=smooth)\n"
             f"        self.wait(0.3)\n"
@@ -90,12 +92,14 @@ class GraphPlotTemplate(BaseTemplate):
             f"            self.wait(0.3)\n"
             f"\n"
             f"        graph = axes.plot(lambda x: {function}, color={color}, stroke_width=3)\n"
-            f"        with self.voiceover(text={n_graph!r}):\n"
-            f"            self.play(Create(graph), run_time=2.0, rate_func=smooth)\n"
+            f"        with self.voiceover(text={n_graph!r}) as tracker:\n"
+            f"            t_graph = max(min(tracker.duration * 0.65, 3.5), 1.5)\n"
+            f"            self.play(Create(graph), run_time=t_graph, rate_func=smooth)\n"
             f"            self.wait(0.3)\n"
             f"\n"
-            f"        if {caption!r}:\n"
-            f"            caption_obj = Text({caption!r}, font_size=22, color='#a0a8d0')\n"
+            f"        if {wrapped_caption!r}:\n"
+            f"            caption_obj = Text({wrapped_caption!r}, font_size=22, color='#a0a8d0')\n"
+            f"            _safe_fit(caption_obj, max_w=10.5, min_scale=0.82)\n"
             f"            caption_obj.to_edge(DOWN, buff=0.3)\n"
             f"            with self.voiceover(text={n_caption!r}):\n"
             f"                self.play(FadeIn(caption_obj, shift=UP * 0.12), run_time=0.6, rate_func=smooth)\n"

@@ -15,6 +15,7 @@ Public API
 
 from __future__ import annotations
 
+import sys
 import os
 import shutil
 import subprocess
@@ -130,6 +131,8 @@ def render_scene(
 def _run_manim(scene_file: str, output_dir: str) -> dict:
     """Run the manim CLI and return returncode + captured output."""
     cmd = [
+        sys.executable,
+        "-m",
         "manim",
         MANIM_QUALITY,
         "--media_dir",       output_dir,

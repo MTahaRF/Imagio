@@ -46,11 +46,15 @@ class EquationTransformTemplate(BaseTemplate):
 
         title_fs         = self._title_font_size(title)
         steps_repr       = "[" + ", ".join(repr(s) for s in steps) + "]"
-        annotations_repr = "[" + ", ".join(repr(a) for a in annotations) + "]"
         narrations_repr  = "[" + ", ".join(repr(n) for n in narrations) + "]"
+
+        wrapped_annotations = [self._wrap_text(a, width=45) for a in annotations]
+        annotations_repr = "[" + ", ".join(repr(a) for a in wrapped_annotations) + "]"
+
 
         return (
             f"        title = Text({title!r}, font_size={title_fs}, color=YELLOW, weight=BOLD)\n"
+            f"        _safe_fit(title, max_w=11.5, min_scale=0.85)\n"
             f"        title.to_edge(UP, buff=0.4)\n"
             f"        self.play(Write(title), run_time=0.8, rate_func=smooth)\n"
             f"        self.wait(0.3)\n"
@@ -60,8 +64,10 @@ class EquationTransformTemplate(BaseTemplate):
             f"        narrations_data = {narrations_repr}\n"
             f"\n"
             f"        current_eq   = MathTex(steps_latex[0], font_size=54, color=WHITE)\n"
+            f"        _safe_fit(current_eq, max_w=11.0, max_h=2.0, min_scale=0.75)\n"
             f"        current_eq.move_to(ORIGIN + UP * 0.5)\n"
             f"        current_note = Text(annotations[0], font_size=26, color='#a0a8d0')\n"
+            f"        _safe_fit(current_note, max_w=10.5, min_scale=0.82)\n"
             f"        current_note.next_to(current_eq, DOWN, buff=0.4)\n"
             f"\n"
             f"        with self.voiceover(text=narrations_data[0]):\n"
@@ -72,8 +78,10 @@ class EquationTransformTemplate(BaseTemplate):
             f"\n"
             f"        for i in range(1, len(steps_latex)):\n"
             f"            next_eq   = MathTex(steps_latex[i], font_size=54, color=WHITE)\n"
+            f"            _safe_fit(next_eq, max_w=11.0, max_h=2.0, min_scale=0.75)\n"
             f"            next_eq.move_to(ORIGIN + UP * 0.5)\n"
             f"            next_note = Text(annotations[i], font_size=26, color='#a0a8d0')\n"
+            f"            _safe_fit(next_note, max_w=10.5, min_scale=0.82)\n"
             f"            next_note.next_to(next_eq, DOWN, buff=0.4)\n"
             f"\n"
             f"            with self.voiceover(text=narrations_data[i]):\n"

@@ -12,9 +12,9 @@ class DefinitionSlideTemplate(BaseTemplate):
     def schema(self) -> dict:
         return {
             "term":       "The word or concept being defined (plain text)",
-            "definition": "Full definition sentence; plain text only",
+            "definition": "Concise definition (max 15 words; plain text)",
             "formula":    "Optional LaTeX formula (leave empty string if none)",
-            "example":    "Concrete example illustrating the term (plain text)",
+            "example":    "Concise concrete example (max 12 words; plain text)",
             "narrations": {
                 "term":       "Spoken intro for the term",
                 "definition": "Spoken narration explaining the definition",
@@ -30,31 +30,30 @@ class DefinitionSlideTemplate(BaseTemplate):
             "Schema:\n"
             "{\n"
             '  "term": "Term to define",\n'
-            '  "definition": "Full definition as plain text",\n'
+            '  "definition": "Concise definition (max 15 words)",\n'
             '  "formula": "LaTeX formula (or empty string)",\n'
-            '  "example": "Concrete example as plain text",\n'
+            '  "example": "Short concrete example (max 12 words)",\n'
             '  "narrations": {\n'
             '    "term": "Spoken intro sentence",\n'
             '    "definition": "Spoken definition explanation",\n'
             '    "formula": "Spoken formula explanation (or empty string)",\n'
             '    "example": "Spoken example explanation"\n'
-            "  }\n"
+            '  }\n'
             "}\n\n"
             "Rules:\n"
             "- term is plain text (no LaTeX).\n"
-            "- definition is a full sentence in plain text.\n"
+            "- definition is concise plain text (max 15 words). NEVER write a long paragraph.\n"
             "- formula is pure LaTeX; omit dollar signs. Empty string if not needed.\n"
+            "- example is a short phrase or concise sentence (max 12 words).\n"
             "- Each narration is a natural spoken sentence (max 25 words).\n"
         )
 
     @staticmethod
     def _defn_font_size(text: str) -> int:
         words = len(text.split())
-        if words <= 15:   return 30
-        elif words <= 25: return 27
-        elif words <= 35: return 24
-        elif words <= 50: return 21
-        else:             return 18
+        if words <= 15:   return 28
+        elif words <= 25: return 25
+        else:             return 23
 
     def _scene_body(self, data: dict, script: str) -> str:
         term       = data.get("term", "Definition")
@@ -68,16 +67,19 @@ class DefinitionSlideTemplate(BaseTemplate):
         n_formula = narrations.get("formula",    "")
         n_example = narrations.get("example",    example)
 
+        wrapped_term = self._wrap_text(term, width=32)
+        wrapped_defn = self._wrap_text(definition, width=52)
+        wrapped_ex   = self._wrap_text(example, width=54)
+
         title_fs   = self._title_font_size(term)
         defn_fs    = self._defn_font_size(definition)
         example_fs = self._defn_font_size(example)
 
         return (
-            f"        import textwrap\n"
-            f"\n"
-            f"        term_text = Text({term!r}, font_size={title_fs}, color=YELLOW, weight=BOLD)\n"
-            f"        term_text.to_edge(UP, buff=0.45)\n"
-            f"        box = SurroundingRectangle(term_text, color=YELLOW, buff=0.18,\n"
+            f"        term_text = Text({wrapped_term!r}, font_size={title_fs}, color=YELLOW, weight=BOLD)\n"
+            f"        _safe_fit(term_text, max_w=10.5, min_scale=0.85)\n"
+            f"        term_text.to_edge(UP, buff=0.4)\n"
+            f"        box = SurroundingRectangle(term_text, color=YELLOW, buff=0.16,\n"
             f"            corner_radius=0.12, stroke_width=2)\n"
             f"        with self.voiceover(text={n_term!r}):\n"
             f"            self.play(\n"
@@ -86,37 +88,46 @@ class DefinitionSlideTemplate(BaseTemplate):
             f"            )\n"
             f"            self.wait(0.3)\n"
             f"\n"
-            f"        defn_label   = Text('Definition:', font_size=22, color='#a0a8d0')\n"
-            f"        wrapped_defn = '\\n'.join(textwrap.wrap({definition!r}, width=60))\n"
-            f"        defn_text    = Paragraph(wrapped_defn, font_size={defn_fs}, color=WHITE,\n"
-            f"            line_spacing=1.2, alignment='left')\n"
-            f"        defn_group   = VGroup(defn_label, defn_text).arrange(DOWN, buff=0.2, aligned_edge=LEFT)\n"
-            f"        defn_group.next_to(box, DOWN, buff=0.35).to_edge(LEFT, buff=0.8)\n"
+            f"        body_group = VGroup()\n"
+            f"        defn_label = Text('Definition:', font_size=22, color='#a0a8d0')\n"
+            f"        defn_text  = Text({wrapped_defn!r}, font_size={defn_fs}, color=WHITE, line_spacing=1.2)\n"
+            f"        _safe_fit(defn_text, max_w=10.8, min_scale=0.85)\n"
+            f"        defn_group = VGroup(defn_label, defn_text).arrange(DOWN, buff=0.15, aligned_edge=LEFT)\n"
+            f"        body_group.add(defn_group)\n"
+            f"\n"
+            f"        has_formula = bool({formula!r})\n"
+            f"        if has_formula:\n"
+            f"            formula_obj = MathTex({formula!r}, font_size=46, color=BLUE)\n"
+            f"            _safe_fit(formula_obj, max_w=9.5, max_h=1.4, min_scale=0.75)\n"
+            f"            formula_box = VGroup(formula_obj).shift(RIGHT * 0.4)\n"
+            f"            body_group.add(formula_box)\n"
+            f"\n"
+            f"        has_example = bool({example!r})\n"
+            f"        if has_example:\n"
+            f"            ex_label = Text('Example:', font_size=22, color='#a0a8d0')\n"
+            f"            ex_text  = Text({wrapped_ex!r}, font_size={example_fs}, color='#c8d0f0', line_spacing=1.2)\n"
+            f"            _safe_fit(ex_text, max_w=10.8, min_scale=0.85)\n"
+            f"            ex_group = VGroup(ex_label, ex_text).arrange(DOWN, buff=0.12, aligned_edge=LEFT)\n"
+            f"            body_group.add(ex_group)\n"
+            f"\n"
+            f"        body_group.arrange(DOWN, buff=0.28, aligned_edge=LEFT)\n"
+            f"        _safe_fit(body_group, max_w=11.0, max_h=4.8, min_scale=0.82)\n"
+            f"        body_group.next_to(box, DOWN, buff=0.3).to_edge(LEFT, buff=0.8)\n"
+            f"\n"
             f"        with self.voiceover(text={n_defn!r}):\n"
-            f"            self.play(FadeIn(defn_group, shift=UP * 0.15), run_time=0.7, rate_func=smooth)\n"
+            f"            self.play(FadeIn(defn_group, shift=UP * 0.12), run_time=0.7, rate_func=smooth)\n"
             f"            self.wait(0.3)\n"
             f"\n"
-            f"        y_ref = defn_group\n"
-            f"        if {formula!r}:\n"
-            f"            formula_obj = MathTex({formula!r}, font_size=52, color=BLUE)\n"
-            f"            formula_obj.next_to(defn_group, DOWN, buff=0.45).to_edge(LEFT, buff=1.5)\n"
+            f"        if has_formula:\n"
             f"            with self.voiceover(text={n_formula!r}):\n"
-            f"                self.play(Write(formula_obj), run_time=0.9, rate_func=smooth)\n"
+            f"                self.play(Write(formula_obj), run_time=0.8, rate_func=smooth)\n"
             f"                self.wait(0.3)\n"
-            f"            y_ref = formula_obj\n"
             f"\n"
-            f"        if {example!r}:\n"
-            f"            ex_label   = Text('Example:', font_size=22, color='#a0a8d0')\n"
-            f"            wrapped_ex = '\\n'.join(textwrap.wrap({example!r}, width=65))\n"
-            f"            ex_text    = Paragraph(wrapped_ex, font_size={example_fs},\n"
-            f"                color='#c8d0f0', line_spacing=1.2, alignment='left')\n"
-            f"            ex_group   = VGroup(ex_label, ex_text).arrange(DOWN, buff=0.15, aligned_edge=LEFT)\n"
-            f"            ex_group.next_to(y_ref, DOWN, buff=0.45).to_edge(LEFT, buff=0.8)\n"
+            f"        if has_example:\n"
             f"            with self.voiceover(text={n_example!r}):\n"
             f"                self.play(FadeIn(ex_group, shift=UP * 0.12), run_time=0.6, rate_func=smooth)\n"
             f"                self.wait(0.3)\n"
             f"\n"
-            f"        self.wait(2)\n"
-            f"        self.play(FadeOut(*self.mobjects), run_time=0.8)\n"
+            f"        self.wait(1.0)\n"
+            f"        self.play(FadeOut(*self.mobjects), run_time=0.6)\n"
         )
-

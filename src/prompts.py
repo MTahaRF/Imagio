@@ -115,8 +115,11 @@ Rules for template_data:
 - Per-animation narrations: max 25 words, conversational tone, no visual
   cues like "as you can see" or "on the left".
 - LaTeX fields: valid LaTeX, double-escape backslashes (\\\\frac, \\\\sin).
-- On-screen text (titles, bullet points, captions): concise, fit the frame.
-  Aim for short, scannable phrases — not full sentences.
+- On-screen text (titles, bullet points, definitions, comparison items, captions):
+  CRITICAL: Keep all on-screen text strictly short and scannable (max 8-12 words per item/line).
+  NEVER output multi-sentence paragraphs as on-screen visual text.
+  The deep, detailed educational explanation belongs exclusively in the spoken narration
+  ('script' or 'narrations'), NEVER dumped on the screen.
 - For `blank` and `code_walkthrough`: follow the Planner's choreography
   beat list (provided in the user message) and implement each beat using
   the preloaded Manim API documentation also provided. Use ONLY the class
