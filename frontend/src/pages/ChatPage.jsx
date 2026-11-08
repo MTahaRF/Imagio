@@ -33,6 +33,13 @@ const ChatPage = () => {
   const [showApiKey, setShowApiKey]             = useState(false);
   const [modelsLoading, setModelsLoading]       = useState(true);
 
+  // ── Optional image generation state ──────────────────────────────────────
+  const [wantImage, setWantImage]                   = useState(false);
+  const [imageProvider, setImageProvider]           = useState('litellm');
+  const [imageModel, setImageModel]                 = useState('');
+  const [imageApiKey, setImageApiKey]               = useState('');
+  const [showImageApiKey, setShowImageApiKey]       = useState(false);
+
   const navigate  = useNavigate();
   const inputRef  = useRef(null);
   const abortRef  = useRef(null); // holds the AbortController for in-flight requests
@@ -43,7 +50,7 @@ const ChatPage = () => {
   useEffect(() => {
     let cancelled = false;
     setModelsLoading(true);
-    fetch(`${API_BASE}/models`)
+    fetch(`${API_BASE}/models?provider=litellm`)
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
         if (cancelled) return;
@@ -97,6 +104,12 @@ const ChatPage = () => {
     e.preventDefault();
     if (!prompt.trim() || appState === 'generating') return;
 
+    if (wantImage && (!imageProvider.trim() || !imageModel.trim() || !imageApiKey.trim())) {
+      setErrorMessage('To include images, provide an image provider, model, and API key.');
+      setAppState('error');
+      return;
+    }
+
     const submittedPrompt = prompt.trim();
     console.log(`[ChatPage] ── Submitting ────────────────────────────────`);
     console.log(`[ChatPage] Topic:    ${submittedPrompt}`);
@@ -125,6 +138,12 @@ const ChatPage = () => {
       if (selectedProvider) body.provider = selectedProvider;
       if (selectedModel)    body.model    = selectedModel;
       if (apiKey.trim())    body.api_key  = apiKey.trim();
+      body.want_image = wantImage;
+      if (wantImage) {
+        body.image_provider = imageProvider.trim();
+        body.image_model = imageModel.trim();
+        body.image_api_key = imageApiKey.trim();
+      }
 
       const res = await fetch(`${API_BASE}/generate`, {
         method:  'POST',
@@ -287,6 +306,75 @@ const ChatPage = () => {
     </div>
   );
 
+  const imageSettings = (
+    <div className="image-settings">
+      <label className="image-toggle-label">
+        <input
+          type="checkbox"
+          checked={wantImage}
+          onChange={e => setWantImage(e.target.checked)}
+          disabled={appState === 'generating'}
+        />
+        <span>Include generated images</span>
+      </label>
+      {wantImage && (
+        <div className="image-config-fields">
+          <label className="image-field">
+            <span>Provider</span>
+            <select
+              value={imageProvider}
+              onChange={e => setImageProvider(e.target.value)}
+              disabled={appState === 'generating'}
+              aria-required="true"
+            >
+              <option value="litellm">LiteLLM</option>
+              <option value="nebius">Nebius</option>
+            </select>
+          </label>
+          <label className="image-field">
+            <span>Model</span>
+            <input
+              type="text"
+              value={imageModel}
+              onChange={e => setImageModel(e.target.value)}
+              placeholder="e.g. stability/sd3.5-large"
+              disabled={appState === 'generating'}
+              aria-required="true"
+              autoComplete="off"
+              spellCheck={false}
+            />
+          </label>
+          <label className="image-field image-api-key-field">
+            <span>Image API key</span>
+            <div className="api-key-wrapper">
+              <input
+                type={showImageApiKey ? 'text' : 'password'}
+                value={imageApiKey}
+                onChange={e => setImageApiKey(e.target.value)}
+                placeholder="Required for image generation"
+                disabled={appState === 'generating'}
+                aria-required="true"
+                className="api-key-input"
+                autoComplete="new-password"
+                spellCheck={false}
+              />
+              <button
+                type="button"
+                className="api-key-eye"
+                onClick={() => setShowImageApiKey(v => !v)}
+                disabled={appState === 'generating'}
+                title={showImageApiKey ? 'Hide image API key' : 'Show image API key'}
+                aria-label={showImageApiKey ? 'Hide image API key' : 'Show image API key'}
+              >
+                {showImageApiKey ? <EyeOff size={14} /> : <Eye size={14} />}
+              </button>
+            </div>
+          </label>
+        </div>
+      )}
+    </div>
+  );
+
   // ── Input form ─────────────────────────────────────────────────────────────
   const inputForm = (
     <form onSubmit={handleSubmit} className="chat-form">
@@ -369,6 +457,7 @@ const ChatPage = () => {
                 {modelBar}
                 {langPicker}
               </div>
+              {imageSettings}
 
               <div className="suggestions-container">
                 {["Fourier Transform", "Black Hole Event Horizon", "Neural Network Backpropagation"].map(suggestion => (
@@ -487,6 +576,7 @@ const ChatPage = () => {
                 {modelBar}
                 {langPicker}
               </div>
+              {imageSettings}
             </div>
           </motion.div>
         )}

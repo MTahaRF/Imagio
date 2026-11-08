@@ -5,12 +5,12 @@ Offline end-to-end test: reads a JSON fixture (no API calls), runs every scene
 through its template → Manim render → FFmpeg merge into a final video.
 
 Usage:
-    python test_offline.py                       # Full render + merge
-    python test_offline.py --dry-run             # Code generation only (no Manim)
-    python test_offline.py --only scene_03 scene_06
-    python test_offline.py --skip scene_09       # Skip picture_slide (needs Nebius)
-    python test_offline.py --fixture my_data.json
-    python test_offline.py --no-merge            # Render but skip merge step
+    python tests/test_offline.py                       # Full render + merge
+    python tests/test_offline.py --dry-run             # Code generation only (no Manim)
+    python tests/test_offline.py --only scene_03 scene_06
+    python tests/test_offline.py --skip scene_09       # Skip picture_slide (needs Nebius)
+    python tests/test_offline.py --fixture my_data.json
+    python tests/test_offline.py --no-merge            # Render but skip merge step
 """
 
 from __future__ import annotations
@@ -24,7 +24,9 @@ import time
 from dataclasses import dataclass
 from typing import Optional
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+TESTS_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(TESTS_DIR)
+WORKSPACE_DIR = os.path.join(ROOT, "workspace")
 sys.path.insert(0, ROOT)
 
 from src.templates.registry import get_template
@@ -38,7 +40,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-DEFAULT_FIXTURE = os.path.join(ROOT, "test_fixtures.json")
+DEFAULT_FIXTURE = os.path.join(TESTS_DIR, "test_fixtures.json")
 
 
 # ── Result tracker ────────────────────────────────────────────────────────────
@@ -136,7 +138,7 @@ def run_offline(
             continue
 
         # ── Write code to disk ────────────────────────────────────────────
-        code_dir = os.path.join("workspace", "code")
+        code_dir = os.path.join(WORKSPACE_DIR, "code")
         os.makedirs(code_dir, exist_ok=True)
         code_path = os.path.join(code_dir, f"{scene_id}.py")
         with open(code_path, "w", encoding="utf-8") as f:
@@ -158,7 +160,7 @@ def run_offline(
             code        = code,
             scene_name  = scene_id,
             code_dir    = code_dir,
-            output_dir  = "workspace/media",
+            output_dir  = os.path.join(WORKSPACE_DIR, "media"),
             max_retries = 2,
         )
         duration = time.perf_counter() - t0

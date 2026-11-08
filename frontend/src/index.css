@@ -1349,6 +1349,96 @@ button {
     margin-top: 0.5rem;
 }
 
+.image-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 0.85rem;
+}
+
+.image-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-300);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.image-toggle-label input {
+    accent-color: var(--neon);
+}
+
+.image-toggle-label input:disabled {
+    cursor: not-allowed;
+}
+
+.image-config-fields {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.image-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: var(--gray-400);
+    font-size: 0.72rem;
+}
+
+.image-field select,
+.image-field > input,
+.image-field .api-key-input {
+    height: 2rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--gray-300);
+    font: inherit;
+    font-size: 0.8rem;
+    backdrop-filter: blur(8px);
+}
+
+.image-field select {
+    min-width: 110px;
+}
+
+.image-field select option {
+    background: #0f0f1a;
+    color: var(--gray-200);
+}
+
+.image-field > input {
+    width: 230px;
+}
+
+.image-api-key-field .api-key-input {
+    width: 220px;
+    padding-right: 2rem;
+}
+
+.image-field select:focus,
+.image-field > input:focus,
+.image-field .api-key-input:focus {
+    outline: none;
+    border-color: rgba(56, 189, 248, 0.45);
+    color: var(--white);
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.12);
+}
+
+.image-field select:disabled,
+.image-field > input:disabled,
+.image-field .api-key-input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 /* ── Model config bar ───────────────────────────────────────────────────────── */
 .model-config-bar {
     display: flex;

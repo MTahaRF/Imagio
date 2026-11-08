@@ -7,7 +7,8 @@ Adding a new template:
     1. Create  src/templates/your_template.py  with a class that extends BaseTemplate.
     2. Import it below.
     3. Add one entry to TEMPLATE_REGISTRY.
-    ← Nothing else needs to change. The planner reads this registry automatically.
+    4. Add required capabilities to TEMPLATE_REQUIRED_CAPABILITIES when needed.
+    The planner receives only templates whose required capabilities are enabled.
 """
 
 from .title_slide        import TitleSlideTemplate
@@ -35,16 +36,34 @@ TEMPLATE_REGISTRY: dict = {
     "blank":              BlankTemplate(),
 }
 
+TEMPLATE_REQUIRED_CAPABILITIES: dict[str, frozenset[str]] = {
+    "picture_slide": frozenset({"image_generation"}),
+}
 
-def list_templates() -> list[dict]:
+
+def list_templates(
+    enabled_capabilities: set[str] | frozenset[str] | None = None,
+) -> list[dict]:
     """
-    Returns a list of {name, description} dicts for every registered template.
-    Used by the Scene Planner to decide which template fits each scene.
+    Returns planner metadata for templates supported by the enabled capabilities.
+    Passing None lists every registered template for catalog/display use.
     """
     return [
         {"name": name, "description": tmpl.description()}
         for name, tmpl in TEMPLATE_REGISTRY.items()
+        if enabled_capabilities is None
+        or TEMPLATE_REQUIRED_CAPABILITIES.get(name, frozenset())
+        <= enabled_capabilities
     ]
+
+
+def get_template_requirements(name: str) -> frozenset[str]:
+    if name not in TEMPLATE_REGISTRY:
+        available = ", ".join(TEMPLATE_REGISTRY)
+        raise KeyError(
+            f"Template '{name}' not found. Available templates: {available}"
+        )
+    return TEMPLATE_REQUIRED_CAPABILITIES.get(name, frozenset())
 
 
 def get_template(name: str):

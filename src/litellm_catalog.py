@@ -11,12 +11,14 @@ class ModelCatalog:
 
     @classmethod
     def _load_data(cls) -> Dict[str, Any]:
-        if cls._cached_data is None:
+        cached_data = cls._cached_data
+        if cached_data is None:
             if not CATALOG_PATH.exists():
                 raise FileNotFoundError(f"Model catalog JSON not found at: {CATALOG_PATH}")
-            with open(CATALOG_PATH, "r", encoding="utf-8") as f:
-                cls._cached_data = json.load(f)
-        return cls._cached_data
+            with CATALOG_PATH.open("r", encoding="utf-8") as f:
+                cached_data = json.load(f)
+            cls._cached_data = cached_data
+        return cached_data
 
     @classmethod
     def get_providers_and_models(cls) -> Dict[str, Any]:

@@ -17,14 +17,21 @@ class ScenePlanner:
         else:
             self.cheat_sheet = "Cheat sheet not found."
 
-    def plan_scenes(self, outline: dict, lang_code: str = "en") -> list:
+    def plan_scenes(
+        self,
+        outline: dict,
+        lang_code: str = "en",
+        enabled_capabilities: set[str] | frozenset[str] = frozenset(),
+    ) -> list:
         lang_cfg       = get_language(lang_code)
         system_prompt  = SystemPrompts.PLANNER.format(
             lang_instruction=lang_cfg["llm_instruction"]
         )
         system_prompt += "\n\n=== MANIM CHEAT SHEET ===\n" + self.cheat_sheet
         outline_str    = json.dumps(outline, indent=2)
-        templates_info = json.dumps(list_templates(), indent=2)
+        templates = list_templates(enabled_capabilities)
+        available_templates = {template["name"] for template in templates}
+        templates_info = json.dumps(templates, indent=2)
 
         user_prompt = (
             f"Available Templates:\n{templates_info}\n\n"
@@ -43,6 +50,13 @@ class ScenePlanner:
                 if "template" in s and "template_type" not in s:
                     s["template_type"] = s["template"]
                 self._sanitize_scene(s)
+                template_name = s.get("template_type")
+                if template_name not in available_templates:
+                    raise ValueError(
+                        f"Planner selected unavailable template "
+                        f"'{template_name}'. Available templates: "
+                        f"{', '.join(sorted(available_templates))}."
+                    )
             return scenes
         except json.JSONDecodeError:
             print("❌ Planner returned invalid JSON")

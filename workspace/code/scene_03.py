@@ -1,46 +1,74 @@
 from manim import *
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from manim_voiceover import VoiceoverScene
-from manim_voiceover.services.piper import PiperTTSService
+from services.piper_service import PiperTTSService
 
-class ImagioScene(VoiceoverScene, ThreeDScene):
+class ImagioScene(VoiceoverScene):
     def construct(self):
         self.set_speech_service(PiperTTSService())
-        self.set_camera_orientation(phi=75 * DEGREES, theta=-45 * DEGREES)
+        self.camera.background_color = "#0f0f23"
 
-        grid = Surface(
-            lambda u, v: np.array([u, v, 0]),
-            u_range=[-5, 5],
-            v_range=[-5, 5],
-            resolution=(15, 15),
-            fill_opacity=0,
-            stroke_color=BLUE_D,
-            stroke_width=1
+        title = Text("Flow Field Visualization", font_size=48, color=WHITE)
+        title.to_edge(UP)
+
+        # Pressure scalar field (radial gradient)
+        def pressure_func(p):
+            r = np.linalg.norm(p[:2])
+            return 1 - np.exp(-r**2 / 2)
+
+        pressure_plane = Plane(
+            x_range=[-4, 4, 0.5],
+            y_range=[-3, 3, 0.5],
+            background_line_style=dict(stroke_opacity=0)
+        )
+        pressure_plane.set_fill_by_value(
+            lambda p: pressure_func(p),
+            colors=[BLUE_D, BLUE, GREEN, YELLOW, ORANGE, RED],
+            opacity=0.8
         )
 
-        with self.voiceover(text='Imagine the universe as a vast, flexible fabric stretched tight across the cosmos. In its empty state, this fabric is perfectly flat.'):
-            self.play(Create(grid))
-            self.wait(1)
+        # Velocity field – a vortex
+        vortex_field = ArrowVectorField(
+            lambda p: np.array([-p[1], p[0], 0]),
+            x_range=[-4, 4, 0.5],
+            y_range=[-3, 3, 0.5],
+            colors=[WHITE],
+            length_func=lambda norm: 0.3
+        )
 
-        mass = Sphere(radius=0.6, color=YELLOW).move_to([0, 0, -2.0])
+        # Streamlines following the same vortex field
+        stream = StreamLines(
+            lambda p: np.array([-p[1], p[0], 0]),
+            x_range=[-4, 4, 0.5],
+            y_range=[-3, 3, 0.5],
+            line_color=WHITE,
+            max_anchors_per_line=30,
+            stroke_width=2
+        )
+        stream.start_animation()
 
-        with self.voiceover(text='But when we introduce a massive object, like a star, the fabric yields, curving downward. This distortion changes the very geometry of the environment.'):
-            self.play(
-                grid.animate.apply_function(lambda p: np.array([p[0], p[1], -3.0 / (1 + p[0]**2 + p[1]**2)])),
-                FadeIn(mass, shift=IN),
-                run_time=3
-            )
+        # Vortex core highlight
+        core = Circle(radius=0.5, color=YELLOW)
+        core.set_fill(opacity=0.2)
 
-        def orbit_func(t):
-            r = 3 - 0.1 * t
-            z = -3.0 / (1 + r**2) + 0.15
-            return np.array([r * np.cos(2*t), r * np.sin(2*t), z])
-
-        marble = Sphere(radius=0.15, color=RED)
-        marble_path = ParametricFunction(orbit_func, t_range=[0, 10])
-
-        with self.voiceover(text='A smaller marble nearby follows the natural contours of the warped surface, spiraling inward. Mass tells space how to curve, and curvature tells matter how to move.'):
-            self.play(MoveAlongPath(marble, marble_path), run_time=6, rate_func=linear)
-
-        _footer = Text('Made by Imagio', font_size=15, color=WHITE)
+        # Footer
+        _footer = Text("Made by Imagio", font_size=15, color=WHITE)
         _footer.to_corner(DR, buff=0.25)
         self.add(_footer)
+
+        # Animation sequence with voiceovers
+        with self.voiceover(text="Here we see a colorful map of pressure, cooler near the center and warmer outward."):
+            self.play(FadeIn(title), FadeIn(pressure_plane), run_time=3)
+
+        with self.voiceover(text="Next, arrows illustrate the velocity field, circling around the low‑pressure core."):
+            self.play(FadeIn(vortex_field), run_time=3)
+
+        with self.voiceover(text="Streamlines trace the exact paths a particle would follow in this rotating flow."):
+            self.play(FadeIn(stream), run_time=3)
+
+        with self.voiceover(text="At the heart lies a vortex, where rotation is strongest."):
+            self.play(FadeIn(core), run_time=2)
+
+        self.wait(2)
+        self.play(FadeOut(*self.mobjects))

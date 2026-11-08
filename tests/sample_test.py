@@ -4,10 +4,10 @@ sample_test.py
 Test harness for all 10 Imagio templates.
 
 Run from the project root:
-    python sample_test.py
-    python sample_test.py --only graph_plot equation_transform
-    python sample_test.py --skip picture_slide
-    python sample_test.py --dry-run
+    python tests/sample_test.py
+    python tests/sample_test.py --only graph_plot equation_transform
+    python tests/sample_test.py --skip picture_slide
+    python tests/sample_test.py --dry-run
 """
 
 from __future__ import annotations
@@ -20,7 +20,8 @@ import time
 from dataclasses import dataclass
 from typing import Optional
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WORKSPACE_DIR = os.path.join(ROOT, "workspace")
 sys.path.insert(0, ROOT)
 
 from src.templates.registry import list_templates, get_template
@@ -311,8 +312,10 @@ def run_tests(
             ))
             continue
 
-        os.makedirs("workspace/code", exist_ok=True)
-        scene_path = f"workspace/code/{name}.py"
+        code_dir = os.path.join(WORKSPACE_DIR, "code")
+        output_dir = os.path.join(WORKSPACE_DIR, "media")
+        os.makedirs(code_dir, exist_ok=True)
+        scene_path = os.path.join(code_dir, f"{name}.py")
         with open(scene_path, "w", encoding="utf-8") as f:
             f.write(code)
 
@@ -330,8 +333,8 @@ def run_tests(
         render: RenderResult = render_code_string(
             code        = code,
             scene_name  = name,
-            code_dir    = "workspace/code",
-            output_dir  = "workspace/media",
+            code_dir    = code_dir,
+            output_dir  = output_dir,
             max_retries = 1,
         )
         duration = time.perf_counter() - t0
@@ -368,9 +371,6 @@ def _merge_results(results: list[TemplateResult]) -> None:
     print(f"\n{'─' * 62}")
     print(f"  🎬  Merging {len(passed_videos)} video(s) into final output…")
     print(f"{'─' * 62}")
-
-    os.makedirs("workspace/final_vids", exist_ok=True)
-    output_path = os.path.join("workspace", "final_vids", "test_final.mp4")
 
     merger = VideoMerger()
     final  = merger.merge_all_scenes(passed_videos, output_filename="test_final.mp4")

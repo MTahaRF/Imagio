@@ -5,11 +5,11 @@ End-to-end pipeline test for Imagio.
 Runs the full pipeline with a simple topic and prints live status.
 
 Usage:
-    python test_pipeline.py
-    python test_pipeline.py --topic "How does gravity work"
-    python test_pipeline.py --dry-run          # LLM steps only, no Manim render
-    python test_pipeline.py --no-merge        # render scenes but skip final concat
-    python test_pipeline.py --language hi     # Hindi
+    python tests/test_pipeline.py
+    python tests/test_pipeline.py --topic "How does gravity work"
+    python tests/test_pipeline.py --dry-run         # LLM steps only, no Manim render
+    python tests/test_pipeline.py --no-merge        # render scenes but skip final concat
+    python tests/test_pipeline.py --language hi     # Hindi
 """
 
 from __future__ import annotations
@@ -20,11 +20,14 @@ import sys
 import time
 import traceback
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WORKSPACE_DIR = os.path.join(ROOT, "workspace")
 sys.path.insert(0, ROOT)
+
 
 # ── Core ──────────────────────────────────────────────────────────────────────
 from src.config      import Config
+from src.image_client import ImageClientFactory
 from src.llm_client  import ClientFactory
 from src.languages   import get_language
 
@@ -36,7 +39,7 @@ from src.agents.scene_director import SceneDirector
 # ── Tools ─────────────────────────────────────────────────────────────────────
 from src.tools.manim_runner import render_code_string
 from src.tools.merger       import VideoMerger
-from src.templates.registry import get_template
+from src.templates.registry import get_template, get_template_requirements
 
 
 # ── Pretty printers ───────────────────────────────────────────────────────────
@@ -60,11 +63,36 @@ def run_test(
     dry_run: bool,
     no_merge: bool,
     lang_code: str = "en",
-    provider: str = "litellm-gemini",
-    model: str = "gemini/gemini-3-flash-preview",
+    provider: str = "litellm",
+    model: str = "ollama/gpt-oss:120b-cloud",
     api_key: str | None = None,
+    api_base: str | None = None,
+    want_image: bool = False,
+    image_provider: str | None = None,
+    image_model: str | None = None,
+    image_api_key: str | None = None,
 ):
     lang_cfg = get_language(lang_code)
+    try:
+
+
+        image_key = image_api_key or Config.LITELLM_IMAGE_KEY or os.getenv("LITELLM_IMAGE_KEY")
+        if image_key:
+            Config.LITELLM_IMAGE_KEY = image_key
+            os.environ["LITELLM_IMAGE_KEY"] = image_key
+
+        image_client = (
+            ImageClientFactory.create(
+                image_provider,
+                image_model,
+                image_key,
+            )
+            if want_image
+            else None
+        )
+    except ValueError as exc:
+        err(str(exc))
+        return
 
     # Set key in Config / env if passed
     effective_key = api_key or Config.LITELLM_KEY or os.getenv("LITELLM_KEY")
@@ -81,6 +109,7 @@ def run_test(
     print(f"  Model    : {model}")
     print(f"  Dry Run  : {dry_run}")
     print(f"  Merge    : {'disabled' if no_merge else 'enabled'}")
+    print(f"  Images   : {want_image}")
     print(f"{'═' * 62}")
 
     total_start = time.perf_counter()
@@ -92,6 +121,7 @@ def run_test(
             "provider": provider,
             "model": model,
             "api_key": effective_key,
+            "api_base": api_base,
         }
         feasibility_agent = FeasibilityAgent(
             ClientFactory.get_client(agent_config)
@@ -102,7 +132,7 @@ def run_test(
         director_agent    = SceneDirector(
             ClientFactory.get_client(agent_config)
         )
-        merger_tool       = VideoMerger()
+
         ok("All agents initialised")
         info(f"Provider : {agent_config['provider']}")
         info(f"Model    : {agent_config['model']}")
@@ -140,7 +170,11 @@ def run_test(
     divider("STEP 3: Scene Planning")
     t0 = time.perf_counter()
     try:
-        scene_plans = planner_agent.plan_scenes(curriculum, lang_code=lang_code)
+        scene_plans = planner_agent.plan_scenes(
+            curriculum,
+            lang_code=lang_code,
+            enabled_capabilities={"image_generation"} if want_image else set(),
+        )
     except Exception as e:
         err(f"Planner crashed: {e}")
         traceback.print_exc()
@@ -219,6 +253,17 @@ def run_test(
         if not template_data:
             warn("Director returned empty template_data — scene may look sparse")
 
+        if "image_generation" in get_template_requirements(template_name):
+            image_prompt = template_data.get("image_prompt")
+            if image_client is None or not isinstance(image_prompt, str) or not image_prompt.strip():
+                err(f"{template_name} requires image generation and a non-empty image_prompt")
+                return
+            try:
+                template_data["image_path"] = image_client.generate_image(image_prompt)
+            except Exception as exc:
+                err(f"Image generation failed; stopping instead of rendering a placeholder: {exc}")
+                return
+
         # ── 4C: Generate Manim code ───────────────────────────────
         print("  │  👨‍💻 Generating Manim code...")
         t0 = time.perf_counter()
@@ -230,8 +275,10 @@ def run_test(
             print("  └─ skipping scene")
             continue
 
-        os.makedirs("workspace/code", exist_ok=True)
-        code_path = f"workspace/code/{scene_id}.py"
+        code_dir = os.path.join(WORKSPACE_DIR, "code")
+        output_dir = os.path.join(WORKSPACE_DIR, "media")
+        os.makedirs(code_dir, exist_ok=True)
+        code_path = os.path.join(code_dir, f"{scene_id}.py")
         with open(code_path, "w", encoding="utf-8") as f:
             f.write(scene_code)
         print(f"  │  Code     : {code_path}  ({len(scene_code)} chars)")
@@ -244,8 +291,8 @@ def run_test(
             result = render_code_string(
                 code       = scene_code,
                 scene_name = scene_id,
-                code_dir   = "workspace/code",
-                output_dir = "workspace/media",
+                code_dir   = code_dir,
+                output_dir = output_dir,
                 max_retries = 3,
             )
         except Exception as e:
@@ -335,16 +382,36 @@ def parse_args():
         help="Output language: en | es | fr | hi (default: en)",
     )
     parser.add_argument(
-        "--provider", type=str, default="litellm-gemini",
+        "--provider", type=str, default="litellm",
         help="LLM provider name (e.g. litellm-gemini, litellm-openai, nebius)",
     )
     parser.add_argument(
-        "--model", type=str, default="gemini/gemini-3-flash-preview",
+        "--model", type=str, default="ollama/gpt-oss:120b-cloud",
         help="LLM model name (e.g. gemini/gemini-3-flash-preview, gpt-4o)",
     )
     parser.add_argument(
         "--api-key", type=str, default=None,
         help="Optional API key override for the LLM provider",
+    )
+    parser.add_argument(
+        "--api-base", type=str, default=None,
+        help="Optional API base URL override (for example, an Ollama server URL)",
+    )
+    parser.add_argument(
+        "--want-image", action="store_true",
+        help="Enable picture_slide and generate images using the configured image client",
+    )
+    parser.add_argument(
+        "--image-provider", type=str, default="litellm",
+        help="Image-generation client (nebius or litellm)",
+    )
+    parser.add_argument(
+        "--image-model", type=str, default=None,
+        help="Image-generation model name",
+    )
+    parser.add_argument(
+        "--image-api-key", type=str, default=None,
+        help="API key for the image-generation provider",
     )
     return parser.parse_args()
 
@@ -359,4 +426,9 @@ if __name__ == "__main__":
         provider = args.provider,
         model    = args.model,
         api_key  = args.api_key,
+        api_base = args.api_base,
+        want_image = args.want_image,
+        image_provider = args.image_provider,
+        image_model = args.image_model,
+        image_api_key = args.image_api_key,
     )

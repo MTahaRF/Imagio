@@ -105,8 +105,7 @@ pip install -r requirements.txt
 Create a `.env` file in the project root:
 
 ```env
-NEBIUS_API_KEY=your_nebius_key_here
-MISTRAL_API_KEY=your_mistral_key_here
+LITELLM_KEY=any_provider_key_here
 ```
 
 ### 5. Install system dependencies
@@ -114,9 +113,13 @@ MISTRAL_API_KEY=your_mistral_key_here
 | Dependency | Purpose | Install |
 |---|---|---|
 | [Manim](https://docs.manim.community/en/stable/installation.html) | Animation renderer | `pip install manim` |
-| [FFmpeg](https://ffmpeg.org/download.html) | Video merging | Add to system PATH |
+| [imageio-ffmpeg](https://pypi.org/project/imageio-ffmpeg/) | Bundled FFmpeg binary for audio conversion and video merging | Installed by `pip install -r requirements.txt`; no system PATH setup needed |
 | [Piper TTS](https://github.com/rhasspy/piper) | Offline voice synthesis | `pip install piper-tts` |
 | [pydub](https://github.com/jiaaro/pydub) | WAV → MP3 conversion | `pip install pydub` |
+
+Manim renders scenes with PyAV, and Imagio uses the FFmpeg binary bundled with
+`imageio-ffmpeg` for audio conversion and final video merging. A separate
+system FFmpeg installation is not required for these code paths.
 
 ### 6. Download voice models
 

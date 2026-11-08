@@ -125,3 +125,5 @@ build/
 
 # Ensure git keeps empty dirs if needed
 !.gitkeep
+
+/workspace

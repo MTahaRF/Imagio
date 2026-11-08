@@ -1,14 +1,19 @@
 # src/services/piper_service.py
 import os
+import subprocess
 import wave
 import hashlib
 from pathlib import Path
 
+import imageio_ffmpeg
+
 from piper.voice import PiperVoice
-from pydub import AudioSegment
+from manim_voiceover._typing import VoiceoverData
 from manim_voiceover.services.base import SpeechService
 
 from src.config import Config
+
+FFMPEG_EXE = imageio_ffmpeg.get_ffmpeg_exe()
 
 
 class PiperTTSService(SpeechService):
@@ -37,30 +42,35 @@ class PiperTTSService(SpeechService):
 
     def generate_from_text(
         self,
-        text:      str,
-        cache_dir: str | None = None,
-        path:      str | None = None,
-        **kwargs,
-    ) -> dict:
+        text: str,
+        cache_dir: str | os.PathLike[str] | None = None,
+        path: str | os.PathLike[str] | None = None,
+        **kwargs: object,
+    ) -> VoiceoverData:
 
         # Use stable MD5 hash for caching — same text = same file, no re-synthesis
         hash_     = hashlib.md5(text.encode()).hexdigest()
         cache_dir = cache_dir or self.cache_dir
         Path(cache_dir).mkdir(parents=True, exist_ok=True)
 
-        if path is None:
-            path = str(Path(cache_dir) / f"{hash_}.mp3")
+        path = os.fspath(path) if path is not None else str(Path(cache_dir) / f"{hash_}.mp3")
 
-        wav_path = path.replace(".mp3", ".wav")
+        wav_path = Path(Config.OUTPUT_DIR) / "audio" / f"{hash_}.wav"
+        wav_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # Synthesize WAV (piper sets sample rate / channels itself)
-        wav_file = wave.open(wav_path, "wb")
-        self._voice.synthesize_wav(text, wav_file)
-        wav_file.close()
+        with wave.open(str(wav_path), "wb") as wav_file:
+            self._voice.synthesize_wav(text, wav_file)
 
-        # Convert to MP3 — Manim-Voiceover's get_duration() requires MP3
-        AudioSegment.from_wav(wav_path).export(path, format="mp3")
-        os.remove(wav_path)
+        subprocess.run(
+            [
+                FFMPEG_EXE, "-y", "-i", str(wav_path),
+                "-codec:a", "libmp3lame", "-q:a", "4", path,
+            ],
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
 
         # Return basename only — Manim-Voiceover prepends cache_dir itself
         return {

@@ -35,6 +35,7 @@ sys.path.insert(0, ROOT)
 from pipeline import run_pipeline
 from src.languages import list_languages
 from src.litellm_catalog import ModelCatalog
+from src.image_client import validate_image_settings
 
 # ── App ────────────────────────────────────────────────────────────────────────
 app = FastAPI(
@@ -63,6 +64,11 @@ class GenerateRequest(BaseModel):
     provider: str | None = None
     model: str | None = None
     api_key: str | None = None
+    api_base: str | None = None
+    want_image: bool = False
+    image_provider: str | None = None
+    image_model: str | None = None
+    image_api_key: str | None = None
 
 # ── Endpoints ──────────────────────────────────────────────────────────────────
 @app.get("/")
@@ -80,9 +86,11 @@ def get_languages():
 
 @app.get("/models")
 @app.get("/providers")
-def get_models_and_providers():
-    """Returns all supported LiteLLM providers and their models (chat mode & JSON schema supported)."""
-    logger.info("GET /models")
+def get_models_and_providers(provider: str | None = None):
+    """Returns LiteLLM providers and models when requested, or an empty provider list otherwise."""
+    logger.info("GET /models  provider=%r", provider)
+    if provider != "litellm":
+        return {"providers": []}
     return ModelCatalog.get_providers_and_models()
 
 
@@ -103,6 +111,15 @@ async def generate_video(req: GenerateRequest):
     topic = req.topic.strip()
     if not topic:
         raise HTTPException(status_code=400, detail="Topic cannot be empty.")
+    if req.want_image:
+        try:
+            validate_image_settings(
+                req.image_provider,
+                req.image_model,
+                req.image_api_key,
+            )
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     logger.info(f"POST /generate  topic={topic!r}  lang={req.lang_code!r}  provider={req.provider!r}  model={req.model!r}")
 
@@ -118,6 +135,11 @@ async def generate_video(req: GenerateRequest):
                 provider=req.provider,
                 model=req.model,
                 api_key=req.api_key,
+                api_base=req.api_base,
+                want_image=req.want_image,
+                image_provider=req.image_provider,
+                image_model=req.image_model,
+                image_api_key=req.image_api_key,
                 clean_up=False,         # ← fix: we manage cleanup ourselves below
             ),
         )

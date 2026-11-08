@@ -15,6 +15,8 @@ class Config:
     MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
     LITELLM_KEY     = os.getenv("LITELLM_KEY") or os.getenv("LITELLM_API_KEY")
 
+    LITELLM_IMAGE_KEY     = os.getenv("LITELLM_IMAGE_KEY") or os.getenv("LITELLM_IMAGE_API_KEY")
+
     DEFAULT_PROVIDER = os.getenv("DEFAULT_PROVIDER", PROVIDER_NEBIUS)
     DEFAULT_MODEL    = os.getenv("DEFAULT_MODEL", "openai/gpt-oss-120b")
 

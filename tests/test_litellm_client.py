@@ -6,8 +6,12 @@ Test script for LiteLLMClient / ClientFactory integration.
 
 import os
 import json
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from src.config import Config
-from src.llm_client import ClientFactory, LiteLLMClient
+from src.llm_client import ClientFactory
 
 # ==============================================================================
 # CONFIGURATION - Set your provider, model, and API key here
@@ -18,14 +22,12 @@ from src.llm_client import ClientFactory, LiteLLMClient
 #   Provider: "litellm-gemini",  Model: "gemini/gemini-2.5-flash"
 #   Provider: "litellm-groq",    Model: "groq/llama-3.3-70b-versatile"
 
-PROVIDER = "litellm-gemini"
-MODEL = "gemini/gemini-3.1-flash-lite-preview"
+PROVIDER = "litellm"
+MODEL = "ollama/gpt-oss:120b-cloud"
+API_BASE: str | None = "https://ollama.com"  # e.g. "http://localhost:11434"
 
 # Paste your API key below or set LITELLM_KEY in your .env / environment
 API_KEY = os.getenv("LITELLM_KEY", "")
-
-# If your Ollama server runs on a custom host/port, set it here (default is http://localhost:11434)
-# os.environ["OLLAMA_API_BASE"] = "http://localhost:11434"
 
 # ==============================================================================
 
@@ -42,7 +44,8 @@ def run_test():
     # 1. Instantiate via ClientFactory
     client = ClientFactory.get_client({
         "provider": PROVIDER,
-        "model": MODEL
+        "model": MODEL,
+        "api_base": API_BASE,
     })
 
     print(f"✅ Created client instance: {type(client).__name__} (target model: {client.model})")

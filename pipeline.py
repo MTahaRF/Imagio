@@ -1,5 +1,6 @@
 import os
 from src.config import Config
+from src.image_client import ImageClientFactory
 from src.llm_client import ClientFactory
 from src.languages import get_language, list_languages
 
@@ -10,7 +11,7 @@ from src.agents.scene_director import SceneDirector
 from src.tools.merger       import VideoMerger
 from src.tools.manim_runner import render_code_string
 from src.tools.cleanup      import cleanup
-from src.templates.registry import get_template
+from src.templates.registry import get_template, get_template_requirements
 
 
 def run_pipeline(
@@ -19,8 +20,20 @@ def run_pipeline(
     provider: str | None = None,
     model: str | None = None,
     api_key: str | None = None,
-    clean_up: bool = True
+    clean_up: bool = True,
+    api_base: str | None = None,
+    want_image: bool = False,
+    image_provider: str | None = None,
+    image_model: str | None = None,
+    image_api_key: str | None = None,
 ) -> str | None:
+    image_client = (
+        ImageClientFactory.create(image_provider, image_model, image_api_key)
+        if want_image
+        else None
+    )
+    enabled_capabilities = {"image_generation"} if image_client else set()
+
     lang_cfg = get_language(lang_code)
     print(f"🚀 Starting Imagio Pipeline: {topic}")
     print(f"🌐 Language: {lang_cfg['name']}  |  TTS: {lang_cfg['piper_model']}")
@@ -30,6 +43,7 @@ def run_pipeline(
         "provider": provider or Config.DEFAULT_PROVIDER,
         "model": model or Config.DEFAULT_MODEL,
         "api_key": api_key,
+        "api_base": api_base,
     }
     print(f"🤖 LLM Provider: {agent_config['provider']}  |  Model: {agent_config['model']}")
 
@@ -53,7 +67,11 @@ def run_pipeline(
 
     # ── Step 2: Planning ──────────────────────────────────────────
     print("\n🧠 Step 2: Planning Scenes...")
-    scene_plans = planner_agent.plan_scenes(curriculum, lang_code=lang_code)
+    scene_plans = planner_agent.plan_scenes(
+        curriculum,
+        lang_code=lang_code,
+        enabled_capabilities=enabled_capabilities,
+    )
     print(f"  ✓ {len(scene_plans)} scenes planned")
 
     # ── Step 3: Production Loop ───────────────────────────────────
@@ -109,6 +127,19 @@ def run_pipeline(
         script        = direction.get("script", "")
         template_data = direction.get("template_data", {})
         prev_script   = script
+
+        if "image_generation" in get_template_requirements(template_name):
+            if image_client is None:
+                raise RuntimeError(
+                    f"Template '{template_name}' requires image generation, "
+                    "but image generation is not enabled."
+                )
+            image_prompt = template_data.get("image_prompt")
+            if not isinstance(image_prompt, str) or not image_prompt.strip():
+                raise ValueError(
+                    f"Template '{template_name}' requires a non-empty image_prompt."
+                )
+            template_data["image_path"] = image_client.generate_image(image_prompt)
 
         print("  👨‍💻 Generating Manim code...")
         scene_code = tmpl.code(template_data, script)

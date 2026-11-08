@@ -50,7 +50,7 @@ class MistralClient(LLMClient):
     def __init__(self, model: str):
         if not Config.MISTRAL_API_KEY:
             raise ValueError("Mistral API Key is missing.")
-        from mistralai import Mistral
+        from mistralai.client import Mistral
         self.client = Mistral(api_key=Config.MISTRAL_API_KEY)
         self.model = model
 
@@ -77,11 +77,18 @@ class MistralClient(LLMClient):
         return response.choices[0].message
 
 class LiteLLMClient(LLMClient):
-    def __init__(self, provider: str, model: str, api_key: str | None = None):
+    def __init__(
+        self,
+        provider: str,
+        model: str,
+        api_key: str | None = None,
+        api_base: str | None = None,
+    ):
         self.provider = provider
         self.raw_provider = provider.replace("litellm-", "") if provider.startswith("litellm-") else provider
         self.raw_model = model
         self.api_key = api_key
+        self.api_base = api_base
         
         # Ensure litellm model format has provider prefix if needed
         if "/" in model:
@@ -119,6 +126,8 @@ class LiteLLMClient(LLMClient):
         key = self.api_key or Config.LITELLM_KEY
         if key:
             params["api_key"] = key
+        if self.api_base:
+            params["api_base"] = self.api_base
 
         response = litellm.completion(**params)
         return response.choices[0].message
@@ -129,13 +138,23 @@ class ClientFactory:
         provider = agent_config.get("provider", Config.DEFAULT_PROVIDER)
         model = agent_config.get("model", Config.DEFAULT_MODEL)
         api_key = agent_config.get("api_key")
+        api_base = agent_config.get("api_base")
 
         if provider == Config.PROVIDER_NEBIUS:
             return NebiusClient(model=model)
         elif provider == Config.PROVIDER_MISTRAL:
             return MistralClient(model=model)
         elif provider.startswith("litellm") or provider.startswith("litellm-"):
-            return LiteLLMClient(provider=provider, model=model, api_key=api_key)
+            return LiteLLMClient(
+                provider=provider,
+                model=model,
+                api_key=api_key,
+                api_base=api_base,
+            )
         else:
-            # Fallback to LiteLLM for any registered provider
-            return LiteLLMClient(provider=f"litellm-{provider}", model=model, api_key=api_key)
+            return LiteLLMClient(
+                provider=f"litellm-{provider}",
+                model=model,
+                api_key=api_key,
+                api_base=api_base,
+            )

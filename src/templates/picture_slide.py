@@ -1,20 +1,7 @@
 from __future__ import annotations
 
 import os
-import base64
-import hashlib
-import logging
-
 from .base import BaseTemplate
-
-logger = logging.getLogger(__name__)
-
-# Generated images are saved here so Manim can load them by absolute path.
-_IMAGE_CACHE_DIR = os.path.abspath(
-    os.path.join(
-        os.path.dirname(__file__), "..", "..", "workspace", "media", "generated"
-    )
-)
 
 
 class PictureSlideTemplate(BaseTemplate):
@@ -24,7 +11,7 @@ class PictureSlideTemplate(BaseTemplate):
     def description(self) -> str:
         return (
             "Use when a scene needs a generated illustration alongside supporting text. "
-            "Nebius FLUX generates an image from image_prompt at pipeline time; "
+            "The configured image provider generates an image from image_prompt at pipeline time; "
             "the image is placed on the left and body_text on the right. "
             "Best for visual concepts, real-world analogies, and scientific diagrams. "
             "Do NOT use for equations, graphs, or code."
@@ -35,7 +22,12 @@ class PictureSlideTemplate(BaseTemplate):
             "title":        "Heading at the top of the slide",
             "image_prompt": "Vivid plain-English description of the image to generate (10-30 words, scientific illustration style, clean white background)",
             "caption":      "Short caption displayed directly below the image (1 sentence)",
-            "points":       ["Key takeaway 1 (max 10 words)", "Key takeaway 2 (max 10 words)", "Key takeaway 3 (max 10 words)"],
+            "points": [
+                {
+                    "text": "Short on-screen takeaway (max 10 words)",
+                    "narration": "A spoken sentence explaining this takeaway.",
+                },
+            ],
         }
 
     def prompt(self) -> str:
@@ -47,70 +39,20 @@ class PictureSlideTemplate(BaseTemplate):
             '  "title":        "Slide heading",\n'
             '  "image_prompt": "Detailed visual description for AI image generation",\n'
             '  "caption":      "Short caption under the image",\n'
-            '  "points":       ["Key takeaway 1", "Key takeaway 2", "Key takeaway 3"]\n'
+            '  "points":       [\n'
+            '    {"text": "Short takeaway 1", "narration": "Explain takeaway 1."},\n'
+            '    {"text": "Short takeaway 2", "narration": "Explain takeaway 2."}\n'
+            "  ]\n"
             "}\n\n"
             "Rules:\n"
             "- All values are plain strings (no LaTeX).\n"
             "- image_prompt: vivid, 10-30 words, scientific illustration style, clean white background.\n"
             "- caption: 1 short sentence (max 8 words).\n"
-            "- points: 2-3 short, punchy takeaway phrases (max 10 words each). NEVER write full paragraphs.\n"
+            "- points: 2-3 objects, each with a short on-screen text and matching spoken narration.\n"
+            "- Each point's narration explains only that point and is spoken while that point appears.\n"
+            "- Keep each point's text short (max 10 words); narration should be 1-2 natural sentences.\n"
+            "- The scene-level script is only a brief introduction to the image, not narration for the points.\n"
         )
-
-    # ── Nebius FLUX image generation ──────────────────────────────────────────
-
-    def _generate_image(self, image_prompt: str) -> str:
-        """
-        Call Nebius FLUX-schnell to generate a PNG from image_prompt.
-        Saves to workspace/media/generated/pic_<md5>.png.
-        Returns the absolute path on success, empty string on any failure.
-
-        Same prompt always reuses the cached file — zero repeat API cost.
-        """
-        os.makedirs(_IMAGE_CACHE_DIR, exist_ok=True)
-
-        slug     = hashlib.md5(image_prompt.encode()).hexdigest()[:12]
-        out_path = os.path.join(_IMAGE_CACHE_DIR, f"pic_{slug}.png")
-
-        if os.path.exists(out_path):
-            logger.info(f"[picture_slide] Cache hit: {out_path}")
-            return out_path
-
-        api_key = os.environ.get("NEBIUS_API_KEY", "")
-        if not api_key:
-            logger.warning(
-                "[picture_slide] NEBIUS_API_KEY not set — image generation skipped, "
-                "placeholder will be shown."
-            )
-            return ""
-
-        try:
-            from openai import OpenAI
-            import httpx
-
-            client = OpenAI(
-                base_url="https://api.tokenfactory.nebius.com/v1/",
-                api_key=api_key,
-                http_client=httpx.Client(timeout=60.0),
-            )
-
-            logger.info(f"[picture_slide] Generating image for: {image_prompt!r}")
-            response = client.images.generate(
-                model="black-forest-labs/flux-schnell",
-                prompt=image_prompt,
-                response_format="b64_json",
-                n=1,
-            )
-
-            img_bytes = base64.b64decode(response.data[0].b64_json)
-            with open(out_path, "wb") as f:
-                f.write(img_bytes)
-
-            logger.info(f"[picture_slide] Saved: {out_path}")
-            return out_path
-
-        except Exception as exc:
-            logger.error(f"[picture_slide] Generation failed: {exc}")
-            return ""
 
     # ── _scene_body — the only abstract method templates must implement ────────
 
@@ -118,30 +60,65 @@ class PictureSlideTemplate(BaseTemplate):
         """
         Returns the indented animation lines for construct().
         base.code() wraps these with imports, VoiceoverScene, speech service, etc.
-        Image generation is called here so the resolved path is baked in.
+        The pipeline supplies the image path so the template remains provider-agnostic.
         """
         title        = data.get("title", "")
         image_prompt = data.get("image_prompt", "")
         caption      = data.get("caption", "")
         
-        # Support either points or legacy body_text
-        points = data.get("points")
-        if not points:
+        # Support legacy string points/body_text while migrating generated slide data.
+        raw_points = data.get("points")
+        if not raw_points:
             raw_body = data.get("body_text", "")
             if raw_body:
                 import re
                 sentences = [s.strip() for s in re.split(r'[.!?]+', raw_body) if s.strip()]
-                points = sentences[:3] if sentences else [raw_body]
+                raw_points = sentences[:3] if sentences else [raw_body]
             else:
-                points = []
+                raw_points = []
 
-        image_path = self._generate_image(image_prompt) if image_prompt else ""
+        if not isinstance(raw_points, list):
+            raise ValueError("picture_slide points must be a list.")
+
+        points: list[tuple[str, str]] = []
+        for point in raw_points:
+            if isinstance(point, str):
+                text = point.strip()
+                narration = text
+            elif isinstance(point, dict):
+                text = point.get("text")
+                narration = point.get("narration")
+                if not isinstance(text, str) or not text.strip():
+                    raise ValueError(
+                        "Each picture_slide point requires non-empty text."
+                    )
+                if not isinstance(narration, str) or not narration.strip():
+                    raise ValueError(
+                        "Each picture_slide point requires non-empty narration."
+                    )
+                text = text.strip()
+                narration = narration.strip()
+            else:
+                raise ValueError(
+                    "Each picture_slide point must be text or an object "
+                    "containing text and narration."
+                )
+            if text:
+                points.append((text, narration))
+
+        image_path = data.get("image_path")
+        if not isinstance(image_path, str) or not image_path:
+            raise ValueError("picture_slide requires a generated image_path.")
+        if not os.path.isfile(image_path):
+            raise FileNotFoundError(f"Generated picture-slide image not found: {image_path}")
 
         title_fs        = self._title_font_size(title)
         wrapped_title   = self._wrap_text(title, width=38)
         wrapped_caption = self._wrap_text(caption, width=28)
-        wrapped_points  = [self._wrap_text(p, width=30) for p in points]
-        points_repr     = "[" + ", ".join(repr(p) for p in wrapped_points) + "]"
+        points_data = [
+            (self._wrap_text(text, width=30), narration)
+            for text, narration in points
+        ]
 
         narration = script or "Let us examine this illustration."
 
@@ -159,19 +136,12 @@ class PictureSlideTemplate(BaseTemplate):
 
         # Image
         lines += [
-            f"        # Image generated by Nebius FLUX from: {image_prompt!r}",
+            f"        # Generated image for: {image_prompt!r}",
             f"        _image_path = {image_path!r}",
-            f"        if _image_path and os.path.exists(_image_path):",
-            f"            image = ImageMobject(_image_path)",
-            f"            image.set_height(4.0)",
-            f"        else:",
-            f"            _ph_bg  = Rectangle(width=5.0, height=3.6,",
-            f"                fill_color='#2a2a4a', fill_opacity=1,",
-            f"                stroke_color='#666688', stroke_width=2)",
-            f"            _ph_lbl = Text('[ Image ]', font_size=26, color='#666688')",
-            f"            _ph_lbl.move_to(_ph_bg.get_center())",
-            f"            image   = VGroup(_ph_bg, _ph_lbl)",
+            f"        image = ImageMobject(_image_path)",
+            f"        image.set_height(4.0)",
             f"        image.move_to(LEFT * 2.8 + DOWN * 0.25)",
+            f"        image.set_z_index(-1)",
             f"        with self.voiceover(text={narration!r}):",
             f"            self.play(FadeIn(image, shift=RIGHT * 0.15), run_time=0.8, rate_func=smooth)",
             f"        self.wait(0.3)",
@@ -190,22 +160,33 @@ class PictureSlideTemplate(BaseTemplate):
                 f"",
             ]
 
-        # Key points on the right
+        # Point-by-point narration on the right
         if points:
             lines += [
-                f"        points_data = {points_repr}",
-                f"        right_group = VGroup()",
-                f"        for pt in points_data:",
+                f"        points_data = {points_data!r}",
+                f"        point_rows = VGroup()",
+                f"        for point_text, _point_narration in points_data:",
                 f"            dot   = Text('•', font_size=24, color=YELLOW)",
-                f"            label = Text(pt, font_size=24, color=WHITE, line_spacing=1.15)",
+                f"            label = Text(point_text, font_size=24, color=WHITE, line_spacing=1.15)",
                 f"            _safe_fit(label, max_w=4.8, min_scale=0.85)",
                 f"            row   = VGroup(dot, label).arrange(RIGHT, buff=0.2, aligned_edge=UP)",
-                f"            right_group.add(row)",
-                f"        right_group.arrange(DOWN, buff=0.32, aligned_edge=LEFT)",
-                f"        _safe_fit(right_group, max_w=5.4, max_h=4.6, min_scale=0.82)",
-                f"        right_group.move_to(RIGHT * 3.2 + DOWN * 0.2)",
-                f"        self.play(FadeIn(right_group, shift=LEFT * 0.15), run_time=0.8, rate_func=smooth)",
-                f"        self.wait(0.3)",
+                f"            point_rows.add(row)",
+                f"        point_rows.arrange(DOWN, buff=0.32, aligned_edge=LEFT)",
+                f"        _safe_fit(point_rows, max_w=5.4, max_h=4.6, min_scale=0.82)",
+                f"        point_rows.move_to(RIGHT * 3.2 + DOWN * 0.2)",
+            ]
+            if caption:
+                lines.append(
+                    "        self.play(FadeOut(caption_obj), run_time=0.3)"
+                )
+            lines += [
+                f"        for i, (row, (_point_text, point_narration)) in enumerate(zip(point_rows, points_data)):",
+                f"            with self.voiceover(text=point_narration):",
+                f"                animations = [FadeIn(row, shift=LEFT * 0.15)]",
+                f"                if i > 0:",
+                f"                    animations.append(point_rows[i - 1].animate.set_opacity(0.45))",
+                f"                self.play(*animations, run_time=0.8, rate_func=smooth)",
+                f"                self.wait(0.2)",
                 f"",
             ]
 
